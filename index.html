@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tug - Kids Learning Tug of War Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Three.js Library for 3D Graphics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="game-title">🎮 Brain Tug - Kid Battle 🎮</h1>
+            <p class="subtitle">Learn Math & English by Playing!</p>
+        </header>
+
+        <!-- Difficulty Selection Screen -->
+        <div id="difficultyScreen" class="difficulty-screen">
+            <h2>Choose Your Level</h2>
+            
+            <!-- Team Name Customization -->
+            <div class="team-name-section">
+                <h3>Customize Team Names</h3>
+                <div class="team-name-inputs">
+                    <div class="team-input-group">
+                        <label for="teamANameInput">🔵 Team 1 Name:</label>
+                        <input type="text" id="teamANameInput" class="team-name-input" placeholder="TEAM A" maxlength="20">
+                    </div>
+                    <div class="team-input-group">
+                        <label for="teamBNameInput">🔴 Team 2 Name:</label>
+                        <input type="text" id="teamBNameInput" class="team-name-input" placeholder="TEAM B" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="difficulty-buttons">
+                <button class="difficulty-btn easy-btn" data-level="easy">
+                    <span class="level-emoji">🌟</span>
+                    <span class="level-name">Easy</span>
+                    <span class="level-age">Ages 3-5</span>
+                </button>
+                <button class="difficulty-btn medium-btn" data-level="medium">
+                    <span class="level-emoji">⭐</span>
+                    <span class="level-name">Medium</span>
+                    <span class="level-age">Ages 6-8</span>
+                </button>
+                <button class="difficulty-btn hard-btn" data-level="hard">
+                    <span class="level-emoji">💫</span>
+                    <span class="level-name">Hard</span>
+                    <span class="level-age">Ages 9-10</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-screen hidden">
+            <!-- Timer and Progress Bar -->
+            <div class="timer-section">
+                <div class="timer-container">
+                    <span class="timer-label">⏱️ Time Left:</span>
+                    <span id="timer" class="timer">5:00</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Score Section -->
+            <div class="score-section">
+                <div class="team-score team-a-score">
+                    <h3 id="teamALabel">TEAM A 🔵</h3>
+                    <div class="score-display">
+                        <span id="teamAScore">0</span>
+                    </div>
+                </div>
+                <div class="team-score team-b-score">
+                    <h3 id="teamBLabel">TEAM B 🔴</h3>
+                    <div class="score-display">
+                        <span id="teamBScore">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tug of War Arena -->
+            <div class="tug-arena">
+                <!-- Three.js canvas will be dynamically added here -->
+                
+                <!-- Team A Side -->
+                <div class="team-side team-a-side">
+                    <div id="teamAArenaLabel" class="team-label team-a-label">TEAM A</div>
+                    <div class="team-characters">
+                        <!-- Character 1 -->
+                        <div class="character char-team-a char-1">
+                            <div class="head"></div>
+                            <div class="body"></div>
+                            <div class="arm arm-left"></div>
+                            <div class="arm arm-right"></div>
+                            <div class="leg leg-left"></div>
+                            <div class="leg leg-right"></div>
+                        </div>
+                        <!-- Character 2 -->
+                        <div class="character char-team-a char-2">
+                            <div class="head"></div>
+                            <div class="body"></div>
+                            <div class="arm arm-left"></div>
+                            <div class="arm arm-right"></div>
+                            <div class="leg leg-left"></div>
+                            <div class="leg leg-right"></div>
+                        </div>
+                        <!-- Character 3 -->
+                        <div class="character char-team-a char-3">
+                            <div class="head"></div>
+                            <div class="body"></div>
+                            <div class="arm arm-left"></div>
+                            <div class="arm arm-right"></div>
+                            <div class="leg leg-left"></div>
+                            <div class="leg leg-right"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rope Container -->
+                <div class="rope-container">
+                    <div class="center-line"></div>
+                    <div id="rope" class="rope">
+                        <div class="rope-segment"></div>
+                        <div class="rope-segment"></div>
+                        <div class="rope-segment"></div>
+                        <div class="rope-segment"></div>
+                        <div class="rope-segment"></div>
+                        <div class="knot">🎯</div>
+                        <div class="rope-segment"></div>
+                        <div class="rope-segment"></div>
+                        <div class="rope-segment"></div>
+                        <div class="rope-segment"></div>
+                        <div class="rope-segment"></div>
+                    </div>
+                </div>
+                
+                <!-- Team B Side -->
+                <div class="team-side team-b-side">
+                    <div class="team-characters">
+                        <!-- Character 1 -->
+                        <div class="character char-team-b char-1">
+                            <div class="head"></div>
+                            <div class="body"></div>
+                            <div class="arm arm-left"></div>
+                            <div class="arm arm-right"></div>
+                            <div class="leg leg-left"></div>
+                            <div class="leg leg-right"></div>
+                        </div>
+                        <!-- Character 2 -->
+                        <div class="character char-team-b char-2">
+                            <div class="head"></div>
+                            <div class="body"></div>
+                            <div class="arm arm-left"></div>
+                            <div class="arm arm-right"></div>
+                            <div class="leg leg-left"></div>
+                            <div class="leg leg-right"></div>
+                        </div>
+                        <!-- Character 3 -->
+                        <div class="character char-team-b char-3">
+                            <div class="head"></div>
+                            <div class="body"></div>
+                            <div class="arm arm-left"></div>
+                            <div class="arm arm-right"></div>
+                            <div class="leg leg-left"></div>
+                            <div class="leg leg-right"></div>
+                        </div>
+                    </div>
+                    <div id="teamBArenaLabel" class="team-label team-b-label">TEAM B</div>
+                </div>
+            </div>
+
+            <!-- Current Turn Indicator -->
+            <div class="turn-indicator">
+                <span id="currentTurn">TEAM A's Turn</span>
+            </div>
+
+            <!-- Question Section -->
+            <div class="question-section">
+                <div class="question-box">
+                    <h3 class="question-label">Question:</h3>
+                    <p id="questionText" class="question-text">Click Start to begin!</p>
+                    <span id="questionType" class="question-type"></span>
+                </div>
+                
+                <div class="answer-section">
+                    <input type="text" id="answerInput" class="answer-input" placeholder="Type your answer here..." disabled>
+                    <button id="submitBtn" class="submit-btn" disabled>Submit Answer</button>
+                </div>
+
+                <div id="feedback" class="feedback hidden"></div>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="control-buttons">
+                <button id="startBtn" class="start-btn">▶️ Start Game</button>
+                <button id="restartBtn" class="restart-btn hidden">🔄 Restart Game</button>
+                <button id="changeLevelBtn" class="change-level-btn">🔧 Change Level</button>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="game-over-screen hidden">
+            <div class="game-over-content">
+                <h2 id="gameOverTitle" class="game-over-title">Game Over!</h2>
+                <div id="winnerAnnouncement" class="winner-announcement"></div>
+                <div class="final-scores">
+                    <div class="final-score-item">
+                        <span id="finalTeamALabel" class="final-score-label">TEAM A 🔵</span>
+                        <span id="finalTeamAScore" class="final-score-value">0</span>
+                    </div>
+                    <div class="final-score-item">
+                        <span id="finalTeamBLabel" class="final-score-label">TEAM B 🔴</span>
+                        <span id="finalTeamBScore" class="final-score-value">0</span>
+                    </div>
+                </div>
+                <button id="playAgainBtn" class="play-again-btn">🎮 Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div id="confetti" class="confetti-container"></div>
+
+    <!-- Audio Elements -->
+    <audio id="correctSound" preload="auto">
+        <source src="resources/sound/correct.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="wrongSound" preload="auto">
+        <source src="resources/sound/wrong.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="gameOverSound" preload="auto">
+        <source src="resources/sound/gameover.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Scripts -->
+    <script src="questions.js"></script>
+    <script src="tug3d.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

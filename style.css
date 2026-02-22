@@ -1,0 +1,1488 @@
+/* ===== Global Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Fredoka', cursive, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ===== Header Section ===== */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: slideDown 0.6s ease-out;
+}
+
+.game-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ff6b6b;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: 400;
+}
+
+/* ===== Difficulty Selection Screen ===== */
+.difficulty-screen {
+    text-align: center;
+    padding: 40px 20px;
+    animation: fadeIn 0.6s ease-in;
+}
+
+.difficulty-screen h2 {
+    font-size: 2.5rem;
+    color: #4a5568;
+    margin-bottom: 40px;
+}
+
+/* Team Name Customization Section */
+.team-name-section {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.team-name-section h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.team-name-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.team-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 250px;
+}
+
+.team-input-group label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.team-name-input {
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-family: 'Fredoka', cursive;
+    font-weight: 600;
+    border: 3px solid #667eea;
+    border-radius: 12px;
+    outline: none;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.team-name-input:focus {
+    border-color: #764ba2;
+    box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+    transform: scale(1.02);
+}
+
+.team-name-input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.difficulty-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 220px;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Fredoka', cursive;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    gap: 15px;
+}
+
+.difficulty-btn:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.difficulty-btn:active {
+    transform: translateY(-5px) scale(1.02);
+}
+
+.easy-btn {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    color: #155724;
+}
+
+.medium-btn {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    color: #856404;
+}
+
+.hard-btn {
+    background: linear-gradient(135deg, #fd79a8 0%, #a29bfe 100%);
+    color: #721c24;
+}
+
+.level-emoji {
+    font-size: 3rem;
+}
+
+.level-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.level-age {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+/* ===== Game Screen ===== */
+.game-screen {
+    animation: fadeIn 0.6s ease-in;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ===== Timer Section ===== */
+.timer-section {
+    margin-bottom: 20px;
+}
+
+.timer-container {
+    text-align: center;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    padding: 15px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+
+.timer-label {
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.timer {
+    font-size: 2rem;
+    color: white;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.timer.warning {
+    color: #ffeb3b;
+    animation: pulse 1s infinite;
+}
+
+.timer.danger {
+    color: #ff1744;
+    animation: shake 0.5s infinite;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    width: 100%;
+    height: 15px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 10px;
+    transition: width 1s linear;
+}
+
+/* ===== Score Section ===== */
+.score-section {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.team-score {
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+}
+
+.team-a-score {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.team-b-score {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.team-score h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.score-display {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+/* ===== Tug of War Arena ===== */
+.tug-arena {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    margin-bottom: 20px;
+    gap: 30px;
+    background: 
+        radial-gradient(ellipse at center, rgba(255, 255, 255, 0.6) 0%, transparent 60%),
+        linear-gradient(180deg, #faf8f3 0%, #f0ebe0 50%, #e8dfd2 100%);
+    border-radius: 20px;
+    box-shadow: 
+        inset 0 3px 8px rgba(255, 255, 255, 0.9),
+        inset 0 -3px 10px rgba(0, 0, 0, 0.05),
+        0 12px 40px rgba(0, 0, 0, 0.15);
+    min-height: 400px;
+    height: 500px;  /* Explicit height for Three.js renderer */
+    width: 100%;
+    overflow: hidden;
+}
+
+/* 3D Canvas for Three.js Scene */
+.tug-canvas-3d,
+#tugCanvas {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1;
+    display: block !important;
+}
+
+/* HIDE ALL HTML DIV CHARACTERS AND ROPE - USE ONLY THREE.JS MESH OBJECTS */
+.team-side,
+.team-characters,
+.character,
+.rope-container,
+.rope,
+.rope-segment,
+.knot,
+.center-line,
+.team-label {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Ground line effect - HIDDEN (using only Three.js meshes) */
+.tug-arena::before {
+    display: none !important;
+    content: '';
+    position: absolute;
+    bottom: 35px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
+    border-radius: 2px;
+}
+
+/* Team Side Layout */
+.team-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 2;
+}
+
+.team-a-side {
+    order: 1;
+}
+
+.team-b-side {
+    order: 3;
+    flex-direction: column-reverse;
+}
+
+.team-label {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.team-a-label {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.team-b-label {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+/* Team Characters Container */
+.team-characters {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    position: relative;
+}
+
+/* Ground shadow beneath characters */
+.team-characters::after {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: -8px;
+    right: -8px;
+    height: 14px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.12) 42%, transparent 72%);
+    border-radius: 50%;
+    filter: blur(8px);
+}
+
+/* 3D Character Styles - Realistic pulling pose */
+.character {
+    position: relative;
+    width: 85px;
+    height: 135px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: pullRope 1.6s ease-in-out infinite;
+    transform-style: preserve-3d;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
+    /* Leaning back pulling stance */
+    transform-origin: bottom center;
+}
+
+/* Stagger animation for characters */
+.char-1 { animation-delay: 0s; }
+.char-2 { animation-delay: 0.3s; }
+.char-3 { animation-delay: 0.6s; }
+
+/* Character Head - Realistic 3D with profile view */
+.character .head {
+    width: 42px;
+    height: 44px;
+    background: 
+        radial-gradient(ellipse at 28% 32%, #ffe4c8 0%, #ffd6a5 25%, #ffb88c 65%, #d19870 100%);
+    border-radius: 50% 50% 48% 52% / 52% 52% 48% 48%;
+    position: relative;
+    box-shadow: 
+        inset -4px -6px 12px rgba(0, 0, 0, 0.18),
+        inset 3px 4px 10px rgba(255, 255, 255, 0.6),
+        0 8px 18px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+    overflow: visible;
+}
+
+/* Profile face orientation */
+.char-team-a .head {
+    transform: rotateY(32deg) rotateZ(-3deg);
+}
+
+.char-team-b .head {
+    transform: rotateY(-32deg) rotateZ(3deg);
+}
+
+/* Hair for Team A characters (boy style) - Realistic with volume */
+.char-team-a .head::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    right: -3px;
+    height: 38px;
+    background: 
+        radial-gradient(ellipse at 38% 42%, rgba(139, 99, 76, 0.75) 0%, transparent 55%),
+        radial-gradient(ellipse at 62% 38%, rgba(210, 180, 140, 0.35) 0%, transparent 45%),
+        linear-gradient(150deg, #8B634C 0%, #6B4D35 28%, #4A3520 58%, #3d2817 88%, #2d1f12 100%);
+    border-radius: 62% 72% 32% 28% / 68% 62% 28% 32%;
+    box-shadow: 
+        inset 4px 4px 10px rgba(255, 255, 255, 0.22),
+        inset -4px -5px 14px rgba(0, 0, 0, 0.55),
+        0 5px 12px rgba(0, 0, 0, 0.35);
+    z-index: -1;
+    transform: translateZ(-3px);
+}
+
+/* Hair for Team B characters (girl style) - Realistic with volume */
+.char-team-b .head::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -3px;
+    right: -5px;
+    height: 38px;
+    background: 
+        radial-gradient(ellipse at 62% 42%, rgba(230, 190, 138, 0.8) 0%, transparent 55%),
+        radial-gradient(ellipse at 38% 38%, rgba(255, 218, 168, 0.45) 0%, transparent 45%),
+        linear-gradient(152deg, #C9A876 0%, #B8956D 28%, #A0764F 58%, #8B6F47 85%, #6d5436 100%);
+    border-radius: 72% 62% 28% 32% / 62% 68% 32% 28%;
+    box-shadow: 
+        inset -4px 4px 10px rgba(255, 255, 255, 0.28),
+        inset 4px -5px 14px rgba(0, 0, 0, 0.48),
+        0 5px 12px rgba(0, 0, 0, 0.35);
+    z-index: -1;
+    transform: translateZ(-3px);
+}
+
+/* Ponytail for girls - Flowing and realistic */
+.char-team-b .head::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: -22px;
+    width: 26px;
+    height: 50px;
+    background: 
+        linear-gradient(165deg, rgba(255, 218, 168, 0.38) 0%, transparent 38%),
+        linear-gradient(172deg, #C9A876 0%, #B8956D 22%, #A0764F 52%, #8B6F47 78%, #6d5436 100%);
+    border-radius: 52% 52% 46% 46% / 28% 28% 62% 62%;
+    transform: rotate(-32deg);
+    box-shadow: 
+        inset -3px 4px 10px rgba(255, 255, 255, 0.32),
+        inset 3px -4px 10px rgba(0, 0, 0, 0.4),
+        4px 5px 12px rgba(0, 0, 0, 0.38);
+    z-index: -2;
+}
+
+/* Eye details - Realistic 3D */\n.character .head::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 14px;
+    width: 9px;
+    height: 11px;
+    background: 
+        radial-gradient(circle at 32% 38%, #ffffff 0%, #ffffff 18%, #4a90e2 22%, #2d5f8d 58%, #1a3a52 100%);
+    border-radius: 52% 52% 50% 50% / 58% 58% 42% 42%;
+    box-shadow: 
+        inset 0 -2px 3px rgba(0, 0, 0, 0.35),
+        0 1px 3px rgba(255, 255, 255, 0.45),
+        0 3px 5px rgba(0, 0, 0, 0.22),
+        15px -1px 0 0px #1a3a52,
+        15px -1px 0 2px rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+/* Nose bridge shadow */
+.character .body::before {
+    content: '';
+    position: absolute;
+    top: -25px;
+    left: 19px;
+    width: 3px;
+    height: 8px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.02));
+    border-radius: 2px;
+    z-index: 2;
+}
+
+/* Character Body - Realistic clothing with depth */
+.character .body {
+    width: 52px;
+    height: 62px;
+    background: 
+        linear-gradient(138deg, transparent 0%, rgba(0, 0, 0, 0.12) 42%, transparent 43%, transparent 57%, rgba(0, 0, 0, 0.12) 58%, transparent 100%),
+        radial-gradient(ellipse at 32% 28%, rgba(255, 255, 255, 0.45) 0%, transparent 52%),
+        linear-gradient(182deg, #ff8585 0%, #ff6b6b 18%, #ee5a52 58%, #d64545 95%);
+    border-radius: 16px 16px 12px 12px;
+    position: relative;
+    margin-top: -10px;
+    box-shadow: 
+        inset 4px 5px 12px rgba(255, 255, 255, 0.42),
+        inset -4px -5px 14px rgba(0, 0, 0, 0.38),
+        0 8px 18px rgba(0, 0, 0, 0.38);
+    z-index: 2;
+}
+
+.char-team-b .body {
+    background: 
+        linear-gradient(138deg, transparent 0%, rgba(0, 0, 0, 0.1) 42%, transparent 43%, transparent 57%, rgba(0, 0, 0, 0.1) 58%, transparent 100%),
+        radial-gradient(ellipse at 32% 28%, rgba(255, 255, 255, 0.52) 0%, transparent 52%),
+        linear-gradient(182deg, #f8f8ff 0%, #e8eaf6 22%, #c5cae9 62%, #9fa8da 98%);
+}
+
+/* Backpack detail for Team A - Realistic 3D */
+.char-team-a .body::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: -14px;
+    width: 28px;
+    height: 44px;
+    background: 
+        linear-gradient(92deg, transparent 46%, rgba(0, 0, 0, 0.22) 51%, transparent 56%),
+        radial-gradient(ellipse at 28% 32%, rgba(160, 130, 90, 0.58) 0%, transparent 58%),
+        linear-gradient(138deg, #9B856D 0%, #8B7355 22%, #6B563F 58%, #4A3B2A 95%);
+    border-radius: 10px;
+    box-shadow: 
+        inset 3px 4px 8px rgba(255, 255, 255, 0.28),
+        inset -4px -5px 12px rgba(0, 0, 0, 0.48),
+        -5px 6px 14px rgba(0, 0, 0, 0.42);
+    z-index: -1;
+    border: 1px solid rgba(107, 86, 63, 0.65);
+}
+
+/* Skirt detail for Team B - Flowing with pleats */
+.char-team-b .body::after {
+    content: '';
+    position: absolute;
+    bottom: -22px;
+    left: -12px;
+    right: -12px;
+    height: 32px;
+    background: 
+        repeating-linear-gradient(92deg, transparent 0px, rgba(0, 0, 0, 0.12) 9px, transparent 10px, transparent 19px),
+        radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.35) 0%, transparent 62%),
+        linear-gradient(182deg, #b8b3ff 0%, #9c88ff 18%, #7b68ee 58%, #6a5acd 95%);
+    border-radius: 0 0 52% 52% / 0 0 125% 125%;
+    box-shadow: 
+        inset 0 4px 10px rgba(255, 255, 255, 0.42),
+        inset 0 -5px 12px rgba(0, 0, 0, 0.32),
+        0 6px 14px rgba(0, 0, 0, 0.38);
+    z-index: -1;
+}
+
+/* Character Arms - Realistic with shading */
+.character .arm {
+    position: absolute;
+    width: 14px;
+    height: 52px;
+    background: 
+        radial-gradient(ellipse at 42% 32%, rgba(255, 255, 255, 0.42) 0%, transparent 45%),
+        linear-gradient(182deg, #ffe8d1 0%, #ffd6a5 22%, #ffb88c 68%, #d19870 100%);
+    border-radius: 8px;
+    top: 42px;
+    box-shadow: 
+        inset 3px 3px 7px rgba(255, 255, 255, 0.42),
+        inset -3px -3px 7px rgba(0, 0, 0, 0.28),
+        0 4px 10px rgba(0, 0, 0, 0.38);
+    z-index: 4;
+}
+
+/* Upper arm highlight */
+.character .arm::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 3px;
+    width: 7px;
+    height: 22px;
+    background: linear-gradient(182deg, rgba(255, 255, 255, 0.52) 0%, transparent 100%);
+    border-radius: 5px;
+    opacity: 0.72;
+}
+
+/* Realistic Hands gripping rope */
+.character .arm::after {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: -5px;
+    width: 23px;
+    height: 21px;
+    background: 
+        radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.52) 0%, transparent 42%),
+        radial-gradient(ellipse at 52% 42%, #ffd6a5 0%, #ffb88c 58%, #d19870 100%);
+    border-radius: 52% 46% 42% 46% / 52% 52% 56% 52%;
+    box-shadow: 
+        inset -3px -4px 7px rgba(0, 0, 0, 0.28),
+        inset 3px 3px 5px rgba(255, 255, 255, 0.42),
+        0 4px 8px rgba(0, 0, 0, 0.42);
+}
+
+.character .arm-left {
+    left: 3px;
+    transform: rotate(-58deg);
+    transform-origin: top center;
+}
+
+.character .arm-right {
+    right: 3px;
+    transform: rotate(58deg);
+    transform-origin: top center;
+}
+
+/* Team A arms reaching to grip rope */
+.char-team-a .arm-left {
+    left: 12px;
+    transform: rotate(-22deg) translateY(8px);
+    z-index: 5;
+}
+
+.char-team-a .arm-right {
+    right: 8px;
+    transform: rotate(75deg) translateY(-10px);
+    z-index: 6;
+}
+
+/* Team B arms reaching to grip rope */
+.char-team-b .arm-left {
+    left: 8px;
+    transform: rotate(-75deg) translateY(-10px);
+    z-index: 6;
+}
+
+.char-team-b .arm-right {
+    right: 12px;
+    transform: rotate(22deg) translateY(8px);
+    z-index: 5;
+}
+
+/* Character Legs - Realistic with depth */
+.character .leg {
+    position: absolute;
+    width: 16px;
+    height: 46px;
+    background: 
+        radial-gradient(ellipse at 46% 28%, rgba(255, 255, 255, 0.22) 0%, transparent 52%),
+        linear-gradient(182deg, #6d88b8 0%, #5f739a 28%, #4a5d7a 68%, #3a4d62 100%);
+    border-radius: 9px;
+    bottom: -12px;
+    box-shadow: 
+        inset 3px 3px 7px rgba(255, 255, 255, 0.32),
+        inset -3px -3px 7px rgba(0, 0, 0, 0.38),
+        0 5px 12px rgba(0, 0, 0, 0.38);
+}
+
+.char-team-b .leg {
+    background: 
+        radial-gradient(ellipse at 46% 28%, rgba(255, 255, 255, 0.32) 0%, transparent 52%),
+        linear-gradient(182deg, #ffffff 0%, #e8eaf6 22%, #c5cae9 68%, #9fa8da 100%);
+}
+
+/* Knee bend shadow */
+.character .leg::before {
+    content: '';
+    position: absolute;
+    top: 23px;
+    left: -2px;
+    right: -2px;
+    height: 4px;
+    background: 
+        linear-gradient(92deg, transparent 0%, rgba(0, 0, 0, 0.18) 50%, transparent 100%);
+    border-radius: 3px;
+}
+
+/* Realistic Shoes with details */
+.character .leg::after {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: -7px;
+    width: 29px;
+    height: 16px;
+    background: 
+        radial-gradient(ellipse at 42% 32%, rgba(255, 255, 255, 0.42) 0%, transparent 52%),
+        linear-gradient(138deg, #ff8b8b 0%, #ff6b6b 28%, #ee5555 68%, #cc3333 100%);
+    border-radius: 52% 52% 22% 22% / 42% 42% 32% 32%;
+    box-shadow: 
+        inset 3px 3px 5px rgba(255, 255, 255, 0.42),
+        inset -3px -3px 7px rgba(0, 0, 0, 0.32),
+        0 5px 10px rgba(0, 0, 0, 0.48);
+    border-bottom: 5px solid rgba(80, 20, 20, 0.52);
+}
+
+.char-team-b .leg::after {
+    background: 
+        radial-gradient(ellipse at 42% 32%, rgba(255, 255, 255, 0.52) 0%, transparent 52%),
+        linear-gradient(138deg, #8896ff 0%, #667eea 28%, #5568d3 68%, #3d4eaa 100%);
+    border-bottom: 5px solid rgba(29, 36, 78, 0.52);
+}
+
+/* Legs braced in pulling stance */
+.char-team-a .leg-left {
+    left: 10px;
+    transform: rotate(-26deg);
+}
+
+.char-team-a .leg-right {
+    right: 10px;
+    transform: rotate(18deg);
+}
+
+.char-team-b .leg-left {
+    left: 10px;
+    transform: rotate(-18deg);
+}
+
+.char-team-b .leg-right {
+    right: 10px;
+    transform: rotate(26deg);
+}
+
+.rope-container {
+    position: relative;
+    width: 600px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+}
+
+.center-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #ff6b6b 0%, #feca57 100%);
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+.rope {
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.38));
+    z-index: 10;
+}
+
+.rope-segment {
+    width: 50px;
+    height: 22px;
+    background: 
+        repeating-linear-gradient(
+            92deg,
+            #8B4513 0px,
+            #B8860B 1px,
+            #A0522D 2px,
+            #8B4513 3px,
+            #654321 5px
+        ),
+        linear-gradient(182deg, #D2B48C 0%, #CD853F 18%, #8B4513 58%, #654321 100%);
+    border-radius: 14px;
+    margin: 0 1px;
+    box-shadow: 
+        inset 0 4px 6px rgba(255, 255, 255, 0.42),
+        inset 0 -4px 6px rgba(0, 0, 0, 0.52),
+        0 5px 10px rgba(0, 0, 0, 0.42);
+    position: relative;
+    transform: rotateX(18deg);
+    transform-style: preserve-3d;
+}
+
+/* Rope texture - twisted strands */
+.rope-segment::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            138deg,
+            transparent,
+            transparent 2px,
+            rgba(139, 69, 19, 0.22) 2px,
+            rgba(139, 69, 19, 0.22) 3px
+        ),
+        repeating-linear-gradient(
+            -138deg,
+            transparent,
+            transparent 2px,
+            rgba(210, 180, 140, 0.32) 2px,
+            rgba(210, 180, 140, 0.32) 3px
+        );
+    border-radius: 14px;
+    opacity: 0.75;
+}
+
+/* Rope strand highlights */
+.rope-segment::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    right: 6px;
+    height: 5px;
+    background: linear-gradient(92deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+    border-radius: 12px;
+    opacity: 0.65;
+}
+
+.knot {
+    font-size: 2rem;
+    margin: 0 5px;
+    animation: bounce 2s infinite;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.48));
+    transform: rotateZ(28deg);
+    opacity: 0.92;
+}
+
+/* ===== Turn Indicator ===== */
+.turn-indicator {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.turn-indicator span {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 10px 30px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    color: #333;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: pulse 1.5s infinite;
+}
+
+/* ===== Question Section ===== */
+.question-section {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.question-box {
+    margin-bottom: 20px;
+}
+
+.question-label {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.question-text {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2d3436;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.question-type {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.answer-section {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.answer-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 15px 20px;
+    font-size: 1.5rem;
+    font-family: 'Fredoka', cursive;
+    border: 3px solid #dfe6e9;
+    border-radius: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.answer-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+}
+
+.answer-input:disabled {
+    background: #f0f0f0;
+    cursor: not-allowed;
+}
+
+.submit-btn {
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    font-family: 'Fredoka', cursive;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.submit-btn:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+    background: linear-gradient(135deg, #b2bec3 0%, #636e72 100%);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Feedback */
+.feedback {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    animation: slideDown 0.3s ease-out;
+}
+
+.feedback.correct {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.feedback.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+}
+
+/* ===== Control Buttons ===== */
+.control-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.start-btn,
+.restart-btn,
+.change-level-btn,
+.play-again-btn {
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    font-family: 'Fredoka', cursive;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    color: #155724;
+}
+
+.restart-btn {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    color: #856404;
+}
+
+.change-level-btn {
+    background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+    color: white;
+}
+
+.start-btn:hover,
+.restart-btn:hover,
+.change-level-btn:hover,
+.play-again-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.start-btn:active,
+.restart-btn:active,
+.change-level-btn:active,
+.play-again-btn:active {
+    transform: translateY(-2px);
+}
+
+/* ===== Game Over Screen ===== */
+.game-over-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.game-over-content {
+    text-align: center;
+    background: white;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.5s ease-out;
+}
+
+.game-over-title {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.winner-announcement {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+}
+
+.winner-announcement.team-a-wins {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.winner-announcement.team-b-wins {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.final-scores {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.final-score-item {
+    text-align: center;
+}
+
+.final-score-label {
+    display: block;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.final-score-value {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.play-again-btn {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    color: #155724;
+}
+
+/* ===== Confetti Animation ===== */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #f0f;
+    top: -10px;
+    opacity: 0;
+    animation: confettiFall 3s linear forwards;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pullRope {
+    0%, 100% {
+        transform: translateX(0) translateY(0) rotateZ(0deg) scale(1, 1);
+    }
+    12% {
+        transform: translateX(-5px) translateY(2px) rotateZ(-2deg) scale(0.99, 1.01);
+    }
+    28% {
+        transform: translateX(-8px) translateY(3px) rotateZ(-3deg) scale(0.98, 1.02);
+    }
+    45% {
+        transform: translateX(-10px) translateY(4px) rotateZ(-4deg) scale(0.97, 1.03);
+    }
+    58% {
+        transform: translateX(-8px) translateY(3px) rotateZ(-3deg) scale(0.98, 1.02);
+    }
+    72% {
+        transform: translateX(-9px) translateY(3px) rotateZ(-3deg) scale(0.98, 1.02);
+    }
+    88% {
+        transform: translateX(-5px) translateY(2px) rotateZ(-2deg) scale(0.99, 1.01);
+    }
+}
+
+@keyframes confettiFall {
+    0% {
+        top: -10px;
+        opacity: 1;
+    }
+    100% {
+        top: 100vh;
+        opacity: 0;
+        transform: translateX(100px) rotate(720deg);
+    }
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .team-name-section {
+        padding: 20px;
+    }
+    
+    .team-name-section h3 {
+        font-size: 1.4rem;
+    }
+    
+    .team-name-inputs {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .team-input-group {
+        min-width: 100%;
+    }
+    
+    .team-name-input {
+        font-size: 1rem;
+    }
+
+    .difficulty-btn {
+        width: 150px;
+        height: 180px;
+    }
+
+    .level-emoji {
+        font-size: 2rem;
+    }
+
+    .level-name {
+        font-size: 1.3rem;
+    }
+
+    .timer {
+        font-size: 1.5rem;
+    }
+
+    .score-display {
+        font-size: 2rem;
+    }
+
+    .rope-container {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .rope-segment {
+        width: 30px;
+        height: 10px;
+    }
+
+    .knot {
+        font-size: 1.5rem;
+    }
+    
+    .tug-arena {
+        gap: 15px;
+        padding: 30px 15px;
+    }
+    
+    .character {
+        width: 70px;
+        height: 110px;
+    }
+    
+    .character .head {
+        width: 34px;
+        height: 36px;
+    }
+    
+    .character .body {
+        width: 42px;
+        height: 50px;
+    }
+    
+    .character .arm {
+        width: 11px;
+        height: 42px;
+    }
+    
+    .character .leg {
+        width: 13px;
+        height: 37px;
+    }
+    
+    .team-characters {
+        gap: 10px;
+    }
+    
+    .team-label {
+        font-size: 1.2rem;
+        padding: 8px 15px;
+    }
+
+    .question-text {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    .answer-input {
+        font-size: 1.2rem;
+    }
+
+    .game-over-content {
+        padding: 30px;
+    }
+
+    .game-over-title {
+        font-size: 2rem;
+    }
+
+    .winner-announcement {
+        font-size: 1.8rem;
+    }
+
+    .control-buttons {
+        flex-direction: column;
+    }
+
+    .start-btn,
+    .restart-btn,
+    .change-level-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    .game-title {
+        font-size: 1.5rem;
+    }
+    
+    .team-name-section {
+        padding: 15px;
+    }
+    
+    .team-name-section h3 {
+        font-size: 1.2rem;
+    }
+    
+    .team-input-group label {
+        font-size: 1rem;
+    }
+    
+    .team-name-input {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+    }
+
+    .difficulty-btn {
+        width: 120px;
+        height: 150px;
+    }
+
+    .team-label {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+    
+    .tug-arena {
+        gap: 10px;
+        padding: 20px 10px;
+    }
+    
+    .character {
+        width: 58px;
+        height: 92px;
+    }
+    
+    .character .head {
+        width: 29px;
+        height: 30px;
+    }
+    
+    .character .body {
+        width: 36px;
+        height: 42px;
+    }
+    
+    .character .arm {
+        width: 10px;
+        height: 36px;
+    }
+    
+    .character .leg {
+        width: 11px;
+        height: 32px;
+    }
+    
+    .team-characters {
+        gap: 6px;
+    }
+
+    .question-text {
+        font-size: 1.2rem;
+    }
+}
