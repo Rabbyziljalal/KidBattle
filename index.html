@@ -5,11 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brain Tug - Kids Learning Tug of War Game</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fruitLearning.css">
+    <link rel="stylesheet" href="vegetableLearning.css">
+    <link rel="stylesheet" href="animalLearning.css">
+    <link rel="stylesheet" href="birdsLearning.css">
+    <link rel="stylesheet" href="fruitRecognition.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Three.js Library for 3D Graphics -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GLTFLoader for loading 3D models -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <!-- TensorFlow.js for AI Fruit Recognition -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0"></script>
 </head>
 <body>
     <!-- Main Container -->
@@ -21,7 +31,7 @@
         </header>
 
         <!-- Difficulty Selection Screen -->
-        <div id="difficultyScreen" class="difficulty-screen">
+        <div id="difficultyScreen" class="difficulty-screen hidden">
             <h2>Choose Your Level</h2>
             
             <!-- Team Name Customization -->
@@ -56,10 +66,37 @@
                     <span class="level-age">Ages 9-10</span>
                 </button>
             </div>
+            
+            <!-- Fruit, Vegetable & Animal Learning Mode Buttons -->
+            <div style="text-align: center; margin-top: 30px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <button id="fruitLearningBtn" class="difficulty-btn" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); width: 300px; height: auto; padding: 20px;">
+                    <span class="level-emoji" style="font-size: 2.5em;">🍎</span>
+                    <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Fruit Learning</span>
+                    <span class="level-age" style="font-size: 0.9em;">Learn & Play with Fruits!</span>
+                </button>
+                
+                <button id="vegetableLearningBtn" class="difficulty-btn" style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); width: 300px; height: auto; padding: 20px;">
+                    <span class="level-emoji" style="font-size: 2.5em;">🥕</span>
+                    <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Vegetable Learning</span>
+                    <span class="level-age" style="font-size: 0.9em;">Learn & Play with Vegetables!</span>
+                </button>
+                
+                <button id="animalLearningBtn" class="difficulty-btn" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%); width: 300px; height: auto; padding: 20px;">
+                    <span class="level-emoji" style="font-size: 2.5em;">🦁</span>
+                    <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Animal Learning</span>
+                    <span class="level-age" style="font-size: 0.9em;">Learn & Play with Animals!</span>
+                </button>
+                
+                <button id="birdsLearningBtn" class="difficulty-btn" style="background: linear-gradient(135deg, #4A90E2 0%, #87CEEB 50%, #00BFFF 100%); width: 300px; height: auto; padding: 20px;">
+                    <span class="level-emoji" style="font-size: 2.5em;">🦅</span>
+                    <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Birds Learning</span>
+                    <span class="level-age" style="font-size: 0.9em;">Learn & Play with Birds!</span>
+                </button>
+            </div>
         </div>
 
         <!-- Game Screen -->
-        <div id="gameScreen" class="game-screen hidden">
+        <div id="gameScreen" class="game-screen">
             <!-- Timer and Progress Bar -->
             <div class="timer-section">
                 <div class="timer-container">
@@ -241,9 +278,336 @@
         <source src="resources/sound/gameover.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Fruit Learning Mode Section -->
+    <div id="fruitLearningScreen" class="fruit-learning-screen">
+        <!-- Control Buttons -->
+        <div class="fruit-controls">
+            <button id="backToMainBtn" class="fruit-btn back-btn">⬅️ Back to Menu</button>
+            <button id="learnModeBtn" class="fruit-btn learn-mode-btn">📚 Learn Mode</button>
+            <button id="quizModeBtn" class="fruit-btn quiz-mode-btn">🎯 Quiz Mode</button>
+            <button id="cameraRecognitionBtn" class="fruit-btn" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">📸 AI Camera</button>
+        </div>
+        
+        <!-- Fruit Grid (Learn Mode) -->
+        <div id="fruitGridContainer" class="fruit-grid-container">
+            <div id="fruitGrid" class="fruit-grid">
+                <!-- Fruit cards will be dynamically generated here -->
+            </div>
+            
+            <!-- Page Navigation -->
+            <div class="page-navigation">
+                <button id="prevPageBtn" class="page-btn">
+                    <span class="page-arrow">◀</span>
+                    <span class="page-text">Previous Page</span>
+                </button>
+                
+                <div class="page-info-container">
+                    <div id="pageInfo" class="page-info">Page 1 of 1</div>
+                    <div id="pageDots" class="page-dots">
+                        <!-- Page dots will be generated dynamically -->
+                    </div>
+                </div>
+                
+                <button id="nextPageBtn" class="page-btn">
+                    <span class="page-text">Next Page</span>
+                    <span class="page-arrow">▶</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Quiz Mode Container -->
+        <div id="quizContainer" class="quiz-container">
+            <!-- Quiz Score -->
+            <div class="quiz-score">
+                <h3 id="quizScoreDisplay">Score: 0 / 0</h3>
+            </div>
+            
+            <!-- Quiz Question -->
+            <div class="quiz-question">
+                <h3>What fruit is this?</h3>
+                <div id="quizFruitDisplay" class="quiz-fruit-display">🍎</div>
+            </div>
+            
+            <!-- Quiz Options -->
+            <div id="quizOptions" class="quiz-options">
+                <!-- Options will be dynamically generated here -->
+            </div>
+            
+            <!-- Quiz Feedback -->
+            <div id="quizFeedback" class="quiz-feedback"></div>
+            
+            <!-- Next Question Button -->
+            <button id="nextQuestionBtn" class="next-question-btn">Next Question ➡️</button>
+        </div>
+    </div>
+
+    <!-- Vegetable Learning Screen -->
+    <div id="vegetableLearningScreen" class="vegetable-learning-screen">
+        <!-- Main Header -->
+        <div class="vegetable-main-header">
+            <h1>🥕 Vegetable Learning Mode 🥬</h1>
+            <p>Learn about different vegetables and have fun!</p>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="vegetable-controls">
+            <button id="backToMainBtnVeg" class="vegetable-btn back-btn-veg">⬅️ Back to Menu</button>
+            <button id="learnModeBtnVeg" class="vegetable-btn learn-mode-btn-veg">📚 Learn Mode</button>
+            <button id="quizModeBtnVeg" class="vegetable-btn quiz-mode-btn-veg">🎯 Quiz Mode</button>
+            <button id="cameraRecognitionBtnVeg" class="vegetable-btn" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">📸 AI Camera</button>
+        </div>
+        
+        <!-- Vegetable Grid (Learn Mode) -->
+        <div id="vegetableGridContainer" class="vegetable-grid-container">
+            <div id="vegetableGrid" class="vegetable-grid">
+                <!-- Vegetable cards will be dynamically generated here -->
+            </div>
+            
+            <!-- Page Navigation -->
+            <div class="page-navigation-veg">
+                <button id="prevPageBtnVeg" class="page-btn-veg">
+                    <span class="page-arrow">◀</span>
+                    <span class="page-text">Previous Page</span>
+                </button>
+                
+                <div class="page-info-container-veg">
+                    <div id="pageInfoVeg" class="page-info-veg">Page 1 of 1</div>
+                    <div id="pageDotsVeg" class="page-dots-veg">
+                        <!-- Page dots will be generated dynamically -->
+                    </div>
+                </div>
+                
+                <button id="nextPageBtnVeg" class="page-btn-veg">
+                    <span class="page-text">Next Page</span>
+                    <span class="page-arrow">▶</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Quiz Mode Container -->
+        <div id="vegetableQuizContainer" class="vegetable-quiz-container">
+            <!-- Quiz Score -->
+            <div class="quiz-score">
+                <h3 id="quizScoreDisplayVeg">Score: 0 / 0</h3>
+            </div>
+            
+            <!-- Quiz Question -->
+            <div class="quiz-question">
+                <h3>What vegetable is this?</h3>
+                <div id="quizVegetableDisplay" class="quiz-vegetable-display">🥕</div>
+            </div>
+            
+            <!-- Quiz Options -->
+            <div id="quizOptionsVeg" class="quiz-options">
+                <!-- Options will be dynamically generated here -->
+            </div>
+            
+            <!-- Quiz Feedback -->
+            <div id="quizFeedbackVeg" class="quiz-feedback"></div>
+            
+            <!-- Next Question Button -->
+            <button id="nextQuestionBtnVeg" class="next-question-btn">Next Question ➡️</button>
+        </div>
+    </div>
+
+    <!-- Animal Learning Screen -->
+    <div id="animalLearningScreen" class="animal-learning-screen">
+        <!-- Main Header -->
+        <div class="animal-main-header">
+            <h1>🦁 Animal Learning Mode 🐾</h1>
+            <p>Learn about different animals and have fun!</p>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="animal-controls">
+            <button id="backToMainBtnAnimal" class="animal-btn back-btn-animal">⬅️ Back to Menu</button>
+            <button id="learnModeBtnAnimal" class="animal-btn learn-mode-btn-animal">📚 Learn Mode</button>
+            <button id="quizModeBtnAnimal" class="animal-btn quiz-mode-btn-animal">🎯 Quiz Mode</button>
+            <button id="cameraRecognitionBtnAnimal" class="animal-btn" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa62b 100%);">📸 AI Camera</button>
+        </div>
+        
+        <!-- Animal Grid (Learn Mode) -->
+        <div id="animalGridContainer" class="animal-grid-container">
+            <div id="animalGrid" class="animal-grid">
+                <!-- Animal cards will be dynamically generated here -->
+            </div>
+            
+            <!-- Page Navigation -->
+            <div class="page-navigation-animal">
+                <button id="prevPageBtnAnimal" class="page-btn-animal">
+                    <span class="page-arrow">◀</span>
+                    <span class="page-text">Previous Page</span>
+                </button>
+                
+                <div class="page-info-container-animal">
+                    <div id="pageInfoAnimal" class="page-info-animal">Page 1 of 1</div>
+                    <div id="pageDotsAnimal" class="page-dots-animal">
+                        <!-- Page dots will be generated dynamically -->
+                    </div>
+                </div>
+                
+                <button id="nextPageBtnAnimal" class="page-btn-animal">
+                    <span class="page-text">Next Page</span>
+                    <span class="page-arrow">▶</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Quiz Mode Container -->
+        <div id="animalQuizContainer" class="animal-quiz-container">
+            <!-- Quiz Score -->
+            <div class="quiz-score">
+                <h3 id="quizScoreDisplayAnimal">Score: 0 / 0</h3>
+            </div>
+            
+            <!-- Quiz Question -->
+            <div class="quiz-question">
+                <h3>What animal is this?</h3>
+                <div id="quizAnimalDisplay" class="quiz-animal-display">🦁</div>
+            </div>
+            
+            <!-- Quiz Options -->
+            <div id="quizOptionsAnimal" class="quiz-options">
+                <!-- Options will be dynamically generated here -->
+            </div>
+            
+            <!-- Quiz Feedback -->
+            <div id="quizFeedbackAnimal" class="quiz-feedback"></div>
+            
+            <!-- Next Question Button -->
+            <button id="nextQuestionBtnAnimal" class="next-question-btn">Next Question ➡️</button>
+        </div>
+    </div>
+
+    <!-- Birds Learning Screen -->
+    <div id="birdsLearningScreen" class="birds-learning-screen">
+        <!-- Main Header -->
+        <div class="birds-main-header">
+            <h1>🦅 Birds Learning Mode 🐦</h1>
+            <p>Discover amazing birds from around the world!</p>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="birds-controls">
+            <button id="backToMainBtnBirds" class="birds-btn back-btn-birds">⬅️ Back to Menu</button>
+            <button id="learnModeBtnBirds" class="birds-btn learn-mode-btn-birds">📚 Learn Mode</button>
+            <button id="quizModeBtnBirds" class="birds-btn quiz-mode-btn-birds">🎯 Quiz Mode</button>
+            <button id="cameraRecognitionBtnBirds" class="birds-btn" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa62b 100%);">📸 AI Camera</button>
+        </div>
+        
+        <!-- Birds Grid (Learn Mode) -->
+        <div id="birdsGridContainer" class="birds-grid-container">
+            <div id="pageInfoBirds" class="page-info-birds">Page 1 of 1</div>
+            <div id="birdsGrid" class="birds-grid">
+                <!-- Bird cards will be dynamically generated here -->
+            </div>
+            
+            <!-- Page Navigation -->
+            <div class="page-navigation-birds">
+                <button id="prevPageBtnBirds" class="page-btn-birds">
+                    <span class="page-arrow">◀</span>
+                    <span class="page-text">Previous Page</span>
+                </button>
+                
+                <div class="page-info-container-birds">
+                    <div id="pageDotsBirds" class="page-dots-birds">
+                        <!-- Page dots will be generated dynamically -->
+                    </div>
+                </div>
+                
+                <button id="nextPageBtnBirds" class="page-btn-birds">
+                    <span class="page-text">Next Page</span>
+                    <span class="page-arrow">▶</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Quiz Mode Container -->
+        <div id="birdsQuizContainer" class="birds-quiz-container">
+            <!-- Quiz Score -->
+            <div class="quiz-score">
+                <h3 id="quizScoreDisplayBirds">Score: 0 / 0</h3>
+            </div>
+            
+            <!-- Quiz Question -->
+            <div class="quiz-question">
+                <h3>What bird is this?</h3>
+                <div id="quizBirdDisplay" class="quiz-bird-display">🦅</div>
+            </div>
+            
+            <!-- Quiz Options -->
+            <div id="quizOptionsBirds" class="quiz-options">
+                <!-- Options will be dynamically generated here -->
+            </div>
+            
+            <!-- Quiz Feedback -->
+            <div id="quizFeedbackBirds" class="quiz-feedback"></div>
+            
+            <!-- Next Question Button -->
+            <button id="nextQuestionBtnBirds" class="next-question-btn">Next Question ➡️</button>
+        </div>
+    </div>
+
+    <!-- Camera Fruit Recognition Container -->
+    <div id="cameraRecognitionContainer" class="camera-recognition-container">
+        <div class="camera-header">
+            <h2>📸 AI Fruit Scanner 🤖</h2>
+            <p>Point your camera at a real fruit to identify it!</p>
+        </div>
+        
+        <div class="camera-content">
+            <!-- Loading Status -->
+            <div id="loadingStatus">Loading AI Model...</div>
+            
+            <!-- Camera Viewport -->
+            <div class="camera-viewport">
+                <video id="cameraVideo" autoplay playsinline></video>
+                <canvas id="cameraCanvas" style="display: none;"></canvas>
+                <div class="camera-placeholder">
+                    <div class="camera-placeholder-icon">📷</div>
+                    <div>Click "Start Camera" to begin</div>
+                </div>
+            </div>
+            
+            <!-- Recognition Result -->
+            <div class="recognition-result-area">
+                <div id="recognitionResult">Point camera at a fruit</div>
+                <div id="confidenceLevel"></div>
+            </div>
+            
+            <!-- Camera Controls -->
+            <div class="camera-controls">
+                <button id="startCameraBtn" class="camera-control-btn">📹 Start Camera</button>
+                <button id="stopCameraBtn" class="camera-control-btn">⏹️ Stop Camera</button>
+                <button id="closeCameraBtn" class="camera-control-btn">❌ Close</button>
+            </div>
+            
+            <!-- Instructions -->
+            <div class="camera-instructions">
+                <h3>💡 How to Use:</h3>
+                <ul>
+                    <li>Click "Start Camera" to activate your device camera</li>
+                    <li>Point the camera at a real fruit (apple, banana, orange, etc.)</li>
+                    <li>The AI will automatically identify the fruit</li>
+                    <li>Listen to the pronunciation when detected!</li>
+                    <li>Works best in good lighting and close-up views</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
+    <script src="fruitData.js"></script>
+    <script src="vegetableData.js"></script>
+    <script src="animalData.js"></script>
+    <script src="birdsData.js"></script>
     <script src="questions.js"></script>
     <script src="tug3d.js"></script>
     <script src="script.js"></script>
+    <script src="fruitLearning.js"></script>
+    <script src="vegetableLearning.js"></script>
+    <script src="animalLearning.js"></script>
+    <script src="birdsLearning.js"></script>
+    <script src="fruitRecognition.js"></script>
 </body>
 </html>

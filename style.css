@@ -1486,3 +1486,29 @@ body {
         font-size: 1.2rem;
     }
 }
+
+/* ===== Smooth Transitions for Mode Switching ===== */
+.difficulty-screen,
+.game-screen,
+.fruit-learning-screen {
+    transition: all 0.5s ease-in-out;
+}
+
+.difficulty-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#fruitLearningBtn {
+    transition: all 0.3s ease;
+}
+
+#fruitLearningBtn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+#fruitLearningBtn:active {
+    transform: translateY(0);
+}
+

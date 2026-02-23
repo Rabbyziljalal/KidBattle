@@ -165,6 +165,11 @@ function startGame() {
     gameState.currentTeam = 'A';
     gameState.questionIndex = 0;
     
+    // Reset 3D rope physics to center with equal strengths
+    if (window.tugScene3D) {
+        window.tugScene3D.resetGame();
+    }
+    
     // Update UI
     updateScores();
     updateRopePosition();
@@ -293,20 +298,17 @@ function handleCorrectAnswer() {
     // Update score
     if (gameState.currentTeam === 'A') {
         gameState.teamAScore++;
-        gameState.ropePosition += 5; // Move rope right (Team A pulling)
         animateTeamPull('A');
     } else {
         gameState.teamBScore++;
-        gameState.ropePosition -= 5; // Move rope left (Team B pulling)
         animateTeamPull('B');
     }
     
-    // Ensure rope position stays within bounds
-    gameState.ropePosition = Math.max(-100, Math.min(100, gameState.ropePosition));
+    // Update rope position based on score difference (smooth movement via 3D physics)
+    updateRopeBasedOnScores();
     
     // Update UI
     updateScores();
-    updateRopePosition();
     showFeedback('✓ Correct! Great job!', true);
     
     // Play sound
@@ -364,16 +366,25 @@ function updateScores() {
     elements.teamBScore.textContent = gameState.teamBScore;
 }
 
+function updateRopeBasedOnScores() {
+    // Calculate score difference and update 3D rope physics
+    if (window.tugScene3D) {
+        window.tugScene3D.updateTeamStrengthFromScores(gameState.teamAScore, gameState.teamBScore);
+    }
+}
+
 function updateRopePosition() {
+    // The 3D rope position is now controlled by physics based on scores
+    // This function is called by the 3D scene's animation loop for UI sync
+    if (window.tugScene3D) {
+        // Get current rope position from 3D scene
+        const ropePos = window.tugScene3D.ropePosition || 0;
+        gameState.ropePosition = Math.round(ropePos * 50); // scale -2..2 to -100..100
+    }
+    
     // Calculate percentage: -100 to 100 maps to -50% to 50% transform
     const translateX = (gameState.ropePosition / 100) * 50;
     elements.rope.style.transform = `translateX(${translateX}%)`;
-    
-    // Update 3D scene if available
-    if (window.tugScene3D) {
-        const normalizedPosition = gameState.ropePosition / 100; // -1 to 1
-        window.tugScene3D.updateRopePosition(normalizedPosition);
-    }
     
     // Make characters lean based on rope position
     const teamACharacters = document.querySelectorAll('.char-team-a');

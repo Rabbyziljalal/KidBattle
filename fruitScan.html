@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fruit Scanner - Kid Battle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .status-bar {
+            background: #f5f7ff;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 5px solid #667eea;
+        }
+
+        .status-bar.loading {
+            border-left-color: #ffa500;
+        }
+
+        .status-bar.ready {
+            border-left-color: #4caf50;
+        }
+
+        .status-bar.error {
+            border-left-color: #f44336;
+        }
+
+        .camera-section {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        #videoElement {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        #capturedCanvas {
+            display: none;
+        }
+
+        .camera-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .camera-placeholder.hidden {
+            display: none;
+        }
+
+        .camera-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .preview-section {
+            margin: 20px 0;
+            display: none;
+        }
+
+        .preview-section.visible {
+            display: block;
+        }
+
+        .preview-section h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        #capturedPreview {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .result-section {
+            background: #f5f7ff;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-section h2 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .fruit-emoji {
+            font-size: 5em;
+            margin: 20px 0;
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .fruit-name {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+
+        .confidence {
+            font-size: 1.3em;
+            color: #666;
+        }
+
+        .confidence-bar {
+            width: 100%;
+            max-width: 300px;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px auto;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+            transition: width 0.5s ease;
+        }
+
+        .low-confidence {
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .not-confident {
+            color: #f44336;
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .instructions {
+            background: #fff9e6;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 5px solid #ffa500;
+        }
+
+        .instructions h3 {
+            color: #ffa500;
+            margin-bottom: 10px;
+        }
+
+        .instructions ul {
+            padding-left: 25px;
+            color: #666;
+        }
+
+        .instructions li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            .fruit-name {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🍎 AI Fruit Scanner 🤖</h1>
+            <p>Point your camera at a fruit to identify it!</p>
+        </div>
+
+        <!-- Status Bar -->
+        <div id="statusBar" class="status-bar">
+            <strong>Status:</strong> <span id="statusText">Initializing...</span>
+        </div>
+
+        <!-- Camera Section -->
+        <div class="camera-section">
+            <div class="video-container">
+                <video id="videoElement" autoplay playsinline></video>
+                <canvas id="capturedCanvas"></canvas>
+                <div id="cameraPlaceholder" class="camera-placeholder">
+                    <div class="camera-icon">📷</div>
+                    <div>Click "Start Camera" to begin</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div id="previewSection" class="preview-section">
+            <h3>📸 Captured Image:</h3>
+            <img id="capturedPreview" alt="Captured fruit">
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button id="startCameraBtn" class="btn btn-primary">📹 Start Camera</button>
+            <button id="scanBtn" class="btn btn-secondary" disabled>🔍 Scan Fruit</button>
+            <button id="stopCameraBtn" class="btn btn-danger" style="display: none;">⏹️ Stop Camera</button>
+            <button id="backBtn" class="btn btn-back">⬅️ Back to Menu</button>
+        </div>
+
+        <!-- Result Section -->
+        <div id="resultSection" class="result-section">
+            <h2>Detection Result</h2>
+            <p style="color: #999;">Start camera and scan a fruit</p>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h3>📋 Instructions:</h3>
+            <ul>
+                <li><strong>Step 1:</strong> Click "Start Camera" and allow permissions</li>
+                <li><strong>Step 2:</strong> Point camera at a real fruit (apple, banana, orange, etc.)</li>
+                <li><strong>Step 3:</strong> Click "Scan Fruit" to capture and analyze</li>
+                <li><strong>Tip:</strong> Use good lighting and hold fruit close to camera</li>
+                <li><strong>Note:</strong> Works best with common fruits in clear view</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TensorFlow.js and MobileNet -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.2.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0"></script>
+    
+    <!-- Application Modules -->
+    <script src="camera.js"></script>
+    <script src="ai.js"></script>
+    <script src="fruitScanApp.js"></script>
+</body>
+</html>

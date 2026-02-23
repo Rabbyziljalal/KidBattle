@@ -1,0 +1,264 @@
+/* ===== Camera Fruit Recognition Styles ===== */
+
+.camera-recognition-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    padding: 20px;
+    overflow: auto;
+}
+
+.camera-recognition-container.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.camera-header {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.camera-header h2 {
+    font-size: 2.5em;
+    margin: 0 0 10px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.camera-header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.camera-content {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.camera-viewport {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto 30px;
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+}
+
+#cameraVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+#cameraCanvas {
+    display: none;
+}
+
+.camera-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 20px;
+}
+
+.camera-placeholder-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.recognition-result-area {
+    text-align: center;
+    margin: 30px 0;
+    min-height: 120px;
+}
+
+#recognitionResult {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #666;
+    margin: 0 0 10px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#confidenceLevel {
+    font-size: 1.2em;
+    color: #999;
+    margin: 0;
+}
+
+#loadingStatus {
+    display: none;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #667eea;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f5f7ff;
+    border-radius: 15px;
+}
+
+.camera-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.camera-control-btn {
+    padding: 15px 35px;
+    font-size: 1.2em;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Fredoka', sans-serif;
+}
+
+.camera-control-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.camera-control-btn:active {
+    transform: translateY(0);
+}
+
+#startCameraBtn {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+}
+
+#stopCameraBtn {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    display: none;
+}
+
+#closeCameraBtn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.camera-instructions {
+    background: #f5f7ff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 30px;
+    border-left: 5px solid #667eea;
+}
+
+.camera-instructions h3 {
+    margin: 0 0 15px 0;
+    color: #667eea;
+    font-size: 1.3em;
+}
+
+.camera-instructions ul {
+    margin: 0;
+    padding-left: 25px;
+    color: #666;
+}
+
+.camera-instructions li {
+    margin: 8px 0;
+    font-size: 1.1em;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .camera-header h2 {
+        font-size: 2em;
+    }
+
+    .camera-header p {
+        font-size: 1em;
+    }
+
+    .camera-content {
+        padding: 20px;
+    }
+
+    #recognitionResult {
+        font-size: 2em;
+    }
+
+    #confidenceLevel {
+        font-size: 1em;
+    }
+
+    .camera-control-btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    .camera-instructions {
+        padding: 15px;
+    }
+
+    .camera-instructions h3 {
+        font-size: 1.1em;
+    }
+
+    .camera-instructions li {
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 480px) {
+    .camera-header h2 {
+        font-size: 1.5em;
+    }
+
+    .camera-content {
+        padding: 15px;
+    }
+
+    #recognitionResult {
+        font-size: 1.8em;
+    }
+
+    .camera-controls {
+        flex-direction: column;
+    }
+
+    .camera-control-btn {
+        width: 100%;
+    }
+}
