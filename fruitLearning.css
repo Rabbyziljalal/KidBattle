@@ -149,16 +149,14 @@
 
 .fruit-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    padding: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+    padding: 40px;
     background: white;
     border-radius: 25px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     transform-style: preserve-3d;
     transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-    max-width: 100%;
-    overflow: visible;
 }
 
 /* Page Turning Animations */
@@ -570,7 +568,7 @@
     }
 
     .fruit-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 15px;
         padding: 20px;
     }
@@ -634,24 +632,17 @@
     }
 
     .fruit-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 15px 10px;
-    }
-
-    .fruit-card {
-        padding: 15px 10px;
-        border-radius: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+        padding: 15px;
     }
 
     .fruit-emoji {
-        font-size: 3em !important;
-        margin-bottom: 8px;
+        font-size: 3em;
     }
 
     .fruit-name {
-        font-size: 0.95em !important;
-        margin: 0;
+        font-size: 1em;
     }
 
     .page-btn {
@@ -669,31 +660,5 @@
 
     .quiz-fruit-display {
         font-size: 4em;
-    }
-    
-    .page-navigation {
-        padding: 15px 10px;
-        margin-top: 15px;
-    }
-}
-
-/* Landscape orientation for mobile devices */
-@media (max-width: 900px) and (orientation: landscape) {
-    .fruit-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-        padding: 15px;
-    }
-    
-    .fruit-card {
-        padding: 12px 8px;
-    }
-    
-    .fruit-emoji {
-        font-size: 2.5em !important;
-    }
-    
-    .fruit-name {
-        font-size: 0.9em !important;
     }
 }

@@ -141,17 +141,15 @@
 /* Animal Grid */
 .animal-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    padding: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+    padding: 40px;
     background: white;
     border-radius: 25px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     transform-style: preserve-3d;
     transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     margin-bottom: 30px;
-    max-width: 100%;
-    overflow: visible;
 }
 
 /* Page Turning Animations */
@@ -575,8 +573,8 @@
     }
     
     .animal-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
         padding: 20px;
     }
     
@@ -614,53 +612,12 @@
 @media (max-width: 480px) {
     .animal-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 15px 10px;
-    }
-    
-    .animal-card {
-        padding: 15px 10px;
-        border-radius: 15px;
-    }
-    
-    .animal-emoji {
-        font-size: 3em !important;
-        margin-bottom: 8px;
-    }
-    
-    .animal-name {
-        font-size: 0.95em !important;
-        margin: 0;
+        gap: 15px;
+        padding: 15px;
     }
     
     .page-btn-animal {
         padding: 12px 20px;
         font-size: 1em;
-    }
-    
-    .page-navigation-animal {
-        padding: 15px 10px;
-        margin-top: 15px;
-    }
-}
-
-/* Landscape orientation for mobile devices */
-@media (max-width: 900px) and (orientation: landscape) {
-    .animal-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-        padding: 15px;
-    }
-    
-    .animal-card {
-        padding: 12px 8px;
-    }
-    
-    .animal-emoji {
-        font-size: 2.5em !important;
-    }
-    
-    .animal-name {
-        font-size: 0.9em !important;
     }
 }
