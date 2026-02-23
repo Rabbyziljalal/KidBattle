@@ -118,14 +118,16 @@
 /* Birds Grid */
 .birds-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 30px;
-    padding: 40px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    padding: 30px;
     background: white;
     border-radius: 25px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     transform-style: preserve-3d;
     transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    max-width: 100%;
+    overflow: visible;
 }
 
 /* Page Turning Animations */
@@ -576,8 +578,8 @@
     }
     
     .birds-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
         padding: 20px;
     }
     
@@ -615,12 +617,65 @@
 @media (max-width: 480px) {
     .birds-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        padding: 15px;
+        gap: 12px;
+        padding: 15px 10px;
+    }
+    
+    .birds-card {
+        padding: 15px 10px;
+        border-radius: 15px;
+    }
+    
+    .birds-emoji {
+        font-size: 3em !important;
+        margin-bottom: 8px;
+    }
+    
+    .birds-name {
+        font-size: 0.95em !important;
+        margin: 0;
+    }
+    
+    .bird-type-badge {
+        font-size: 0.6em !important;
+        padding: 4px 8px;
+        top: 8px;
+        right: 8px;
     }
     
     .page-btn-birds {
         padding: 12px 20px;
         font-size: 1em;
+    }
+    
+    .page-navigation-birds {
+        padding: 15px 10px;
+        margin-top: 15px;
+    }
+}
+
+/* Landscape orientation for mobile devices */
+@media (max-width: 900px) and (orientation: landscape) {
+    .birds-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        padding: 15px;
+    }
+    
+    .birds-card {
+        padding: 12px 8px;
+    }
+    
+    .birds-emoji {
+        font-size: 2.5em !important;
+    }
+    
+    .birds-name {
+        font-size: 0.9em !important;
+    }
+    
+    .bird-type-badge {
+        font-size: 0.55em !important;
+        padding: 3px 6px;
     }
 }
