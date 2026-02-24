@@ -383,6 +383,14 @@
     margin: 0;
 }
 
+.animal-name-bengali {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #FF8C00;
+    margin: 5px 0 0 0;
+    font-family: 'Noto Sans Bengali', 'Arial', sans-serif;
+}
+
 /* Quiz Mode Container */
 .animal-quiz-container {
     display: none;
@@ -622,6 +630,10 @@
         font-size: 1.2em;
     }
     
+    .animal-name-bengali {
+        font-size: 1em;
+    }
+    
     .page-navigation-animal {
         flex-direction: column;
         gap: 15px;
@@ -646,6 +658,10 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
         padding: 15px;
+    }
+    
+    .animal-name-bengali {
+        font-size: 0.95em;
     }
     
     .page-btn-animal {

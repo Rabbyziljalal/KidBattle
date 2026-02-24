@@ -201,11 +201,12 @@ class BirdsLearning {
                 <div class="bird-type-badge">${bird.type || 'Bird'}</div>
                 <span class="birds-emoji">${bird.emoji}</span>
                 <p class="birds-name">${bird.name}</p>
+                <p class="birds-name-bengali">${bird.bengaliName}</p>
             `;
             
             // Add click event to speak bird name
             card.addEventListener('click', () => {
-                this.speakBirdName(bird.name);
+                this.speakBirdName(`${bird.name}, ${bird.bengaliName}`);
                 card.classList.add('birds-clicked');
                 setTimeout(() => {
                     card.classList.remove('birds-clicked');

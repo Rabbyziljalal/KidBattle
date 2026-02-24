@@ -184,6 +184,7 @@ class AnimalLearning {
             card.innerHTML = `
                 <span class="animal-emoji">${animal.emoji}</span>
                 <p class="animal-name">${animal.name}</p>
+                <p class="animal-name-bengali">${animal.bengaliName}</p>
             `;
             
             // Click event for pronunciation and animation
@@ -279,8 +280,8 @@ class AnimalLearning {
     }
 
     handleAnimalClick(animal, cardElement) {
-        // Speak the animal name
-        this.speakAnimalName(animal.name);
+        // Speak the animal name (both English and Bengali)
+        this.speakAnimalName(`${animal.name}, ${animal.bengaliName}`);
         
         // Visual feedback - bounce effect
         cardElement.classList.add('animal-clicked');

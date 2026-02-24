@@ -174,6 +174,7 @@ class FruitLearning {
             card.innerHTML = `
                 <span class="fruit-emoji">${fruit.emoji}</span>
                 <p class="fruit-name">${fruit.name}</p>
+                <p class="fruit-name-bengali">${fruit.bengaliName}</p>
             `;
             
             // Click event for pronunciation and animation
@@ -269,8 +270,8 @@ class FruitLearning {
     }
 
     handleFruitClick(fruit, cardElement) {
-        // Speak the fruit name
-        this.speakFruitName(fruit.name);
+        // Speak the fruit name in both English and Bengali
+        this.speakFruitName(`${fruit.name}, ${fruit.bengaliName}`);
         
         // Visual feedback - bounce effect
         cardElement.classList.add('fruit-clicked');

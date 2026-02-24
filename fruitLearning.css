@@ -431,7 +431,15 @@
     font-size: 1.4em;
     font-weight: 600;
     color: #333;
+    margin: 0 0 5px 0;
+}
+
+.fruit-name-bengali {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #f5576c;
     margin: 0;
+    font-family: 'Noto Sans Bengali', 'Arial', sans-serif;
 }
 
 /* Quiz Mode Container */
@@ -708,6 +716,10 @@
     .fruit-name {
         font-size: 1.1em;
     }
+    
+    .fruit-name-bengali {
+        font-size: 0.95em;
+    }
 
     .page-navigation {
         flex-direction: column;
@@ -767,6 +779,10 @@
 
     .fruit-name {
         font-size: 1em;
+    }
+    
+    .fruit-name-bengali {
+        font-size: 0.9em;
     }
 
     .page-btn {

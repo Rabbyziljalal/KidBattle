@@ -179,6 +179,7 @@ class VegetableLearning {
             card.innerHTML = `
                 <span class="vegetable-emoji">${vegetable.emoji}</span>
                 <p class="vegetable-name">${vegetable.name}</p>
+                <p class="vegetable-name-bengali">${vegetable.bengaliName}</p>
             `;
             
             // Click event for pronunciation and animation
@@ -274,8 +275,8 @@ class VegetableLearning {
     }
 
     handleVegetableClick(vegetable, cardElement) {
-        // Speak the vegetable name
-        this.speakVegetableName(vegetable.name);
+        // Speak the vegetable name in both English and Bengali
+        this.speakVegetableName(`${vegetable.name}, ${vegetable.bengaliName}`);
         
         // Visual feedback - bounce effect
         cardElement.classList.add('vegetable-clicked');

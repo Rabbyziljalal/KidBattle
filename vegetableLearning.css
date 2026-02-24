@@ -380,7 +380,15 @@
     font-size: 1.4em;
     font-weight: 600;
     color: #333;
+    margin: 0 0 5px 0;
+}
+
+.vegetable-name-bengali {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #56ab2f;
     margin: 0;
+    font-family: 'Noto Sans Bengali', 'Arial', sans-serif;
 }
 
 /* Quiz Mode Container */
@@ -620,6 +628,10 @@
     
     .vegetable-name {
         font-size: 1.2em;
+    }
+    
+    .vegetable-name-bengali {
+        font-size: 1em;
     }
     
     .page-navigation-veg {
