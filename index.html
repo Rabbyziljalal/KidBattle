@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="animalLearning.css">
     <link rel="stylesheet" href="birdsLearning.css">
     <link rel="stylesheet" href="fruitRecognition.css">
+    <link rel="stylesheet" href="colorMood.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,7 +22,149 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0"></script>
 </head>
-<body>
+<body data-theme="rainbow-dream">
+    <!-- Color Mood Selector (Fixed Position - Always Visible) -->
+    <button id="colorMoodToggle" class="color-mood-toggle" title="Change Colors" style="display: flex !important;">
+        🎨
+    </button>
+    
+    <div id="colorMoodPanel" class="color-mood-panel">
+        <div class="color-mood-header">
+            <h3>🎨 Choose Your Color Mood <span style="font-size: 0.6em; opacity: 0.9;">(32 Themes)</span></h3>
+            <button id="closeMoodPanel" class="close-mood-btn">✖</button>
+        </div>
+        <div class="color-themes-grid">
+            <button class="theme-btn active" data-theme="rainbow-dream">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);"></div>
+                <span class="theme-name">Rainbow Dream</span>
+            </button>
+            <button class="theme-btn" data-theme="ocean-breeze">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #2E3192, #1BFFFF, #00C9FF);"></div>
+                <span class="theme-name">Ocean Breeze</span>
+            </button>
+            <button class="theme-btn" data-theme="sunset-glow">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #FA8BFF, #2BD2FF, #2BFF88);"></div>
+                <span class="theme-name">Sunset Glow</span>
+            </button>
+            <button class="theme-btn" data-theme="forest-magic">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);"></div>
+                <span class="theme-name">Forest Magic</span>
+            </button>
+            <button class="theme-btn" data-theme="candy-pop">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #FF6FD8, #3813C2, #F700FF);"></div>
+                <span class="theme-name">Candy Pop</span>
+            </button>
+            <button class="theme-btn" data-theme="galaxy-night">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #000428, #004e92, #6A0572);"></div>
+                <span class="theme-name">Galaxy Night</span>
+            </button>
+            <button class="theme-btn" data-theme="citrus-burst">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #F7971E, #FFD200, #FFEA00);"></div>
+                <span class="theme-name">Citrus Burst</span>
+            </button>
+            <button class="theme-btn" data-theme="berry-blast">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #C21500, #FFC500, #FF006E);"></div>
+                <span class="theme-name">Berry Blast</span>
+            </button>
+            <button class="theme-btn" data-theme="lavender-fields">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #868F96, #596164, #A770EF);"></div>
+                <span class="theme-name">Lavender Fields</span>
+            </button>
+            <button class="theme-btn" data-theme="fire-dragon">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #f12711, #f5af19, #FF416C);"></div>
+                <span class="theme-name">Fire Dragon</span>
+            </button>
+            <button class="theme-btn" data-theme="mint-fresh">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #00F260, #0575E6, #00D9FF);"></div>
+                <span class="theme-name">Mint Fresh</span>
+            </button>
+            <button class="theme-btn" data-theme="purple-paradise">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #7F00FF, #E100FF, #C471F5);"></div>
+                <span class="theme-name">Purple Paradise</span>
+            </button>
+            <button class="theme-btn" data-theme="deep-blue-ocean">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #003d82, #0066cc, #00d4ff);"></div>
+                <span class="theme-name">Deep Blue Ocean</span>
+            </button>
+            <button class="theme-btn" data-theme="royal-sapphire">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #0f52ba, #1e90ff, #c0c0c0);"></div>
+                <span class="theme-name">Royal Sapphire</span>
+            </button>
+            <button class="theme-btn" data-theme="emerald-dream">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #046307, #50C878, #FFD700);"></div>
+                <span class="theme-name">Emerald Dream</span>
+            </button>
+            <button class="theme-btn" data-theme="golden-sparkle">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #FFD700, #FDB931, #FFFDD0);"></div>
+                <span class="theme-name">Golden Sparkle</span>
+            </button>
+            <button class="theme-btn" data-theme="midnight-luxury">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #000080, #001f3f, #00ffff);"></div>
+                <span class="theme-name">Midnight Luxury</span>
+            </button>
+            <button class="theme-btn" data-theme="coral-charm">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #FF6F61, #FF7F50, #FFDAB9);"></div>
+                <span class="theme-name">Coral Charm</span>
+            </button>
+            <button class="theme-btn" data-theme="ice-crystal">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #B0E0E6, #E0FFFF, #F0F8FF);"></div>
+                <span class="theme-name">Ice Crystal</span>
+            </button>
+            <button class="theme-btn" data-theme="ruby-flame">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #8B0000, #DC143C, #800000);"></div>
+                <span class="theme-name">Ruby Flame</span>
+            </button>
+            <button class="theme-btn" data-theme="sky-bubble">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #87CEEB, #B0E0E6, #FFFFFF);"></div>
+                <span class="theme-name">Sky Bubble</span>
+            </button>
+            <button class="theme-btn" data-theme="neon-party">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #FF1493, #FF00FF, #00FFFF);"></div>
+                <span class="theme-name">Neon Party</span>
+            </button>
+            <button class="theme-btn" data-theme="peacock-shine">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #008B8B, #20B2AA, #663399);"></div>
+                <span class="theme-name">Peacock Shine</span>
+            </button>
+            <button class="theme-btn" data-theme="chocolate-deluxe">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #3E2723, #5D4037, #D4AF37);"></div>
+                <span class="theme-name">Chocolate Deluxe</span>
+            </button>
+            <button class="theme-btn" data-theme="aqua-paradise">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #40E0D0, #48D1CC, #2E8B57);"></div>
+                <span class="theme-name">Aqua Paradise</span>
+            </button>
+            <button class="theme-btn" data-theme="blush-princess">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #FFB6C1, #FFC0CB, #B76E79);"></div>
+                <span class="theme-name">Blush Princess</span>
+            </button>
+            <button class="theme-btn" data-theme="storm-grey-pro">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #2F4F4F, #708090, #00BFFF);"></div>
+                <span class="theme-name">Storm Grey Pro</span>
+            </button>
+            <button class="theme-btn" data-theme="ocean-neon">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #001f3f, #003366, #00FFFF);"></div>
+                <span class="theme-name">Ocean Neon</span>
+            </button>
+            <button class="theme-btn" data-theme="magic-gold-black">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #000000, #1a1a1a, #FFD700);"></div>
+                <span class="theme-name">Magic Gold & Black</span>
+            </button>
+            <button class="theme-btn" data-theme="frozen-blue">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #0047AB, #4682B4, #C0C0C0);"></div>
+                <span class="theme-name">Frozen Blue</span>
+            </button>
+            <button class="theme-btn" data-theme="cosmic-purple">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #2E0854, #4B0082, #9370DB);"></div>
+                <span class="theme-name">Cosmic Purple</span>
+            </button>
+            <button class="theme-btn" data-theme="sunshine-pop">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #FFFF00, #FFD700, #FF8C00);"></div>
+                <span class="theme-name">Sunshine Pop</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Main Container -->
     <div class="container">
         <!-- Header Section -->
@@ -626,7 +769,10 @@
             <!-- Camera Controls -->
             <div class="camera-controls">
                 <button id="startCameraBtnVeg" class="camera-control-btn">📹 Start Camera</button>
+                <button id="captureBtnVeg" class="camera-control-btn" style="display:none;">📸 Capture & Analyze</button>
                 <button id="stopCameraBtnVeg" class="camera-control-btn">⏹️ Stop Camera</button>
+                <input type="file" id="uploadImageVeg" accept="image/*" style="display:none;">
+                <button id="uploadBtnVeg" class="camera-control-btn">🖼️ Upload Image</button>
                 <button id="closeCameraBtnVeg" class="camera-control-btn">❌ Close</button>
             </div>
             
@@ -634,11 +780,11 @@
             <div class="camera-instructions">
                 <h3>💡 How to Use:</h3>
                 <ul>
-                    <li>Click "Start Camera" to activate your device camera</li>
-                    <li>Point the camera at a real vegetable (carrot, tomato, broccoli, etc.)</li>
-                    <li>The AI will automatically identify the vegetable</li>
+                    <li>Click "Start Camera" and point at a vegetable, then click "Capture & Analyze"</li>
+                    <li>Or click "Upload Image" to analyze a picture from your device</li>
+                    <li>The AI will identify the vegetable (carrot, tomato, broccoli, etc.)</li>
                     <li>Listen to the pronunciation when detected!</li>
-                    <li>Works best in good lighting and close-up views</li>
+                    <li>Works best with clear, close-up images in good lighting</li>
                 </ul>
             </div>
         </div>
@@ -674,7 +820,10 @@
             <!-- Camera Controls -->
             <div class="camera-controls">
                 <button id="startCameraBtnAnimal" class="camera-control-btn">📹 Start Camera</button>
+                <button id="captureBtnAnimal" class="camera-control-btn" style="display:none;">📸 Capture & Analyze</button>
                 <button id="stopCameraBtnAnimal" class="camera-control-btn">⏹️ Stop Camera</button>
+                <input type="file" id="uploadImageAnimal" accept="image/*" style="display:none;">
+                <button id="uploadBtnAnimal" class="camera-control-btn">🖼️ Upload Image</button>
                 <button id="closeCameraBtnAnimal" class="camera-control-btn">❌ Close</button>
             </div>
             
@@ -682,9 +831,9 @@
             <div class="camera-instructions">
                 <h3>💡 How to Use:</h3>
                 <ul>
-                    <li>Click "Start Camera" to activate your device camera</li>
-                    <li>Point the camera at a real animal (cat, dog, bird, etc.)</li>
-                    <li>The AI will automatically identify the animal</li>
+                    <li>Click "Start Camera" and point at an animal, then click "Capture & Analyze"</li>
+                    <li>Or click "Upload Image" to analyze a picture from your device</li>
+                    <li>The AI will identify the animal (cat, dog, lion, etc.)</li>
                     <li>Listen to the pronunciation when detected!</li>
                     <li>Works best in good lighting and clear views</li>
                 </ul>
@@ -722,7 +871,10 @@
             <!-- Camera Controls -->
             <div class="camera-controls">
                 <button id="startCameraBtnBirds" class="camera-control-btn">📹 Start Camera</button>
+                <button id="captureBtnBirds" class="camera-control-btn" style="display:none;">📸 Capture & Analyze</button>
                 <button id="stopCameraBtnBirds" class="camera-control-btn">⏹️ Stop Camera</button>
+                <input type="file" id="uploadImageBirds" accept="image/*" style="display:none;">
+                <button id="uploadBtnBirds" class="camera-control-btn">🖼️ Upload Image</button>
                 <button id="closeCameraBtnBirds" class="camera-control-btn">❌ Close</button>
             </div>
             
@@ -730,17 +882,18 @@
             <div class="camera-instructions">
                 <h3>💡 How to Use:</h3>
                 <ul>
-                    <li>Click "Start Camera" to activate your device camera</li>
-                    <li>Point the camera at a real bird (pigeon, sparrow, eagle, etc.)</li>
-                    <li>The AI will automatically identify the bird</li>
+                    <li>Click "Start Camera" and point at a bird, then click "Capture & Analyze"</li>
+                    <li>Or click "Upload Image" to analyze a picture from your device</li>
+                    <li>The AI will identify the bird (pigeon, sparrow, eagle, etc.)</li>
                     <li>Listen to the pronunciation when detected!</li>
-                    <li>Works best in good lighting and clear views</li>
+                    <li>Works best with clear images in good lighting</li>
                 </ul>
             </div>
         </div>
     </div>
 
     <!-- Scripts -->
+    <script src="colorMood.js"></script>
     <script src="fruitData.js"></script>
     <script src="vegetableData.js"></script>
     <script src="animalData.js"></script>

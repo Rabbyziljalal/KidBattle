@@ -85,7 +85,10 @@ class AnimalRecognition {
         this.cameraContainer = document.getElementById('cameraRecognitionContainerAnimal');
         this.cameraBtn = document.getElementById('cameraRecognitionBtnAnimal');
         this.startCameraBtn = document.getElementById('startCameraBtnAnimal');
+        this.captureBtn = document.getElementById('captureBtnAnimal');
         this.stopCameraBtn = document.getElementById('stopCameraBtnAnimal');
+        this.uploadBtn = document.getElementById('uploadBtnAnimal');
+        this.uploadInput = document.getElementById('uploadImageAnimal');
         this.closeCameraBtn = document.getElementById('closeCameraBtnAnimal');
         this.videoElement = document.getElementById('cameraVideoAnimal');
         this.canvasElement = document.getElementById('cameraCanvasAnimal');
@@ -103,8 +106,20 @@ class AnimalRecognition {
             this.startCameraBtn.addEventListener('click', () => this.startCamera());
         }
         
+        if (this.captureBtn) {
+            this.captureBtn.addEventListener('click', () => this.captureAndAnalyze());
+        }
+        
         if (this.stopCameraBtn) {
             this.stopCameraBtn.addEventListener('click', () => this.stopCamera());
+        }
+        
+        if (this.uploadBtn) {
+            this.uploadBtn.addEventListener('click', () => this.uploadInput.click());
+        }
+        
+        if (this.uploadInput) {
+            this.uploadInput.addEventListener('change', (e) => this.handleImageUpload(e));
         }
         
         if (this.closeCameraBtn) {
@@ -163,16 +178,19 @@ class AnimalRecognition {
             
             this.videoElement.srcObject = stream;
             this.videoElement.style.display = 'block';
+            this.canvasElement.style.display = 'none';
             this.isScanning = true;
             
             // Wait for video to load
             this.videoElement.onloadedmetadata = () => {
                 this.videoElement.play();
                 this.startCameraBtn.style.display = 'none';
+                this.captureBtn.style.display = 'inline-block';
                 this.stopCameraBtn.style.display = 'block';
                 
-                // Start continuous prediction
-                this.predictLoop();
+                this.resultDisplay.textContent = 'Click "Capture & Analyze" to identify';
+                this.resultDisplay.style.color = '#666';
+                this.confidenceDisplay.textContent = '';
             };
             
         } catch (error) {
@@ -192,30 +210,105 @@ class AnimalRecognition {
         }
         
         this.startCameraBtn.style.display = 'block';
+        this.captureBtn.style.display = 'none';
         this.stopCameraBtn.style.display = 'none';
+        this.canvasElement.style.display = 'none';
         this.resultDisplay.textContent = 'Point camera at an animal';
         this.confidenceDisplay.textContent = '';
     }
 
-    async predictLoop() {
-        if (!this.isScanning || !this.isModelLoaded) return;
-        
+    async captureAndAnalyze() {
+        if (!this.isModelLoaded) {
+            this.resultDisplay.textContent = '⏳ Loading model...';
+            return;
+        }
+
         try {
-            // Classify the current video frame
-            const predictions = await this.model.classify(this.videoElement);
+            // Capture current video frame to canvas
+            const context = this.canvasElement.getContext('2d');
+            this.canvasElement.width = this.videoElement.videoWidth;
+            this.canvasElement.height = this.videoElement.videoHeight;
+            context.drawImage(this.videoElement, 0, 0);
+            
+            // Show canvas, hide video
+            this.videoElement.style.display = 'none';
+            this.canvasElement.style.display = 'block';
+            
+            this.resultDisplay.textContent = '🔍 Analyzing...';
+            this.resultDisplay.style.color = '#2196F3';
+            this.confidenceDisplay.textContent = '';
+            
+            // Analyze the captured image
+            const predictions = await this.model.classify(this.canvasElement);
             
             if (predictions && predictions.length > 0) {
                 this.processPredictons(predictions);
+            } else {
+                this.resultDisplay.textContent = '❌ Not recognized';
+                this.resultDisplay.style.color = '#ff6b6b';
+                this.confidenceDisplay.textContent = 'Try again with better lighting';
             }
             
         } catch (error) {
-            console.error('Prediction error:', error);
+            console.error('Capture analysis error:', error);
+            this.resultDisplay.textContent = '❌ Analysis failed';
+            this.resultDisplay.style.color = '#f44336';
         }
-        
-        // Continue prediction loop
-        if (this.isScanning) {
-            requestAnimationFrame(() => this.predictLoop());
+    }
+
+    async handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (!this.isModelLoaded) {
+            await this.loadModel();
         }
+
+        try {
+            // Read the uploaded image
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const img = new Image();
+                img.onload = async () => {
+                    // Draw image to canvas
+                    const context = this.canvasElement.getContext('2d');
+                    this.canvasElement.width = img.width;
+                    this.canvasElement.height = img.height;
+                    context.drawImage(img, 0, 0);
+                    
+                    // Show canvas
+                    this.videoElement.style.display = 'none';
+                    this.canvasElement.style.display = 'block';
+                    
+                    this.resultDisplay.textContent = '🔍 Analyzing uploaded image...';
+                    this.resultDisplay.style.color = '#2196F3';
+                    this.confidenceDisplay.textContent = '';
+                    
+                    // Analyze the image
+                    const predictions = await this.model.classify(this.canvasElement);
+                    
+                    if (predictions && predictions.length > 0) {
+                        this.processPredictons(predictions);
+                    } else {
+                        this.resultDisplay.textContent = '❌ Not recognized';
+                        this.resultDisplay.style.color = '#ff6b6b';
+                        this.confidenceDisplay.textContent = 'Try another image';
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            
+        } catch (error) {
+            console.error('Image upload error:', error);
+            this.resultDisplay.textContent = '❌ Upload failed';
+            this.resultDisplay.style.color = '#f44336';
+        }
+    }
+
+    async predictLoop() {
+        // Removed continuous scanning - now using capture-based analysis
+        return;
     }
 
     processPredictons(predictions) {

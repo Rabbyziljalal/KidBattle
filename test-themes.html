@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Test</title>
+    <link rel="stylesheet" href="colorMood.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+            transition: all 0.5s ease;
+        }
+        .test-container {
+            background: rgba(255,255,255,0.9);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .test-btn {
+            padding: 15px 10px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .test-btn:hover {
+            transform: scale(1.05);
+        }
+        .test-btn:active {
+            transform: scale(0.95);
+        }
+        #current-theme {
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body data-theme="rainbow-dream">
+    <div class="test-container">
+        <h1>🎨 Theme Testing Page</h1>
+        <div id="current-theme">Current Theme: rainbow-dream</div>
+        
+        <div class="theme-grid">
+            <button class="test-btn" onclick="testTheme('deep-blue-ocean')">Deep Blue Ocean</button>
+            <button class="test-btn" onclick="testTheme('royal-sapphire')">Royal Sapphire</button>
+            <button class="test-btn" onclick="testTheme('emerald-dream')">Emerald Dream</button>
+            <button class="test-btn" onclick="testTheme('golden-sparkle')">Golden Sparkle</button>
+            <button class="test-btn" onclick="testTheme('midnight-luxury')">Midnight Luxury</button>
+            <button class="test-btn" onclick="testTheme('coral-charm')">Coral Charm</button>
+            <button class="test-btn" onclick="testTheme('ice-crystal')">Ice Crystal</button>
+            <button class="test-btn" onclick="testTheme('ruby-flame')">Ruby Flame</button>
+            <button class="test-btn" onclick="testTheme('sky-bubble')">Sky Bubble</button>
+            <button class="test-btn" onclick="testTheme('neon-party')">Neon Party</button>
+            <button class="test-btn" onclick="testTheme('peacock-shine')">Peacock Shine</button>
+            <button class="test-btn" onclick="testTheme('chocolate-deluxe')">Chocolate Deluxe</button>
+            <button class="test-btn" onclick="testTheme('aqua-paradise')">Aqua Paradise</button>
+            <button class="test-btn" onclick="testTheme('blush-princess')">Blush Princess</button>
+            <button class="test-btn" onclick="testTheme('storm-grey-pro')">Storm Grey Pro</button>
+            <button class="test-btn" onclick="testTheme('ocean-neon')">Ocean Neon</button>
+            <button class="test-btn" onclick="testTheme('magic-gold-black')">Magic Gold & Black</button>
+            <button class="test-btn" onclick="testTheme('frozen-blue')">Frozen Blue</button>
+            <button class="test-btn" onclick="testTheme('cosmic-purple')">Cosmic Purple</button>
+            <button class="test-btn" onclick="testTheme('sunshine-pop')">Sunshine Pop</button>
+        </div>
+    </div>
+
+    <script>
+        function testTheme(themeName) {
+            console.log('Testing theme:', themeName);
+            document.body.setAttribute('data-theme', themeName);
+            void document.body.offsetHeight;
+            document.getElementById('current-theme').textContent = 'Current Theme: ' + themeName;
+            
+            // Check if CSS variable is working
+            const style = getComputedStyle(document.body);
+            const bgGradient = style.getPropertyValue('--background-gradient');
+            console.log('Background gradient:', bgGradient);
+            
+            if (!bgGradient) {
+                alert('ERROR: CSS variable not found for ' + themeName);
+            }
+        }
+        
+        // Test on load
+        console.log('Test page loaded');
+        console.log('Initial theme:', document.body.getAttribute('data-theme'));
+    </script>
+</body>
+</html>

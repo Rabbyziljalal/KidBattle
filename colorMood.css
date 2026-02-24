@@ -1,0 +1,596 @@
+/* ===== Color Mood Feature Styles ===== */
+
+/* Force theme override (must come first) */
+html body[data-theme] {
+    background: var(--background-gradient) !important;
+    background-size: 400% 400% !important;
+    animation: rainbow 15s ease infinite !important;
+}
+
+/* Color Mood Toggle Button */
+.color-mood-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 4px solid white;
+    font-size: 2.5em;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: floatMood 3s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+.color-mood-toggle:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+}
+
+.color-mood-toggle:active {
+    transform: scale(1.05);
+}
+
+@keyframes floatMood {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Color Mood Panel */
+.color-mood-panel {
+    position: fixed;
+    top: 50%;
+    right: -450px;
+    transform: translateY(-50%);
+    width: 420px;
+    max-height: 85vh;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 25px 0 0 25px;
+    box-shadow: -5px 0 40px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 5px solid transparent;
+    background-image: 
+        linear-gradient(white, white),
+        linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #43e97b 50%, #4facfe 75%, #f093fb 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.color-mood-panel.active {
+    right: 0;
+}
+
+/* Panel Header */
+.color-mood-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px 0 0 0;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.color-mood-header h3 {
+    margin: 0;
+    font-size: 1.6em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.close-mood-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    font-size: 1.4em;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.close-mood-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* Color Themes Grid */
+.color-themes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 25px;
+}
+
+/* Theme Button */
+.theme-btn {
+    background: white;
+    border: 4px solid transparent;
+    border-radius: 20px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.theme-btn:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    border-color: #667eea;
+}
+
+.theme-btn.active {
+    border-color: #667eea;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    animation: themeActivePulse 1s ease;
+}
+
+@keyframes themeActivePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.theme-btn.active::after {
+    content: '✓';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.4em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(67, 233, 123, 0.5);
+    animation: checkPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes checkPop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+.theme-preview {
+    width: 100%;
+    height: 100px;
+    border-radius: 15px;
+    margin-bottom: 12px;
+    box-shadow: inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.theme-name {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #2d3436;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* Custom Scrollbar */
+.color-mood-panel::-webkit-scrollbar {
+    width: 10px;
+}
+
+.color-mood-panel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.color-mood-panel::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
+
+.color-mood-panel::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* ===== Color Theme Variables ===== */
+
+/* Rainbow Dream Theme (Default) */
+body[data-theme="rainbow-dream"] {
+    --primary-gradient: linear-gradient(135deg, #ee7752 0%, #e73c7e 50%, #23a6d5 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --accent-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --background-gradient: linear-gradient(135deg, #ee7752 0%, #e73c7e 25%, #23a6d5 50%, #23d5ab 100%);
+    --header-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    --button-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* Ocean Breeze Theme */
+body[data-theme="ocean-breeze"] {
+    --primary-gradient: linear-gradient(135deg, #2E3192 0%, #1BFFFF 100%);
+    --secondary-gradient: linear-gradient(135deg, #00C9FF 0%, #92FE9D 100%);
+    --accent-gradient: linear-gradient(135deg, #0575E6 0%, #00D9FF 100%);
+    --background-gradient: linear-gradient(135deg, #2E3192 0%, #1BFFFF 50%, #00C9FF 100%);
+    --header-gradient: linear-gradient(135deg, #2E3192 0%, #1BFFFF 50%, #00C9FF 100%);
+    --button-gradient: linear-gradient(135deg, #00C9FF 0%, #92FE9D 100%);
+}
+
+/* Sunset Glow Theme */
+body[data-theme="sunset-glow"] {
+    --primary-gradient: linear-gradient(135deg, #FA8BFF 0%, #2BD2FF 50%, #2BFF88 100%);
+    --secondary-gradient: linear-gradient(135deg, #FF6FD8 0%, #FFB347 100%);
+    --accent-gradient: linear-gradient(135deg, #FFA69E 0%, #FFD6A5 100%);
+    --background-gradient: linear-gradient(135deg, #FA8BFF 0%, #2BD2FF 25%, #2BFF88 50%, #FFB347 100%);
+    --header-gradient: linear-gradient(135deg, #FA8BFF 0%, #2BD2FF 50%, #2BFF88 100%);
+    --button-gradient: linear-gradient(135deg, #FF6FD8 0%, #FFB347 100%);
+}
+
+/* Forest Magic Theme */
+body[data-theme="forest-magic"] {
+    --primary-gradient: linear-gradient(135deg, #134E5E 0%, #71B280 100%);
+    --secondary-gradient: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+    --accent-gradient: linear-gradient(135deg, #0F2027 0%, #2C5364 100%);
+    --background-gradient: linear-gradient(135deg, #0F2027 0%, #203A43 25%, #2C5364 50%, #56ab2f 100%);
+    --header-gradient: linear-gradient(135deg, #134E5E 0%, #71B280 100%);
+    --button-gradient: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+}
+
+/* Candy Pop Theme */
+body[data-theme="candy-pop"] {
+    --primary-gradient: linear-gradient(135deg, #FF6FD8 0%, #3813C2 100%);
+    --secondary-gradient: linear-gradient(135deg, #F700FF 0%, #FF1493 100%);
+    --accent-gradient: linear-gradient(135deg, #FF00FF 0%, #FF69B4 100%);
+    --background-gradient: linear-gradient(135deg, #FF6FD8 0%, #3813C2 25%, #F700FF 50%, #FF1493 100%);
+    --header-gradient: linear-gradient(135deg, #FF6FD8 0%, #3813C2 50%, #F700FF 100%);
+    --button-gradient: linear-gradient(135deg, #F700FF 0%, #FF1493 100%);
+}
+
+/* Galaxy Night Theme */
+body[data-theme="galaxy-night"] {
+    --primary-gradient: linear-gradient(135deg, #000428 0%, #004e92 100%);
+    --secondary-gradient: linear-gradient(135deg, #6A0572 0%, #AB83A1 100%);
+    --accent-gradient: linear-gradient(135deg, #3C1053 0%, #AD5389 100%);
+    --background-gradient: linear-gradient(135deg, #000428 0%, #004e92 25%, #6A0572 50%, #AB83A1 100%);
+    --header-gradient: linear-gradient(135deg, #000428 0%, #004e92 50%, #6A0572 100%);
+    --button-gradient: linear-gradient(135deg, #6A0572 0%, #AB83A1 100%);
+}
+
+/* Citrus Burst Theme */
+body[data-theme="citrus-burst"] {
+    --primary-gradient: linear-gradient(135deg, #F7971E 0%, #FFD200 100%);
+    --secondary-gradient: linear-gradient(135deg, #FFEA00 0%, #FFB347 100%);
+    --accent-gradient: linear-gradient(135deg, #FF9A00 0%, #FFD700 100%);
+    --background-gradient: linear-gradient(135deg, #F7971E 0%, #FFD200 25%, #FFEA00 50%, #FFB347 100%);
+    --header-gradient: linear-gradient(135deg, #F7971E 0%, #FFD200 50%, #FFEA00 100%);
+    --button-gradient: linear-gradient(135deg, #FFEA00 0%, #FFB347 100%);
+}
+
+/* Berry Blast Theme */
+body[data-theme="berry-blast"] {
+    --primary-gradient: linear-gradient(135deg, #C21500 0%, #FFC500 100%);
+    --secondary-gradient: linear-gradient(135deg, #FF006E 0%, #FFBE0B 100%);
+    --accent-gradient: linear-gradient(135deg, #D62828 0%, #F77F00 100%);
+    --background-gradient: linear-gradient(135deg, #C21500 0%, #FFC500 25%, #FF006E 50%, #FFBE0B 100%);
+    --header-gradient: linear-gradient(135deg, #C21500 0%, #FFC500 50%, #FF006E 100%);
+    --button-gradient: linear-gradient(135deg, #FF006E 0%, #FFBE0B 100%);
+}
+
+/* Lavender Fields Theme */
+body[data-theme="lavender-fields"] {
+    --primary-gradient: linear-gradient(135deg, #868F96 0%, #596164 100%);
+    --secondary-gradient: linear-gradient(135deg, #A770EF 0%, #CF8BF3 100%);
+    --accent-gradient: linear-gradient(135deg, #FDB99B 0%, #CF8BF3 100%);
+    --background-gradient: linear-gradient(135deg, #868F96 0%, #596164 25%, #A770EF 50%, #CF8BF3 100%);
+    --header-gradient: linear-gradient(135deg, #868F96 0%, #A770EF 50%, #CF8BF3 100%);
+    --button-gradient: linear-gradient(135deg, #A770EF 0%, #CF8BF3 100%);
+}
+
+/* Fire Dragon Theme */
+body[data-theme="fire-dragon"] {
+    --primary-gradient: linear-gradient(135deg, #f12711 0%, #f5af19 100%);
+    --secondary-gradient: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+    --accent-gradient: linear-gradient(135deg, #DD2476 0%, #FF512F 100%);
+    --background-gradient: linear-gradient(135deg, #f12711 0%, #f5af19 25%, #FF416C 50%, #FF4B2B 100%);
+    --header-gradient: linear-gradient(135deg, #f12711 0%, #f5af19 50%, #FF416C 100%);
+    --button-gradient: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+}
+
+/* Mint Fresh Theme */
+body[data-theme="mint-fresh"] {
+    --primary-gradient: linear-gradient(135deg, #00F260 0%, #0575E6 100%);
+    --secondary-gradient: linear-gradient(135deg, #00D9FF 0%, #00F5A0 100%);
+    --accent-gradient: linear-gradient(135deg, #09FBD3 0%, #FE53BB 100%);
+    --background-gradient: linear-gradient(135deg, #00F260 0%, #0575E6 25%, #00D9FF 50%, #00F5A0 100%);
+    --header-gradient: linear-gradient(135deg, #00F260 0%, #0575E6 50%, #00D9FF 100%);
+    --button-gradient: linear-gradient(135deg, #00D9FF 0%, #00F5A0 100%);
+}
+
+/* Purple Paradise Theme */
+body[data-theme="purple-paradise"] {
+    --primary-gradient: linear-gradient(135deg, #7F00FF 0%, #E100FF 100%);
+    --secondary-gradient: linear-gradient(135deg, #C471F5 0%, #FA71CD 100%);
+    --accent-gradient: linear-gradient(135deg, #9D50BB 0%, #6E48AA 100%);
+    --background-gradient: linear-gradient(135deg, #7F00FF 0%, #E100FF 25%, #C471F5 50%, #FA71CD 100%);
+    --header-gradient: linear-gradient(135deg, #7F00FF 0%, #E100FF 50%, #C471F5 100%);
+    --button-gradient: linear-gradient(135deg, #C471F5 0%, #FA71CD 100%);
+}
+
+/* Deep Blue Ocean Theme */
+body[data-theme="deep-blue-ocean"] {
+    --primary-gradient: linear-gradient(135deg, #003d82 0%, #0066cc 100%);
+    --secondary-gradient: linear-gradient(135deg, #0066cc 0%, #00d4ff 100%);
+    --accent-gradient: linear-gradient(135deg, #003d82 0%, #00d4ff 100%);
+    --background-gradient: linear-gradient(135deg, #003d82 0%, #0066cc 25%, #0080ff 50%, #00d4ff 100%);
+    --header-gradient: linear-gradient(135deg, #003d82 0%, #0066cc 50%, #00d4ff 100%);
+    --button-gradient: linear-gradient(135deg, #0066cc 0%, #00d4ff 100%);
+}
+
+/* Royal Sapphire Theme */
+body[data-theme="royal-sapphire"] {
+    --primary-gradient: linear-gradient(135deg, #0f52ba 0%, #1e90ff 100%);
+    --secondary-gradient: linear-gradient(135deg, #1e90ff 0%, #c0c0c0 100%);
+    --accent-gradient: linear-gradient(135deg, #0f52ba 0%, #87CEEB 100%);
+    --background-gradient: linear-gradient(135deg, #0f52ba 0%, #1e90ff 25%, #4169E1 50%, #c0c0c0 100%);
+    --header-gradient: linear-gradient(135deg, #0f52ba 0%, #1e90ff 50%, #c0c0c0 100%);
+    --button-gradient: linear-gradient(135deg, #1e90ff 0%, #c0c0c0 100%);
+}
+
+/* Emerald Dream Theme */
+body[data-theme="emerald-dream"] {
+    --primary-gradient: linear-gradient(135deg, #046307 0%, #50C878 100%);
+    --secondary-gradient: linear-gradient(135deg, #50C878 0%, #FFD700 100%);
+    --accent-gradient: linear-gradient(135deg, #046307 0%, #7CFC00 100%);
+    --background-gradient: linear-gradient(135deg, #046307 0%, #228B22 25%, #50C878 50%, #FFD700 100%);
+    --header-gradient: linear-gradient(135deg, #046307 0%, #50C878 50%, #FFD700 100%);
+    --button-gradient: linear-gradient(135deg, #50C878 0%, #FFD700 100%);
+}
+
+/* Golden Sparkle Theme */
+body[data-theme="golden-sparkle"] {
+    --primary-gradient: linear-gradient(135deg, #FFD700 0%, #FDB931 100%);
+    --secondary-gradient: linear-gradient(135deg, #FDB931 0%, #FFFDD0 100%);
+    --accent-gradient: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    --background-gradient: linear-gradient(135deg, #FFD700 0%, #FFDF00 25%, #FDB931 50%, #FFFDD0 100%);
+    --header-gradient: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #FFFDD0 100%);
+    --button-gradient: linear-gradient(135deg, #FDB931 0%, #FFFDD0 100%);
+}
+
+/* Midnight Luxury Theme */
+body[data-theme="midnight-luxury"] {
+    --primary-gradient: linear-gradient(135deg, #000080 0%, #001f3f 100%);
+    --secondary-gradient: linear-gradient(135deg, #001f3f 0%, #00ffff 100%);
+    --accent-gradient: linear-gradient(135deg, #000080 0%, #0080ff 100%);
+    --background-gradient: linear-gradient(135deg, #000080 0%, #001f3f 25%, #003366 50%, #00ffff 100%);
+    --header-gradient: linear-gradient(135deg, #000080 0%, #001f3f 50%, #00ffff 100%);
+    --button-gradient: linear-gradient(135deg, #001f3f 0%, #00ffff 100%);
+}
+
+/* Coral Charm Theme */
+body[data-theme="coral-charm"] {
+    --primary-gradient: linear-gradient(135deg, #FF6F61 0%, #FF7F50 100%);
+    --secondary-gradient: linear-gradient(135deg, #FF7F50 0%, #FFDAB9 100%);
+    --accent-gradient: linear-gradient(135deg, #FF6F61 0%, #FFA07A 100%);
+    --background-gradient: linear-gradient(135deg, #FF6F61 0%, #FF7F50 25%, #FFA07A 50%, #FFDAB9 100%);
+    --header-gradient: linear-gradient(135deg, #FF6F61 0%, #FF7F50 50%, #FFDAB9 100%);
+    --button-gradient: linear-gradient(135deg, #FF7F50 0%, #FFDAB9 100%);
+}
+
+/* Ice Crystal Theme */
+body[data-theme="ice-crystal"] {
+    --primary-gradient: linear-gradient(135deg, #B0E0E6 0%, #E0FFFF 100%);
+    --secondary-gradient: linear-gradient(135deg, #E0FFFF 0%, #F0F8FF 100%);
+    --accent-gradient: linear-gradient(135deg, #B0E0E6 0%, #ADD8E6 100%);
+    --background-gradient: linear-gradient(135deg, #B0E0E6 0%, #D0E7F0 25%, #E0FFFF 50%, #F0F8FF 100%);
+    --header-gradient: linear-gradient(135deg, #B0E0E6 0%, #E0FFFF 50%, #F0F8FF 100%);
+    --button-gradient: linear-gradient(135deg, #E0FFFF 0%, #F0F8FF 100%);
+}
+
+/* Ruby Flame Theme */
+body[data-theme="ruby-flame"] {
+    --primary-gradient: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    --secondary-gradient: linear-gradient(135deg, #DC143C 0%, #800000 100%);
+    --accent-gradient: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+    --background-gradient: linear-gradient(135deg, #8B0000 0%, #A52A2A 25%, #DC143C 50%, #800000 100%);
+    --header-gradient: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #800000 100%);
+    --button-gradient: linear-gradient(135deg, #DC143C 0%, #800000 100%);
+}
+
+/* Sky Bubble Theme */
+body[data-theme="sky-bubble"] {
+    --primary-gradient: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
+    --secondary-gradient: linear-gradient(135deg, #B0E0E6 0%, #FFFFFF 100%);
+    --accent-gradient: linear-gradient(135deg, #87CEEB 0%, #ADD8E6 100%);
+    --background-gradient: linear-gradient(135deg, #87CEEB 0%, #9CD4F0 25%, #B0E0E6 50%, #FFFFFF 100%);
+    --header-gradient: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #FFFFFF 100%);
+    --button-gradient: linear-gradient(135deg, #B0E0E6 0%, #FFFFFF 100%);
+}
+
+/* Neon Party Theme */
+body[data-theme="neon-party"] {
+    --primary-gradient: linear-gradient(135deg, #FF1493 0%, #FF00FF 100%);
+    --secondary-gradient: linear-gradient(135deg, #FF00FF 0%, #00FFFF 100%);
+    --accent-gradient: linear-gradient(135deg, #FF1493 0%, #00FF00 100%);
+    --background-gradient: linear-gradient(135deg, #FF1493 0%, #FF00FF 25%, #9D00FF 50%, #00FFFF 100%);
+    --header-gradient: linear-gradient(135deg, #FF1493 0%, #FF00FF 50%, #00FFFF 100%);
+    --button-gradient: linear-gradient(135deg, #FF00FF 0%, #00FFFF 100%);
+}
+
+/* Peacock Shine Theme */
+body[data-theme="peacock-shine"] {
+    --primary-gradient: linear-gradient(135deg, #008B8B 0%, #20B2AA 100%);
+    --secondary-gradient: linear-gradient(135deg, #20B2AA 0%, #663399 100%);
+    --accent-gradient: linear-gradient(135deg, #008B8B 0%, #48D1CC 100%);
+    --background-gradient: linear-gradient(135deg, #008B8B 0%, #20B2AA 25%, #40E0D0 50%, #663399 100%);
+    --header-gradient: linear-gradient(135deg, #008B8B 0%, #20B2AA 50%, #663399 100%);
+    --button-gradient: linear-gradient(135deg, #20B2AA 0%, #663399 100%);
+}
+
+/* Chocolate Deluxe Theme */
+body[data-theme="chocolate-deluxe"] {
+    --primary-gradient: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);
+    --secondary-gradient: linear-gradient(135deg, #5D4037 0%, #D4AF37 100%);
+    --accent-gradient: linear-gradient(135deg, #3E2723 0%, #6D4C41 100%);
+    --background-gradient: linear-gradient(135deg, #3E2723 0%, #4E342E 25%, #5D4037 50%, #D4AF37 100%);
+    --header-gradient: linear-gradient(135deg, #3E2723 0%, #5D4037 50%, #D4AF37 100%);
+    --button-gradient: linear-gradient(135deg, #5D4037 0%, #D4AF37 100%);
+}
+
+/* Aqua Paradise Theme */
+body[data-theme="aqua-paradise"] {
+    --primary-gradient: linear-gradient(135deg, #40E0D0 0%, #48D1CC 100%);
+    --secondary-gradient: linear-gradient(135deg, #48D1CC 0%, #2E8B57 100%);
+    --accent-gradient: linear-gradient(135deg, #40E0D0 0%, #00CED1 100%);
+    --background-gradient: linear-gradient(135deg, #40E0D0 0%, #48D1CC 25%, #3CB371 50%, #2E8B57 100%);
+    --header-gradient: linear-gradient(135deg, #40E0D0 0%, #48D1CC 50%, #2E8B57 100%);
+    --button-gradient: linear-gradient(135deg, #48D1CC 0%, #2E8B57 100%);
+}
+
+/* Blush Princess Theme */
+body[data-theme="blush-princess"] {
+    --primary-gradient: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+    --secondary-gradient: linear-gradient(135deg, #FFC0CB 0%, #B76E79 100%);
+    --accent-gradient: linear-gradient(135deg, #FFB6C1 0%, #FFD6E5 100%);
+    --background-gradient: linear-gradient(135deg, #FFB6C1 0%, #FFCCD5 25%, #FFC0CB 50%, #B76E79 100%);
+    --header-gradient: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 50%, #B76E79 100%);
+    --button-gradient: linear-gradient(135deg, #FFC0CB 0%, #B76E79 100%);
+}
+
+/* Storm Grey Pro Theme */
+body[data-theme="storm-grey-pro"] {
+    --primary-gradient: linear-gradient(135deg, #2F4F4F 0%, #708090 100%);
+    --secondary-gradient: linear-gradient(135deg, #708090 0%, #00BFFF 100%);
+    --accent-gradient: linear-gradient(135deg, #2F4F4F 0%, #778899 100%);
+    --background-gradient: linear-gradient(135deg, #2F4F4F 0%, #556B7A 25%, #708090 50%, #00BFFF 100%);
+    --header-gradient: linear-gradient(135deg, #2F4F4F 0%, #708090 50%, #00BFFF 100%);
+    --button-gradient: linear-gradient(135deg, #708090 0%, #00BFFF 100%);
+}
+
+/* Ocean Neon Theme */
+body[data-theme="ocean-neon"] {
+    --primary-gradient: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+    --secondary-gradient: linear-gradient(135deg, #003366 0%, #00FFFF 100%);
+    --accent-gradient: linear-gradient(135deg, #001f3f 0%, #0080FF 100%);
+    --background-gradient: linear-gradient(135deg, #001f3f 0%, #002952 25%, #003366 50%, #00FFFF 100%);
+    --header-gradient: linear-gradient(135deg, #001f3f 0%, #003366 50%, #00FFFF 100%);
+    --button-gradient: linear-gradient(135deg, #003366 0%, #00FFFF 100%);
+}
+
+/* Magic Gold & Black Theme */
+body[data-theme="magic-gold-black"] {
+    --primary-gradient: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    --secondary-gradient: linear-gradient(135deg, #1a1a1a 0%, #FFD700 100%);
+    --accent-gradient: linear-gradient(135deg, #000000 0%, #333333 100%);
+    --background-gradient: linear-gradient(135deg, #000000 0%, #0d0d0d 25%, #1a1a1a 50%, #FFD700 100%);
+    --header-gradient: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #FFD700 100%);
+    --button-gradient: linear-gradient(135deg, #1a1a1a 0%, #FFD700 100%);
+}
+
+/* Frozen Blue Theme */
+body[data-theme="frozen-blue"] {
+    --primary-gradient: linear-gradient(135deg, #0047AB 0%, #4682B4 100%);
+    --secondary-gradient: linear-gradient(135deg, #4682B4 0%, #C0C0C0 100%);
+    --accent-gradient: linear-gradient(135deg, #0047AB 0%, #6495ED 100%);
+    --background-gradient: linear-gradient(135deg, #0047AB 0%, #2B65AF 25%, #4682B4 50%, #C0C0C0 100%);
+    --header-gradient: linear-gradient(135deg, #0047AB 0%, #4682B4 50%, #C0C0C0 100%);
+    --button-gradient: linear-gradient(135deg, #4682B4 0%, #C0C0C0 100%);
+}
+
+/* Cosmic Purple Theme */
+body[data-theme="cosmic-purple"] {
+    --primary-gradient: linear-gradient(135deg, #2E0854 0%, #4B0082 100%);
+    --secondary-gradient: linear-gradient(135deg, #4B0082 0%, #9370DB 100%);
+    --accent-gradient: linear-gradient(135deg, #2E0854 0%, #6A0DAD 100%);
+    --background-gradient: linear-gradient(135deg, #2E0854 0%, #3A0B6B 25%, #4B0082 50%, #9370DB 100%);
+    --header-gradient: linear-gradient(135deg, #2E0854 0%, #4B0082 50%, #9370DB 100%);
+    --button-gradient: linear-gradient(135deg, #4B0082 0%, #9370DB 100%);
+}
+
+/* Sunshine Pop Theme */
+body[data-theme="sunshine-pop"] {
+    --primary-gradient: linear-gradient(135deg, #FFFF00 0%, #FFD700 100%);
+    --secondary-gradient: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+    --accent-gradient: linear-gradient(135deg, #FFFF00 0%, #FFA500 100%);
+    --background-gradient: linear-gradient(135deg, #FFFF00 0%, #FFEB3B 25%, #FFD700 50%, #FF8C00 100%);
+    --header-gradient: linear-gradient(135deg, #FFFF00 0%, #FFD700 50%, #FF8C00 100%);
+    --button-gradient: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+}
+
+/* Apply theme colors to elements */
+body[data-theme] {
+    background: var(--background-gradient) !important;
+    background-size: 400% 400% !important;
+    animation: rainbow 15s ease infinite !important;
+}
+
+body[data-theme] .header {
+    background: var(--header-gradient) !important;
+}
+
+body[data-theme] .difficulty-btn {
+    background: var(--button-gradient) !important;
+}
+
+body[data-theme] .submit-btn {
+    background: var(--button-gradient) !important;
+}
+
+body[data-theme] .timer-container {
+    background: var(--secondary-gradient) !important;
+}
+
+body[data-theme] .fruit-main-header,
+body[data-theme] .vegetable-main-header,
+body[data-theme] .animal-main-header,
+body[data-theme] .birds-main-header {
+    background: var(--header-gradient) !important;
+}
+
+body[data-theme] .page-btn,
+body[data-theme] .fruit-btn {
+    background: var(--button-gradient) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .color-mood-toggle {
+        width: 60px;
+        height: 60px;
+        font-size: 2em;
+        top: 15px;
+        right: 15px;
+    }
+
+    .color-mood-panel {
+        width: 95vw;
+        right: -100vw;
+        border-radius: 25px 25px 0 0;
+        top: auto;
+        bottom: -100vh;
+        transform: none;
+        max-height: 70vh;
+    }
+
+    .color-mood-panel.active {
+        right: auto;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .color-themes-grid {
+        grid-template-columns: 1fr;
+    }
+}
