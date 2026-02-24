@@ -314,7 +314,8 @@ class BirdsLearning {
     }
 
     openCameraScanner() {
-        alert('🚧 AI Camera Recognition Coming Soon! 📸\n\nThis feature will allow you to scan real birds using your camera.');
+        // Camera scanner is handled by birdRecognition.js
+        // The button click will be handled by the BirdRecognition class
     }
 
     // ===== Quiz Mode Methods =====

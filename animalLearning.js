@@ -409,7 +409,8 @@ class AnimalLearning {
     }
 
     openCameraScanner() {
-        alert('📸 AI Camera Recognition coming soon!\n\nThis feature will allow you to scan real animals and identify them using AI.');
+        // Camera scanner is handled by animalRecognition.js
+        // The button click will be handled by the AnimalRecognition class
     }
 }
 

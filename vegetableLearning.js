@@ -404,7 +404,8 @@ class VegetableLearning {
     }
 
     openCameraScanner() {
-        alert('📸 AI Camera Recognition coming soon!\n\nThis feature will allow you to scan real vegetables and identify them using AI.');
+        // Camera scanner is handled by vegetableRecognition.js
+        // The button click will be handled by the VegetableRecognition class
     }
 }
 

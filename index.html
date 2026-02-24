@@ -596,6 +596,150 @@
         </div>
     </div>
 
+    <!-- Camera Vegetable Recognition Container -->
+    <div id="cameraRecognitionContainerVeg" class="camera-recognition-container">
+        <div class="camera-header">
+            <h2>📸 AI Vegetable Scanner 🤖</h2>
+            <p>Point your camera at a real vegetable to identify it!</p>
+        </div>
+        
+        <div class="camera-content">
+            <!-- Loading Status -->
+            <div id="loadingStatusVeg">Loading AI Model...</div>
+            
+            <!-- Camera Viewport -->
+            <div class="camera-viewport">
+                <video id="cameraVideoVeg" autoplay playsinline></video>
+                <canvas id="cameraCanvasVeg" style="display: none;"></canvas>
+                <div class="camera-placeholder">
+                    <div class="camera-placeholder-icon">📷</div>
+                    <div>Click "Start Camera" to begin</div>
+                </div>
+            </div>
+            
+            <!-- Recognition Result -->
+            <div class="recognition-result-area">
+                <div id="recognitionResultVeg">Point camera at a vegetable</div>
+                <div id="confidenceLevelVeg"></div>
+            </div>
+            
+            <!-- Camera Controls -->
+            <div class="camera-controls">
+                <button id="startCameraBtnVeg" class="camera-control-btn">📹 Start Camera</button>
+                <button id="stopCameraBtnVeg" class="camera-control-btn">⏹️ Stop Camera</button>
+                <button id="closeCameraBtnVeg" class="camera-control-btn">❌ Close</button>
+            </div>
+            
+            <!-- Instructions -->
+            <div class="camera-instructions">
+                <h3>💡 How to Use:</h3>
+                <ul>
+                    <li>Click "Start Camera" to activate your device camera</li>
+                    <li>Point the camera at a real vegetable (carrot, tomato, broccoli, etc.)</li>
+                    <li>The AI will automatically identify the vegetable</li>
+                    <li>Listen to the pronunciation when detected!</li>
+                    <li>Works best in good lighting and close-up views</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Animal Recognition Container -->
+    <div id="cameraRecognitionContainerAnimal" class="camera-recognition-container">
+        <div class="camera-header">
+            <h2>📸 AI Animal Scanner 🤖</h2>
+            <p>Point your camera at a real animal to identify it!</p>
+        </div>
+        
+        <div class="camera-content">
+            <!-- Loading Status -->
+            <div id="loadingStatusAnimal">Loading AI Model...</div>
+            
+            <!-- Camera Viewport -->
+            <div class="camera-viewport">
+                <video id="cameraVideoAnimal" autoplay playsinline></video>
+                <canvas id="cameraCanvasAnimal" style="display: none;"></canvas>
+                <div class="camera-placeholder">
+                    <div class="camera-placeholder-icon">📷</div>
+                    <div>Click "Start Camera" to begin</div>
+                </div>
+            </div>
+            
+            <!-- Recognition Result -->
+            <div class="recognition-result-area">
+                <div id="recognitionResultAnimal">Point camera at an animal</div>
+                <div id="confidenceLevelAnimal"></div>
+            </div>
+            
+            <!-- Camera Controls -->
+            <div class="camera-controls">
+                <button id="startCameraBtnAnimal" class="camera-control-btn">📹 Start Camera</button>
+                <button id="stopCameraBtnAnimal" class="camera-control-btn">⏹️ Stop Camera</button>
+                <button id="closeCameraBtnAnimal" class="camera-control-btn">❌ Close</button>
+            </div>
+            
+            <!-- Instructions -->
+            <div class="camera-instructions">
+                <h3>💡 How to Use:</h3>
+                <ul>
+                    <li>Click "Start Camera" to activate your device camera</li>
+                    <li>Point the camera at a real animal (cat, dog, bird, etc.)</li>
+                    <li>The AI will automatically identify the animal</li>
+                    <li>Listen to the pronunciation when detected!</li>
+                    <li>Works best in good lighting and clear views</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Bird Recognition Container -->
+    <div id="cameraRecognitionContainerBirds" class="camera-recognition-container">
+        <div class="camera-header">
+            <h2>📸 AI Bird Scanner 🤖</h2>
+            <p>Point your camera at a real bird to identify it!</p>
+        </div>
+        
+        <div class="camera-content">
+            <!-- Loading Status -->
+            <div id="loadingStatusBirds">Loading AI Model...</div>
+            
+            <!-- Camera Viewport -->
+            <div class="camera-viewport">
+                <video id="cameraVideoBirds" autoplay playsinline></video>
+                <canvas id="cameraCanvasBirds" style="display: none;"></canvas>
+                <div class="camera-placeholder">
+                    <div class="camera-placeholder-icon">📷</div>
+                    <div>Click "Start Camera" to begin</div>
+                </div>
+            </div>
+            
+            <!-- Recognition Result -->
+            <div class="recognition-result-area">
+                <div id="recognitionResultBirds">Point camera at a bird</div>
+                <div id="confidenceLevelBirds"></div>
+            </div>
+            
+            <!-- Camera Controls -->
+            <div class="camera-controls">
+                <button id="startCameraBtnBirds" class="camera-control-btn">📹 Start Camera</button>
+                <button id="stopCameraBtnBirds" class="camera-control-btn">⏹️ Stop Camera</button>
+                <button id="closeCameraBtnBirds" class="camera-control-btn">❌ Close</button>
+            </div>
+            
+            <!-- Instructions -->
+            <div class="camera-instructions">
+                <h3>💡 How to Use:</h3>
+                <ul>
+                    <li>Click "Start Camera" to activate your device camera</li>
+                    <li>Point the camera at a real bird (pigeon, sparrow, eagle, etc.)</li>
+                    <li>The AI will automatically identify the bird</li>
+                    <li>Listen to the pronunciation when detected!</li>
+                    <li>Works best in good lighting and clear views</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="fruitData.js"></script>
     <script src="vegetableData.js"></script>
@@ -609,5 +753,8 @@
     <script src="animalLearning.js"></script>
     <script src="birdsLearning.js"></script>
     <script src="fruitRecognition.js"></script>
+    <script src="vegetableRecognition.js"></script>
+    <script src="animalRecognition.js"></script>
+    <script src="birdRecognition.js"></script>
 </body>
 </html>
