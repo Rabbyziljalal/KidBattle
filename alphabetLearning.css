@@ -1,0 +1,429 @@
+/* ===== Alphabet / Bornomala Learning Mode ===== */
+
+/* -------- Screen Container -------- */
+.alphabet-learning-screen {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #FFF9C4 0%, #E3F2FD 40%, #FCE4EC 100%);
+    font-family: 'Segoe UI', 'Noto Sans Bengali', Arial, sans-serif;
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 40px;
+}
+
+.alphabet-learning-screen.active {
+    display: block;
+}
+
+/* -------- Decorative Background -------- */
+.alphabet-learning-screen::before {
+    content: "🔤 📝 ✏️ 🎨 📚 🌟 🎯 ✨";
+    position: fixed;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    font-size: 1.8rem;
+    opacity: 0.08;
+    letter-spacing: 40px;
+    pointer-events: none;
+    animation: floatDecor 8s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+@keyframes floatDecor {
+    0%   { transform: translateY(0px) translateX(0px); }
+    100% { transform: translateY(15px) translateX(10px); }
+}
+
+/* -------- Main Header -------- */
+.alphabet-main-header {
+    background: linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%);
+    color: white;
+    text-align: center;
+    padding: 24px 20px 20px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+}
+
+.alphabet-main-header h1 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin: 0 0 6px 0;
+    text-shadow: 2px 3px 6px rgba(0,0,0,0.25);
+    letter-spacing: 1px;
+}
+
+.alphabet-main-header p {
+    font-size: 1rem;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.alphabet-back-btn {
+    position: static;
+    background: rgba(255,255,255,0.25);
+    border: 2px solid rgba(255,255,255,0.6);
+    color: white;
+    border-radius: 30px;
+    padding: 10px 22px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* -------- Back Button (in tabs row) -------- */
+.alphabet-back-btn {
+    background: linear-gradient(135deg, #FF6B6B, #EE5A5A) !important;
+    border-color: #FF6B6B !important;
+    color: white !important;
+}
+
+.alphabet-back-btn:hover {
+    background: linear-gradient(135deg, #FF5252, #E53935) !important;
+    border-color: #FF5252 !important;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 14px rgba(255, 107, 107, 0.4);
+}
+
+/* -------- Tab Navigation -------- */
+.alphabet-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 20px 0;
+    position: relative;
+    z-index: 10;
+    flex-wrap: wrap;
+}
+
+.alphabet-tab-btn {
+    background: rgba(255,255,255,0.6);
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    padding: 10px 22px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    color: #555;
+    backdrop-filter: blur(5px);
+}
+
+.alphabet-tab-btn:hover {
+    background: rgba(255,255,255,0.9);
+    border-color: #667EEA;
+    color: #667EEA;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(102, 126, 234, 0.25);
+}
+
+.alphabet-tab-btn.active-tab {
+    background: linear-gradient(135deg, #667EEA, #764BA2);
+    border-color: #667EEA;
+    color: white;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.45);
+    transform: translateY(-2px);
+}
+
+/* -------- Main Layout: Centered Single Column -------- */
+.alphabet-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+}
+
+/* -------- Preview Panel (centered top) -------- */
+.alphabet-preview {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 24px 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.8);
+    transition: all 0.35s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.preview-emoji {
+    font-size: 6rem;
+    line-height: 1;
+    margin-bottom: 12px;
+    display: block;
+    transition: all 0.3s ease;
+    animation: none;
+}
+
+.preview-emoji.pop {
+    animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0%   { transform: scale(0.5) rotate(-8deg); opacity: 0.2; }
+    70%  { transform: scale(1.15) rotate(3deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.preview-letter {
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #667EEA, #764BA2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.preview-word {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.preview-hint {
+    font-size: 0.95rem;
+    color: #888;
+    background: #f0f0f0;
+    border-radius: 12px;
+    padding: 6px 14px;
+    display: inline-block;
+    margin-top: 6px;
+}
+
+.preview-default {
+    color: #bbb;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+/* -------- Letter Grid (centered) -------- */
+.alphabet-grid-wrapper {
+    width: 100%;
+    max-width: 900px;
+}
+
+.alphabet-grid-wrapper h2 {
+    font-size: 1.3rem;
+    color: #444;
+    margin: 0 0 14px 0;
+    font-weight: 800;
+    text-align: center;
+}
+
+.alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 14px;
+    justify-content: center;
+}
+
+/* -------- Letter Cards -------- */
+.letter-card {
+    background: white;
+    border-radius: 18px;
+    padding: 14px 8px 12px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+}
+
+.letter-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.letter-card:hover {
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+    border-color: #667EEA;
+}
+
+.letter-card:active {
+    transform: scale(0.93);
+}
+
+.letter-card.active-card {
+    transform: translateY(-5px) scale(1.08);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.45);
+    border-width: 3px;
+}
+
+/* bounce animation triggered by JS */
+.letter-card.bounce {
+    animation: bounceCard 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceCard {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.2) rotate(-4deg); }
+    70%  { transform: scale(0.93) rotate(2deg); }
+    100% { transform: scale(1.08) rotate(0deg); }
+}
+
+.card-emoji {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 4px;
+    line-height: 1;
+}
+
+.card-letter {
+    font-size: 1.6rem;
+    font-weight: 900;
+    line-height: 1;
+    display: block;
+}
+
+.card-word {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #666;
+    margin-top: 3px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* -------- Tab Panels Visibility -------- */
+.alphabet-tab-panel {
+    display: none;
+}
+
+.alphabet-tab-panel.active-panel {
+    display: block;
+}
+
+/* -------- Now Playing Badge -------- */
+.playing-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #2ED573;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    box-shadow: 0 2px 6px rgba(46, 213, 115, 0.5);
+    animation: pulseBadge 0.8s ease-in-out infinite alternate;
+    z-index: 20;
+}
+
+@keyframes pulseBadge {
+    from { transform: scale(1); }
+    to   { transform: scale(1.25); }
+}
+
+/* -------- Sound Indicator on Preview -------- */
+.preview-speaking {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #2ED573, #1e90ff);
+    color: white;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 10px;
+    animation: pulseBadge 0.7s ease-in-out infinite alternate;
+}
+
+.preview-speaking.hidden {
+    display: none;
+}
+
+/* -------- Responsive -------- */
+@media (max-width: 700px) {
+    .alphabet-content {
+        padding: 14px;
+    }
+
+    .alphabet-preview {
+        flex-direction: column;
+        gap: 10px;
+        padding: 16px;
+    }
+
+    .preview-emoji {
+        font-size: 4rem;
+    }
+
+    .preview-letter {
+        font-size: 3rem;
+    }
+
+    .alphabet-grid {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .alphabet-main-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .alphabet-back-btn {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+
+    .alphabet-tab-btn {
+        font-size: 0.8rem;
+        padding: 7px 13px;
+    }
+
+    .alphabet-grid {
+        grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+        gap: 7px;
+    }
+
+    .card-letter {
+        font-size: 1.3rem;
+    }
+
+    .card-emoji {
+        font-size: 1.4rem;
+    }
+
+    .preview-emoji {
+        font-size: 3rem;
+    }
+
+    .preview-letter {
+        font-size: 2.2rem;
+    }
+}

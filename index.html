@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="animalLearning.css">
     <link rel="stylesheet" href="birdsLearning.css">
     <link rel="stylesheet" href="poemLearning.css">
+    <link rel="stylesheet" href="alphabetLearning.css">
     <link rel="stylesheet" href="fruitRecognition.css">
     <link rel="stylesheet" href="colorMood.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -241,6 +242,12 @@
                     <span class="level-emoji" style="font-size: 2.5em;">📖</span>
                     <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Poem Learning</span>
                     <span class="level-age" style="font-size: 0.9em;">English & Bangla Poems!</span>
+                </button>
+
+                <button id="alphabetLearningBtn" class="difficulty-btn" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%); width: 300px; height: auto; padding: 20px;">
+                    <span class="level-emoji" style="font-size: 2.5em;">🅰️</span>
+                    <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Alphabet Mode</span>
+                    <span class="level-age" style="font-size: 0.9em;">Bornomala — A to Z & অ to হ!</span>
                 </button>
             </div>
         </div>
@@ -942,6 +949,62 @@
         </div>
     </div>
 
+    <!-- Alphabet / Bornomala Learning Mode -->
+    <div id="alphabetLearningScreen" class="alphabet-learning-screen">
+
+        <!-- Header -->
+        <div class="alphabet-main-header">
+            <h1>🅰️ Alphabet Mode · বর্ণমালা</h1>
+            <p>Learn A–Z &amp; অ–হ — Click a letter to hear it!</p>
+        </div>
+
+        <!-- Tab Navigation (with Back button) -->
+        <div class="alphabet-tabs">
+            <button id="backToMainBtnAlphabet" class="alphabet-tab-btn alphabet-back-btn">⬅️ Back</button>
+            <button class="alphabet-tab-btn active-tab" data-tab="english">🔤 English A–Z</button>
+            <button class="alphabet-tab-btn" data-tab="vowels">🇧🇩 স্বরবর্ণ</button>
+            <button class="alphabet-tab-btn" data-tab="consonants">🇧🇩 ব্যঞ্জনবর্ণ</button>
+        </div>
+
+        <!-- Content: Preview + Grid -->
+        <div class="alphabet-content">
+
+            <!-- Left: Preview Panel -->
+            <div class="alphabet-preview">
+                <span id="previewEmoji" class="preview-emoji">🔤</span>
+                <div>
+                    <div id="previewLetter" class="preview-letter">?</div>
+                    <div id="previewWord"   class="preview-word">একটি অক্ষর বেছে নাও!</div>
+                    <div id="previewHint"   class="preview-hint">Pick a letter</div>
+                    <div id="previewSpeaking" class="preview-speaking hidden">🔊 Speaking...</div>
+                </div>
+            </div>
+
+            <!-- Right: Tab Panels with Grids -->
+            <div class="alphabet-grid-wrapper">
+
+                <!-- English A–Z -->
+                <div id="panel-english" class="alphabet-tab-panel active-panel">
+                    <h2>🔤 English Alphabets (A – Z)</h2>
+                    <div class="alphabet-grid"></div>
+                </div>
+
+                <!-- Bangla Vowels -->
+                <div id="panel-vowels" class="alphabet-tab-panel">
+                    <h2>🇧🇩 বাংলা স্বরবর্ণ (অ – ঔ)</h2>
+                    <div class="alphabet-grid"></div>
+                </div>
+
+                <!-- Bangla Consonants -->
+                <div id="panel-consonants" class="alphabet-tab-panel">
+                    <h2>🇧🇩 বাংলা ব্যঞ্জনবর্ণ (ক – হ)</h2>
+                    <div class="alphabet-grid"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="colorMood.js"></script>
     <script src="fruitData.js"></script>
@@ -949,6 +1012,7 @@
     <script src="animalData.js"></script>
     <script src="birdsData.js"></script>
     <script src="poemData.js"></script>
+    <script src="alphabetData.js"></script>
     <script src="questions.js"></script>
     <script src="tug3d.js"></script>
     <script src="script.js"></script>
@@ -961,5 +1025,6 @@
     <script src="animalRecognition.js"></script>
     <script src="birdRecognition.js"></script>
     <script src="poemLearning.js"></script>
+    <script src="alphabetLearning.js"></script>
 </body>
 </html>
