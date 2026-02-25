@@ -9,6 +9,8 @@ class VegetableLearning {
         this.currentQuizVegetable = null;
         this.currentOptions = [];
         this.speech = window.speechSynthesis;
+        this.activeCard = null; // Track currently active card
+        this.colorClasses = ['color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6']; // Bright color options
         
         // Pagination
         this.currentPage = 1;
@@ -177,6 +179,9 @@ class VegetableLearning {
         const vegetableGrid = document.getElementById('vegetableGrid');
         if (!vegetableGrid) return;
         
+        // Reset active card reference when rendering new page
+        this.activeCard = null;
+        
         // Calculate which vegetables to show
         const startIndex = (this.currentPage - 1) * this.vegetablesPerPage;
         const endIndex = startIndex + this.vegetablesPerPage;
@@ -295,6 +300,29 @@ class VegetableLearning {
     }
 
     handleVegetableClick(vegetable, cardElement) {
+        // Remove active state from previously selected card
+        if (this.activeCard && this.activeCard !== cardElement) {
+            this.activeCard.classList.remove('active');
+            // Remove all color classes
+            this.colorClasses.forEach(colorClass => {
+                this.activeCard.classList.remove(colorClass);
+            });
+        }
+        
+        // Toggle active state on clicked card
+        if (cardElement.classList.contains('active')) {
+            cardElement.classList.remove('active');
+            this.colorClasses.forEach(colorClass => {
+                cardElement.classList.remove(colorClass);
+            });
+            this.activeCard = null;
+        } else {
+            // Add active class with random bright color
+            const randomColor = this.colorClasses[Math.floor(Math.random() * this.colorClasses.length)];
+            cardElement.classList.add('active', randomColor);
+            this.activeCard = cardElement;
+        }
+        
         // Speak the vegetable name in both English and Bengali
         this.speakVegetableName(`${vegetable.name}, ${vegetable.bengaliName}`);
         

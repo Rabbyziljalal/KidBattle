@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="vegetableLearning.css">
     <link rel="stylesheet" href="animalLearning.css">
     <link rel="stylesheet" href="birdsLearning.css">
+    <link rel="stylesheet" href="poemLearning.css">
     <link rel="stylesheet" href="fruitRecognition.css">
     <link rel="stylesheet" href="colorMood.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -234,6 +235,12 @@
                     <span class="level-emoji" style="font-size: 2.5em;">🦅</span>
                     <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Birds Learning</span>
                     <span class="level-age" style="font-size: 0.9em;">Learn & Play with Birds!</span>
+                </button>
+                
+                <button id="poemLearningBtn" class="difficulty-btn" style="background: linear-gradient(135deg, #FF6B9D 0%, #C06C84 50%, #6C5B7B 100%); width: 300px; height: auto; padding: 20px;">
+                    <span class="level-emoji" style="font-size: 2.5em;">📖</span>
+                    <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Poem Learning</span>
+                    <span class="level-age" style="font-size: 0.9em;">English & Bangla Poems!</span>
                 </button>
             </div>
         </div>
@@ -898,12 +905,50 @@
         </div>
     </div>
 
+    <!-- Poem Learning Mode Section -->
+    <div id="poemLearningScreen" class="poem-learning-screen">
+        <!-- Main Header -->
+        <div class="poem-main-header">
+            <h1>📖 Poem Learning Mode 🌸</h1>
+            <p>Learn beautiful poems in English & Bangla!</p>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="poem-controls">
+            <button id="backToMainBtnPoem" class="poem-btn back-btn-poem">⬅️ Back to Menu</button>
+        </div>
+        
+        <!-- Two Column Container -->
+        <div class="poem-container">
+            <!-- Bangla Poems Section -->
+            <div class="poem-section bangla-section">
+                <div class="poem-section-header">
+                    <h2>🇧🇩 বাংলা কবিতা</h2>
+                </div>
+                <div id="banglaPoems" class="poem-cards-container">
+                    <!-- Bangla poems will be rendered here -->
+                </div>
+            </div>
+            
+            <!-- English Poems Section -->
+            <div class="poem-section english-section">
+                <div class="poem-section-header">
+                    <h2>🇬🇧 English Poems</h2>
+                </div>
+                <div id="englishPoems" class="poem-cards-container">
+                    <!-- English poems will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="colorMood.js"></script>
     <script src="fruitData.js"></script>
     <script src="vegetableData.js"></script>
     <script src="animalData.js"></script>
     <script src="birdsData.js"></script>
+    <script src="poemData.js"></script>
     <script src="questions.js"></script>
     <script src="tug3d.js"></script>
     <script src="script.js"></script>
@@ -915,5 +960,6 @@
     <script src="vegetableRecognition.js"></script>
     <script src="animalRecognition.js"></script>
     <script src="birdRecognition.js"></script>
+    <script src="poemLearning.js"></script>
 </body>
 </html>

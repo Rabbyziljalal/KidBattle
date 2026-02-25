@@ -1,0 +1,345 @@
+/* ===== Poem Learning Mode Styles ===== */
+
+.poem-learning-screen {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #E3F2FD 0%, #FFF9C4 50%, #F8BBD0 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.poem-learning-screen.active {
+    display: block;
+}
+
+/* Decorative Background Elements */
+.poem-learning-screen::before {
+    content: '🌸 🐦 ☁️ 🦋 🌺';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 2em;
+    opacity: 0.3;
+    animation: floatDecor 15s ease-in-out infinite;
+}
+
+.poem-learning-screen::after {
+    content: '☁️ 🌼 🐦 🌸 ☁️';
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 2em;
+    opacity: 0.3;
+    animation: floatDecor 15s ease-in-out infinite reverse;
+}
+
+@keyframes floatDecor {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(20px); }
+}
+
+/* Main Header */
+.poem-main-header {
+    text-align: center;
+    margin: 0 auto 30px auto;
+    max-width: 1200px;
+    background: linear-gradient(135deg, #FF6B9D 0%, #C06C84 50%, #6C5B7B 100%);
+    padding: 40px 30px;
+    border-radius: 30px;
+    color: white;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 -5px 20px rgba(255, 255, 255, 0.2);
+    animation: slideDown 0.6s ease-out;
+    border: 4px solid rgba(255, 255, 255, 0.4);
+    position: relative;
+    z-index: 10;
+}
+
+.poem-main-header h1 {
+    font-size: 3em;
+    margin: 0 0 15px 0;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+}
+
+.poem-main-header p {
+    font-size: 1.3em;
+    margin: 0;
+    opacity: 1;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Control Buttons */
+.poem-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.poem-btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+}
+
+.back-btn-poem {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.back-btn-poem:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+}
+
+/* Two Column Container */
+.poem-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* Section Headers */
+.poem-section {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.poem-section-header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 15px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #FF6B9D 0%, #C06C84 100%);
+    color: white;
+}
+
+.poem-section-header h2 {
+    margin: 0;
+    font-size: 2em;
+    font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.bangla-section .poem-section-header {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
+}
+
+.english-section .poem-section-header {
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+}
+
+/* Poem Cards */
+.poem-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.poem-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 5px solid #ddd;
+}
+
+.poem-card:hover {
+    transform: scale(1.03) translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.poem-card.active {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25), 0 0 30px rgba(255, 200, 0, 0.5);
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25), 0 0 30px rgba(255, 200, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25), 0 0 50px rgba(255, 200, 0, 0.8);
+    }
+}
+
+.poem-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.poem-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+    font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+}
+
+.poem-emoji {
+    font-size: 2em;
+}
+
+.poem-content {
+    margin: 15px 0;
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #555;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bangla-section .poem-content {
+    font-family: 'Noto Sans Bengali', 'SolaimanLipi', sans-serif;
+    font-size: 1.2em;
+}
+
+.poem-line {
+    margin: 8px 0;
+    padding-left: 10px;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.poem-line.reading {
+    border-left-color: #FFD700;
+    background: rgba(255, 215, 0, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+    transform: translateX(5px);
+}
+
+.poem-author {
+    font-size: 0.9em;
+    color: #888;
+    font-style: italic;
+    margin-top: 10px;
+    text-align: right;
+}
+
+/* Play Button */
+.play-poem-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.play-poem-btn:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.play-poem-btn:active {
+    transform: scale(0.95);
+}
+
+.play-poem-btn.playing {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .poem-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .poem-main-header h1 {
+        font-size: 2.2em;
+    }
+    
+    .poem-main-header p {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 600px) {
+    .poem-learning-screen {
+        padding: 20px 10px;
+    }
+    
+    .poem-main-header {
+        padding: 30px 20px;
+        margin-bottom: 20px;
+    }
+    
+    .poem-main-header h1 {
+        font-size: 1.8em;
+    }
+    
+    .poem-section {
+        padding: 20px;
+    }
+    
+    .poem-card {
+        padding: 20px;
+    }
+    
+    .poem-title {
+        font-size: 1.2em;
+    }
+    
+    .poem-content {
+        font-size: 1em;
+    }
+    
+    .play-poem-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2em;
+    }
+}

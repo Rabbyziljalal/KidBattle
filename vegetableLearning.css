@@ -345,6 +345,38 @@
     animation: cardFadeIn 0.5s ease forwards;
 }
 
+/* Active/Selected State with Bright Colors */
+.vegetable-card.active {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(86, 171, 47, 0.4), 0 0 20px rgba(168, 224, 99, 0.6);
+    border-radius: 22px;
+}
+
+/* Color variations for active cards */
+.vegetable-card.active.color-1 {
+    background: linear-gradient(135deg, #FFE66D 0%, #FFD93D 100%);
+}
+
+.vegetable-card.active.color-2 {
+    background: linear-gradient(135deg, #A8E6CF 0%, #7DE86D 100%);
+}
+
+.vegetable-card.active.color-3 {
+    background: linear-gradient(135deg, #FFB3BA 0%, #FF8FA3 100%);
+}
+
+.vegetable-card.active.color-4 {
+    background: linear-gradient(135deg, #B4E7FF 0%, #95D7FF 100%);
+}
+
+.vegetable-card.active.color-5 {
+    background: linear-gradient(135deg, #FFC8DD 0%, #FFAFCC 100%);
+}
+
+.vegetable-card.active.color-6 {
+    background: linear-gradient(135deg, #FFDAB9 0%, #FFC090 100%);
+}
+
 @keyframes cardFadeIn {
     from {
         opacity: 0;
