@@ -92,6 +92,8 @@ class AnimalLearning {
         const gameScreen = document.getElementById('gameScreen');
         const fruitScreen = document.getElementById('fruitLearningScreen');
         const vegetableScreen = document.getElementById('vegetableLearningScreen');
+        const mainHeader = document.querySelector('.header');
+        const mainContainer = document.querySelector('.container');
         
         if (difficultyScreen) {
             difficultyScreen.classList.add('hidden');
@@ -109,6 +111,14 @@ class AnimalLearning {
             vegetableScreen.classList.remove('active');
         }
         
+        // Hide main header and container
+        if (mainHeader) {
+            mainHeader.style.display = 'none';
+        }
+        if (mainContainer) {
+            mainContainer.style.display = 'none';
+        }
+        
         // Show animal learning screen
         this.animalScreen.classList.add('active');
         
@@ -119,6 +129,16 @@ class AnimalLearning {
     backToMain() {
         // Hide animal learning screen
         this.animalScreen.classList.remove('active');
+        
+        // Show main header and container
+        const mainHeader = document.querySelector('.header');
+        const mainContainer = document.querySelector('.container');
+        if (mainHeader) {
+            mainHeader.style.display = 'block';
+        }
+        if (mainContainer) {
+            mainContainer.style.display = 'block';
+        }
         
         // Show difficulty screen
         const difficultyScreen = document.getElementById('difficultyScreen');

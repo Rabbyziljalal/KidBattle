@@ -4,10 +4,11 @@
 .vegetable-learning-screen {
     display: none;
     width: 100%;
-    max-width: 1400px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
     animation: fadeIn 0.5s ease-in-out;
+    box-sizing: border-box;
 }
 
 .vegetable-learning-screen.active {
@@ -17,7 +18,8 @@
 /* Main Header at Top */
 .vegetable-main-header {
     text-align: center;
-    margin-bottom: 25px;
+    margin: 0 auto 25px auto;
+    max-width: 1200px;
     background: linear-gradient(135deg, #56ab2f 0%, #a8e063 50%, #7de86d 100%);
     padding: 45px 35px;
     border-radius: 30px;
@@ -27,6 +29,7 @@
     border: 4px solid rgba(255, 255, 255, 0.4);
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .vegetable-main-header::before {
@@ -110,9 +113,12 @@
 .vegetable-controls {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 20px;
-    margin-bottom: 30px;
+    margin: 0 auto 30px auto;
+    max-width: 1200px;
     flex-wrap: wrap;
+    box-sizing: border-box;
 }
 
 .vegetable-btn {
@@ -155,6 +161,10 @@
 .vegetable-grid-container {
     display: block;
     position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .vegetable-grid-container.hidden {
@@ -176,12 +186,15 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 30px;
     padding: 40px;
+    margin: 0 auto;
+    max-width: 1400px;
     background: white;
     border-radius: 25px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     transform-style: preserve-3d;
     transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     margin-bottom: 30px;
+    box-sizing: border-box;
 }
 
 /* Page Turning Animations */
@@ -226,13 +239,16 @@
 /* Page Navigation */
 .page-navigation-veg {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 20px;
     padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
     background: linear-gradient(135deg, #f5fff5 0%, #ffffff 100%);
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 .page-btn-veg {
@@ -395,11 +411,13 @@
 .vegetable-quiz-container {
     display: none;
     max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     padding: 40px;
     background: white;
     border-radius: 25px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 }
 
 .vegetable-quiz-container.active {
@@ -595,6 +613,14 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .vegetable-learning-screen {
+        padding: 15px;
+    }
+    
+    .vegetable-main-header {
+        padding: 30px 20px;
+    }
+    
     .vegetable-main-header h1 {
         font-size: 2.5em;
     }
@@ -606,10 +632,12 @@
     .vegetable-controls {
         flex-direction: column;
         gap: 15px;
+        padding: 0 10px;
     }
     
     .vegetable-btn {
         width: 100%;
+        max-width: 400px;
     }
     
     .vegetable-grid {
@@ -654,14 +682,34 @@
 }
 
 @media (max-width: 480px) {
+    .vegetable-learning-screen {
+        padding: 10px;
+    }
+    
+    .vegetable-main-header {
+        padding: 25px 15px;
+    }
+    
+    .vegetable-main-header h1 {
+        font-size: 2em;
+    }
+    
     .vegetable-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
         padding: 15px;
     }
     
+    .vegetable-name-bengali {
+        font-size: 0.95em;
+    }
+    
     .page-btn-veg {
         padding: 12px 20px;
         font-size: 1em;
+    }
+    
+    .page-navigation-veg {
+        padding: 15px;
     }
 }

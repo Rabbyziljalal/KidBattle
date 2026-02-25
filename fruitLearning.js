@@ -90,6 +90,8 @@ class FruitLearning {
         // Hide difficulty screen and game screen
         const difficultyScreen = document.getElementById('difficultyScreen');
         const gameScreen = document.getElementById('gameScreen');
+        const mainHeader = document.querySelector('.header');
+        const mainContainer = document.querySelector('.container');
         
         if (difficultyScreen) {
             difficultyScreen.classList.add('hidden');
@@ -97,6 +99,14 @@ class FruitLearning {
         
         if (gameScreen) {
             gameScreen.style.display = 'none';
+        }
+        
+        // Hide main header and container
+        if (mainHeader) {
+            mainHeader.style.display = 'none';
+        }
+        if (mainContainer) {
+            mainContainer.style.display = 'none';
         }
         
         // Show fruit learning screen
@@ -109,6 +119,16 @@ class FruitLearning {
     backToMain() {
         // Hide fruit learning screen
         this.fruitScreen.classList.remove('active');
+        
+        // Show main header and container
+        const mainHeader = document.querySelector('.header');
+        const mainContainer = document.querySelector('.container');
+        if (mainHeader) {
+            mainHeader.style.display = 'block';
+        }
+        if (mainContainer) {
+            mainContainer.style.display = 'block';
+        }
         
         // Show difficulty screen
         const difficultyScreen = document.getElementById('difficultyScreen');

@@ -93,6 +93,8 @@ class BirdsLearning {
         const fruitScreen = document.getElementById('fruitLearningScreen');
         const vegetableScreen = document.getElementById('vegetableLearningScreen');
         const animalScreen = document.getElementById('animalLearningScreen');
+        const mainHeader = document.querySelector('.header');
+        const mainContainer = document.querySelector('.container');
         
         if (difficultyScreen) {
             difficultyScreen.classList.add('hidden');
@@ -114,6 +116,14 @@ class BirdsLearning {
             animalScreen.classList.remove('active');
         }
         
+        // Hide main header and container
+        if (mainHeader) {
+            mainHeader.style.display = 'none';
+        }
+        if (mainContainer) {
+            mainContainer.style.display = 'none';
+        }
+        
         // Show bird learning screen
         if (this.birdScreen) {
             this.birdScreen.classList.add('active');
@@ -127,6 +137,16 @@ class BirdsLearning {
         // Hide bird learning screen
         if (this.birdScreen) {
             this.birdScreen.classList.remove('active');
+        }
+        
+        // Show main header and container
+        const mainHeader = document.querySelector('.header');
+        const mainContainer = document.querySelector('.container');
+        if (mainHeader) {
+            mainHeader.style.display = 'block';
+        }
+        if (mainContainer) {
+            mainContainer.style.display = 'block';
         }
         
         // Show difficulty screen
