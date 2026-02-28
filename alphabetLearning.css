@@ -234,6 +234,14 @@
     justify-content: center;
 }
 
+/* -------- Multiplication Tables Grid -------- */
+.multiplication-tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 14px;
+    justify-content: center;
+}
+
 /* -------- Letter Cards -------- */
 .letter-card {
     background: white;
@@ -310,6 +318,20 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* -------- Number Cards (no emoji) -------- */
+.number-card .card-emoji {
+    display: none;
+}
+
+.number-card .card-letter {
+    font-size: 2rem;
+    margin: 8px 0;
+}
+
+.number-card .card-word {
+    font-size: 0.7rem;
 }
 
 /* -------- Tab Panels Visibility -------- */

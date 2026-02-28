@@ -964,6 +964,11 @@
             <button class="alphabet-tab-btn active-tab" data-tab="english">🔤 English A–Z</button>
             <button class="alphabet-tab-btn" data-tab="vowels">🇧🇩 স্বরবর্ণ</button>
             <button class="alphabet-tab-btn" data-tab="consonants">🇧🇩 ব্যঞ্জনবর্ণ</button>
+            <button class="alphabet-tab-btn" data-tab="eng-numbers">🔢 Numbers 1-100</button>
+            <button class="alphabet-tab-btn" data-tab="bangla-numbers">🔢 সংখ্যা ১-১০০</button>
+            <button class="alphabet-tab-btn" data-tab="multiplication">✖️ Times Tables</button>
+            <button class="alphabet-tab-btn" data-tab="even">2️⃣ Even Numbers</button>
+            <button class="alphabet-tab-btn" data-tab="odd">1️⃣ Odd Numbers</button>
         </div>
 
         <!-- Content: Preview + Grid -->
@@ -998,6 +1003,41 @@
                 <!-- Bangla Consonants -->
                 <div id="panel-consonants" class="alphabet-tab-panel">
                     <h2>🇧🇩 বাংলা ব্যঞ্জনবর্ণ (ক – হ)</h2>
+                    <div class="alphabet-grid"></div>
+                </div>
+
+                <!-- English Numbers 1-100 -->
+                <div id="panel-eng-numbers" class="alphabet-tab-panel">
+                    <h2>🔢 English Numbers (1 – 100)</h2>
+                    <div class="alphabet-grid"></div>
+                </div>
+
+                <!-- Bangla Numbers 1-100 -->
+                <div id="panel-bangla-numbers" class="alphabet-tab-panel">
+                    <h2>🔢 বাংলা সংখ্যা (১ – ১০০)</h2>
+                    <div class="alphabet-grid"></div>
+                </div>
+
+                <!-- Multiplication Tables -->
+                <div id="panel-multiplication" class="alphabet-tab-panel">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 14px;">
+                        <h2 style="margin: 0;">✖️ Multiplication Tables (1 – 20)</h2>
+                        <button id="speakerToggleBtn" style="font-size: 24px; border: none; background: transparent; cursor: pointer; padding: 5px 10px;" title="Turn Sound Off">
+                            🔊
+                        </button>
+                    </div>
+                    <div class="multiplication-tables-grid"></div>
+                </div>
+
+                <!-- Even Numbers -->
+                <div id="panel-even" class="alphabet-tab-panel">
+                    <h2>2️⃣ Even Numbers (2, 4, 6... 100)</h2>
+                    <div class="alphabet-grid"></div>
+                </div>
+
+                <!-- Odd Numbers -->
+                <div id="panel-odd" class="alphabet-tab-panel">
+                    <h2>1️⃣ Odd Numbers (1, 3, 5... 99)</h2>
                     <div class="alphabet-grid"></div>
                 </div>
 

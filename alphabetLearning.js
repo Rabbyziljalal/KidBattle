@@ -8,6 +8,8 @@ class AlphabetLearning {
         this.voices        = [];
         this.engVoice      = null;
         this.banglaVoice   = null;
+        this.speakerEnabled = true; // Speaker default ON for Times Tables
+        this.pendingTimeouts = []; // Track setTimeout IDs for clearing
 
         // Load voices (async in most browsers)
         this._loadVoices();
@@ -55,6 +57,7 @@ class AlphabetLearning {
 
     backToMain() {
         this.speech.cancel();
+        this._clearPendingTimeouts();
         this.activeCard = null;
 
         // Hide alphabet screen
@@ -70,6 +73,27 @@ class AlphabetLearning {
         // Show difficulty screen
         const difficultyScreen = document.getElementById('difficultyScreen');
         if (difficultyScreen) difficultyScreen.classList.remove('hidden');
+    }
+
+    // ── Speaker Toggle (Times Tables) ────────────────────────
+    toggleSpeaker() {
+        this.speakerEnabled = !this.speakerEnabled;
+        const btn = document.getElementById('speakerToggleBtn');
+        if (btn) {
+            btn.textContent = this.speakerEnabled ? '🔊' : '🔇';
+            btn.title = this.speakerEnabled ? 'Turn Sound Off' : 'Turn Sound On';
+        }
+        // Immediately cancel any ongoing speech and pending timeouts when turning off
+        if (!this.speakerEnabled) {
+            this.speech.cancel();
+            this._clearPendingTimeouts();
+        }
+    }
+
+    // ── Clear Pending Speech Timeouts ────────────────────────
+    _clearPendingTimeouts() {
+        this.pendingTimeouts.forEach(id => clearTimeout(id));
+        this.pendingTimeouts = [];
     }
 
     // ── Tab Switching ────────────────────────────────────────
@@ -89,14 +113,20 @@ class AlphabetLearning {
         // Reset preview
         this._resetPreview();
         this.speech.cancel();
+        this._clearPendingTimeouts();
         this.activeCard = null;
     }
 
     // ── Render All Tabs ──────────────────────────────────────
     _renderAll() {
-        this._renderGrid('panel-english',     englishAlphabet,  'english');
-        this._renderGrid('panel-vowels',      banglaVowels,     'bangla');
-        this._renderGrid('panel-consonants',  banglaConsonants, 'bangla');
+        this._renderGrid('panel-english',        englishAlphabet,     'english');
+        this._renderGrid('panel-vowels',         banglaVowels,        'bangla');
+        this._renderGrid('panel-consonants',     banglaConsonants,    'bangla');
+        this._renderNumberGrid('panel-eng-numbers',    englishNumbers,      'english');
+        this._renderNumberGrid('panel-bangla-numbers', banglaNumbers,       'bangla');
+        this._renderMultiplicationTables('panel-multiplication', multiplicationTables);
+        this._renderNumberGrid('panel-even',           evenNumbers,         'english');
+        this._renderNumberGrid('panel-odd',            oddNumbers,          'english');
     }
 
     _renderGrid(panelId, dataArray, lang) {
@@ -125,7 +155,174 @@ class AlphabetLearning {
         });
     }
 
+    _renderNumberGrid(panelId, dataArray, lang) {
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+
+        const grid = panel.querySelector('.alphabet-grid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+
+        dataArray.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'letter-card number-card';
+            card.style.borderColor = item.color;
+            card.style.background  = `${item.color}18`; // 10% tint
+
+            // Simple number display without emoji
+            card.innerHTML = `
+                <span class="card-letter" style="color:${item.color}; font-size: 1.8rem;">${item.letter}</span>
+                <span class="card-word" style="font-size: 0.7rem;">${item.word}</span>
+            `;
+
+            card.addEventListener('click', () => this._handleClick(card, item, lang));
+            grid.appendChild(card);
+        });
+    }
+
+    _renderMultiplicationTables(panelId, dataArray) {
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+
+        const grid = panel.querySelector('.multiplication-tables-grid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+        grid.style.display = 'grid';
+        grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(120px, 1fr))';
+        grid.style.gap = '14px';
+
+        dataArray.forEach(table => {
+            const card = document.createElement('div');
+            card.className = 'letter-card';
+            card.style.borderColor = table.color;
+            card.style.background = `${table.color}18`;
+
+            card.innerHTML = `
+                <span class="card-emoji">${table.emoji}</span>
+                <span class="card-letter" style="color:${table.color}">${table.letter}</span>
+                <span class="card-word">${table.word}</span>
+            `;
+
+            card.addEventListener('click', () => this._handleTableClick(card, table));
+            grid.appendChild(card);
+        });
+    }
+
+    _handleTableClick(card, table) {
+        // De-activate previous card
+        if (this.activeCard && this.activeCard !== card) {
+            this.activeCard.classList.remove('active-card');
+            const badge = this.activeCard.querySelector('.playing-badge');
+            if (badge) badge.remove();
+        }
+
+        // Toggle
+        if (this.activeCard === card) {
+            this.speech.cancel();
+            this._clearPendingTimeouts();
+            card.classList.remove('active-card');
+            const badge = card.querySelector('.playing-badge');
+            if (badge) badge.remove();
+            this.activeCard = null;
+            this._resetPreview();
+            return;
+        }
+
+        this.activeCard = card;
+        card.classList.add('active-card', 'bounce');
+        card.addEventListener('animationend', () => card.classList.remove('bounce'), { once: true });
+
+        // Add playing badge
+        const oldBadge = card.querySelector('.playing-badge');
+        if (!oldBadge) {
+            const badge = document.createElement('span');
+            badge.className = 'playing-badge';
+            badge.textContent = '♪';
+            card.appendChild(badge);
+        }
+
+        // Update preview with table content
+        const emojiEl = document.getElementById('previewEmoji');
+        const letterEl = document.getElementById('previewLetter');
+        const wordEl = document.getElementById('previewWord');
+        const hintEl = document.getElementById('previewHint');
+        const speakEl = document.getElementById('previewSpeaking');
+
+        if (emojiEl) {
+            emojiEl.textContent = table.emoji;
+            emojiEl.classList.remove('pop');
+            void emojiEl.offsetWidth;
+            emojiEl.classList.add('pop');
+        }
+        if (letterEl) {
+            letterEl.textContent = table.letter;
+            letterEl.style.background = `linear-gradient(135deg, ${table.color}, #764BA2)`;
+            letterEl.style.webkitBackgroundClip = 'text';
+            letterEl.style.webkitTextFillColor = 'transparent';
+            letterEl.style.backgroundClip = 'text';
+        }
+        if (wordEl) {
+            // Display all rows
+            wordEl.innerHTML = table.rows.map(r => `<div style="font-size: 0.85rem; margin: 2px 0;">${r.equation}</div>`).join('');
+        }
+        if (hintEl) hintEl.textContent = table.speech;
+        if (speakEl) speakEl.classList.remove('hidden');
+
+        // Speak the table
+        this._speakTable(table);
+    }
+
+    _speakTable(table) {
+        this.speech.cancel();
+        this._clearPendingTimeouts(); // Clear any pending speech timeouts
+        
+        // Don't speak if speaker is disabled
+        if (!this.speakerEnabled) {
+            return;
+        }
+        
+        // Speak header first
+        const headerUtter = new SpeechSynthesisUtterance(`Table of ${table.letter}`);
+        headerUtter.rate = 0.85;
+        headerUtter.pitch = 1.1;
+        if (this.engVoice) headerUtter.voice = this.engVoice;
+        
+        this.speech.speak(headerUtter);
+
+        // Then speak each row with delay
+        table.rows.forEach((row, idx) => {
+            const timeoutId = setTimeout(() => {
+                // Check speaker state before speaking (in case it was turned off during delay)
+                if (!this.speakerEnabled) return;
+                
+                const utter = new SpeechSynthesisUtterance(row.speech);
+                utter.rate = 0.85;
+                utter.pitch = 1.1;
+                if (this.engVoice) utter.voice = this.engVoice;
+                
+                if (idx === table.rows.length - 1) {
+                    utter.onend = () => {
+                        if (this.activeCard) {
+                            const badge = this.activeCard.querySelector('.playing-badge');
+                            if (badge) badge.remove();
+                        }
+                        const speakEl = document.getElementById('previewSpeaking');
+                        if (speakEl) speakEl.classList.add('hidden');
+                    };
+                }
+                
+                this.speech.speak(utter);
+            }, idx * 1200); // 1.2 second delay between rows
+            
+            // Store timeout ID so we can clear it if needed
+            this.pendingTimeouts.push(timeoutId);
+        });
+    }
+
     // ── Click Handler ────────────────────────────────────────
+
     _handleClick(card, item, lang) {
         // De-activate previous card
         if (this.activeCard && this.activeCard !== card) {
@@ -137,6 +334,7 @@ class AlphabetLearning {
         // Toggle: if same card clicked again, stop
         if (this.activeCard === card) {
             this.speech.cancel();
+            this._clearPendingTimeouts();
             card.classList.remove('active-card');
             const badge = card.querySelector('.playing-badge');
             if (badge) badge.remove();
@@ -173,11 +371,19 @@ class AlphabetLearning {
         const hintEl   = document.getElementById('previewHint');
         const speakEl  = document.getElementById('previewSpeaking');
 
+        // Hide emoji for number sections
+        const isNumber = item.emoji === "🔢" || item.emoji === "2️⃣" || item.emoji === "1️⃣";
+        
         if (emojiEl) {
-            emojiEl.textContent = item.emoji;
-            emojiEl.classList.remove('pop');
-            void emojiEl.offsetWidth; // reflow
-            emojiEl.classList.add('pop');
+            if (isNumber) {
+                emojiEl.style.display = 'none';
+            } else {
+                emojiEl.style.display = 'block';
+                emojiEl.textContent = item.emoji;
+                emojiEl.classList.remove('pop');
+                void emojiEl.offsetWidth; // reflow
+                emojiEl.classList.add('pop');
+            }
         }
         if (letterEl) {
             letterEl.textContent = item.letter;
@@ -198,7 +404,10 @@ class AlphabetLearning {
         const hintEl   = document.getElementById('previewHint');
         const speakEl  = document.getElementById('previewSpeaking');
 
-        if (emojiEl)  emojiEl.textContent  = '🔤';
+        if (emojiEl) {
+            emojiEl.style.display = 'block';
+            emojiEl.textContent = '🔤';
+        }
         if (letterEl) {
             letterEl.textContent = '?';
             letterEl.style.background = '';
@@ -273,4 +482,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.alphabet-tab-btn').forEach(btn => {
         btn.addEventListener('click', () => alphabetLearning._switchTab(btn.dataset.tab));
     });
+
+    // Speaker toggle button (Times Tables)
+    const speakerBtn = document.getElementById('speakerToggleBtn');
+    if (speakerBtn) {
+        speakerBtn.addEventListener('click', () => alphabetLearning.toggleSpeaker());
+    }
 });
