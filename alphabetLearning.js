@@ -70,6 +70,16 @@ class AlphabetLearning {
         if (mainHeader) mainHeader.style.display = 'block';
         if (mainContainer) mainContainer.style.display = 'block';
 
+        // Hide team game screen explicitly
+        const teamGameScreen = document.getElementById('gameScreen');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        if (teamGameScreen) {
+            teamGameScreen.classList.add('hidden');
+        }
+        if (gameOverScreen) {
+            gameOverScreen.classList.add('hidden');
+        }
+
         // Show difficulty screen
         const difficultyScreen = document.getElementById('difficultyScreen');
         if (difficultyScreen) difficultyScreen.classList.remove('hidden');

@@ -1,0 +1,717 @@
+/* ===== Missing Part Game - Drag & Drop Spelling Game ===== */
+
+/* Main Screen */
+.missing-part-game-screen {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    font-family: 'Fredoka', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.missing-part-game-screen.active {
+    display: block;
+}
+
+/* Animated Background Pattern */
+.missing-part-game-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Header */
+.missing-game-header {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    animation: slideDown 0.6s ease-out;
+}
+
+.missing-game-header h1 {
+    font-size: 2.5em;
+    margin: 0 0 10px 0;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.missing-game-header p {
+    font-size: 1.2em;
+    opacity: 0.95;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Control Buttons */
+.missing-game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.missing-btn {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Fredoka', sans-serif;
+}
+
+.back-btn-missing {
+    background: linear-gradient(135deg, #868F96 0%, #596164 100%);
+    color: white;
+}
+
+.speaker-btn-missing {
+    background: linear-gradient(135deg, #FFD93D 0%, #FF9A3D 100%);
+    color: white;
+    font-size: 1.5em;
+    padding: 10px 20px;
+}
+
+.new-question-btn {
+    background: linear-gradient(135deg, #6BCF7F 0%, #4ECDC4 100%);
+    color: white;
+}
+
+.missing-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.missing-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Game Stats */
+.game-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.score-display-missing, .lives-display, .level-display {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 24px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: popIn 0.5s ease-out;
+}
+
+.stat-label {
+    font-size: 1em;
+    font-weight: 600;
+    color: #333;
+    margin-right: 5px;
+}
+
+.stat-value {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #667eea;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Cartoon Face */
+.cartoon-face {
+    font-size: 6em;
+    text-align: center;
+    margin: 20px 0;
+    animation: bounce 1s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.cartoon-face.happy {
+    animation: celebrate 0.5s ease-in-out;
+}
+
+.cartoon-face.sad {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes celebrate {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.3) rotate(-10deg);
+    }
+    75% {
+        transform: scale(1.3) rotate(10deg);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+/* Letter Pool Container */
+.letter-pool-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 20px;
+    margin: 0 auto 30px;
+    max-width: 800px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.6s ease-out;
+}
+
+.letter-pool-container h3 {
+    text-align: center;
+    color: #667eea;
+    margin: 0 0 15px 0;
+    font-size: 1.5em;
+}
+
+.letter-pool {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    min-height: 80px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Letter Tiles (Draggable) */
+.letter-tile {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #FFD93D 0%, #FF9A3D 100%);
+    border: 3px solid white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+    font-weight: 700;
+    color: white;
+    cursor: grab;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    user-select: none;
+}
+
+.letter-tile:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.letter-tile.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+    transform: rotate(10deg);
+}
+
+.letter-tile.used {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Picture and Word Container - Side by Side Layout */
+.picture-word-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin: 0 auto 25px;
+    max-width: 1200px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+/* Object Picture Box */
+.object-picture-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: slideInLeft 0.7s ease-out;
+}
+
+.object-picture {
+    font-size: 12em;
+    width: 280px;
+    height: 280px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+    border: 5px solid white;
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+.object-picture.bounce-animation {
+    animation: celebrateBounce 0.6s ease-in-out 3;
+}
+
+.object-picture.shake-animation {
+    animation: shakePicture 0.5s ease-in-out 2;
+}
+
+.picture-label {
+    margin-top: 15px;
+    font-size: 1.3em;
+    font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #FF6B9D 0%, #FFD93D 100%);
+    padding: 10px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes celebrateBounce {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.2) rotate(5deg);
+    }
+    50% {
+        transform: scale(1.15) rotate(-5deg);
+    }
+    75% {
+        transform: scale(1.2) rotate(3deg);
+    }
+}
+
+@keyframes shakePicture {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(-10px) rotate(-5deg);
+    }
+    50% {
+        transform: translateX(10px) rotate(5deg);
+    }
+    75% {
+        transform: translateX(-10px) rotate(-3deg);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Word Display Container */
+.word-display-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    animation: slideInRight 0.7s ease-out;
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+}
+
+.word-display-container h3 {
+    text-align: center;
+    color: #667eea;
+    margin: 0 0 20px 0;
+    font-size: 1.5em;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.word-display {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+/* Letter Boxes (Drop Zones) */
+.letter-box {
+    width: 80px;
+    height: 80px;
+    border: 4px dashed #667eea;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8em;
+    font-weight: 700;
+    background: white;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.letter-box.filled {
+    background: linear-gradient(135deg, #6BCF7F 0%, #4ECDC4 100%);
+    border: 4px solid #4ECDC4;
+    color: white;
+    animation: fillPop 0.4s ease-out;
+}
+
+.letter-box.visible-letter {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: 4px solid #667eea;
+}
+
+.letter-box.drop-over {
+    background: rgba(108, 207, 127, 0.2);
+    border-color: #6BCF7F;
+    transform: scale(1.05);
+}
+
+@keyframes fillPop {
+    0% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Word Hint */
+.word-hint {
+    text-align: center;
+    color: #667eea;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.word-hint:hover {
+    color: #FF9A3D;
+    transform: scale(1.05);
+}
+
+/* Check Answer Button */
+.check-answer-btn {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 15px 40px;
+    font-size: 1.4em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 25px rgba(255, 107, 107, 0.4);
+    transition: all 0.3s ease;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.check-answer-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 35px rgba(255, 107, 107, 0.5);
+}
+
+.check-answer-btn:active {
+    transform: translateY(-2px);
+}
+
+.check-answer-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Feedback Message */
+.feedback-message {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 700;
+    padding: 15px;
+    border-radius: 20px;
+    margin: 0 auto;
+    max-width: 600px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.feedback-message.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.feedback-message.correct {
+    background: linear-gradient(135deg, #6BCF7F 0%, #4ECDC4 100%);
+    color: white;
+    animation: correctPulse 0.6s ease-out;
+}
+
+.feedback-message.wrong {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    color: white;
+    animation: wrongShake 0.6s ease-out;
+}
+
+@keyframes correctPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes wrongShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-15px);
+    }
+    75% {
+        transform: translateX(15px);
+    }
+}
+
+/* Celebration Confetti */
+.celebration-confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.celebration-confetti.hidden {
+    display: none;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #f0f;
+    top: -10px;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Correct Answer Glow Effect */
+.letter-box.correct-glow {
+    animation: glowPulse 1s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(108, 207, 127, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(108, 207, 127, 1);
+    }
+}
+
+/* Wrong Answer Highlight */
+.letter-box.wrong-highlight {
+    animation: wrongFlash 0.5s ease-out;
+}
+
+@keyframes wrongFlash {
+    0%, 100% {
+        background: white;
+    }
+    50% {
+        background: rgba(255, 107, 107, 0.5);
+        border-color: #FF6B6B;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .missing-game-header h1 {
+        font-size: 1.8em;
+    }
+
+    .picture-word-container {
+        flex-direction: column;
+        gap: 25px;
+        padding: 15px;
+    }
+
+    .object-picture {
+        font-size: 8em;
+        width: 200px;
+        height: 200px;
+    }
+
+    .picture-label {
+        font-size: 1.1em;
+        padding: 8px 16px;
+    }
+
+    .word-display-container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .letter-tile {
+        width: 60px;
+        height: 60px;
+        font-size: 2em;
+    }
+
+    .letter-box {
+        width: 65px;
+        height: 65px;
+        font-size: 2.2em;
+    }
+
+    .game-stats {
+        gap: 15px;
+    }
+
+    .cartoon-face {
+        font-size: 4em;
+    }
+
+    .check-answer-btn {
+        font-size: 1.2em;
+        padding: 12px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .object-picture {
+        font-size: 6em;
+        width: 150px;
+        height: 150px;
+    }
+
+    .picture-label {
+        font-size: 1em;
+        padding: 6px 12px;
+    }
+
+    .letter-tile {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8em;
+    }
+
+    .letter-box {
+        width: 55px;
+        height: 55px;
+        font-size: 1.8em;
+    }
+
+    .missing-game-header h1 {
+        font-size: 1.5em;
+    }
+
+    .cartoon-face {
+        font-size: 3em;
+    }
+}

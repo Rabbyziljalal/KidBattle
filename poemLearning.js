@@ -103,6 +103,16 @@ class PoemLearning {
             mainContainer.style.display = 'block';
         }
         
+        // Hide team game screen explicitly
+        const teamGameScreen = document.getElementById('gameScreen');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        if (teamGameScreen) {
+            teamGameScreen.classList.add('hidden');
+        }
+        if (gameOverScreen) {
+            gameOverScreen.classList.add('hidden');
+        }
+        
         // Show difficulty screen
         const difficultyScreen = document.getElementById('difficultyScreen');
         if (difficultyScreen) {
