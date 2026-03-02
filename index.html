@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="fruitRecognition.css">
     <link rel="stylesheet" href="colorMood.css">
     <link rel="stylesheet" href="missingPartGame.css">
+    <link rel="stylesheet" href="landingPage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
@@ -26,8 +27,50 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0"></script>
 </head>
 <body data-theme="rainbow-dream">
+    <!-- Landing Page -->
+    <div id="landingPage" class="landing-page active">
+        <div class="landing-content">
+            <div class="landing-text">
+                <h1 class="landing-title">Play, Learn & Grow</h1>
+                <p class="landing-subtitle">Perfect for kids 2-8</p>
+                <button id="startLearningBtn" class="start-learning-btn">
+                    <span class="btn-icon">🚀</span>
+                    <span class="btn-text">Start Learning</span>
+                </button>
+            </div>
+            
+            <div class="landing-visual">
+                <div class="device-mockup">
+                    <div class="device-screen">
+                        <div class="screen-content">
+                            <div class="demo-item">🍎</div>
+                            <div class="demo-item">A</div>
+                            <div class="demo-item">9</div>
+                            <div class="demo-item">🐘</div>
+                            <div class="demo-item">B</div>
+                            <div class="demo-item">7</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Animated Characters -->
+                <div class="character character-bird">🦜</div>
+                <div class="character character-fox">🦊</div>
+                <div class="character character-bear">🐻</div>
+            </div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+            <span class="float-item" style="left: 10%; top: 15%; animation-delay: 0s;">⭐</span>
+            <span class="float-item" style="left: 85%; top: 25%; animation-delay: 1s;">✨</span>
+            <span class="float-item" style="left: 15%; top: 75%; animation-delay: 2s;">🌟</span>
+            <span class="float-item" style="left: 90%; top: 65%; animation-delay: 1.5s;">💫</span>
+        </div>
+    </div>
+
     <!-- Color Mood Selector (Fixed Position - Always Visible) -->
-    <button id="colorMoodToggle" class="color-mood-toggle" title="Change Colors" style="display: flex !important;">
+    <button id="colorMoodToggle" class="color-mood-toggle" title="Change Colors" style="display: none;">
         🎨
     </button>
     
@@ -169,7 +212,7 @@
     </div>
 
     <!-- Main Container -->
-    <div class="container">
+    <div class="container" style="display: none;">
         <!-- Header Section -->
         <header class="header">
             <h1 class="game-title">🎮 Brain Tug - Kid Battle 🎮</h1>
@@ -1143,5 +1186,50 @@
     <script src="poemLearning.js"></script>
     <script src="alphabetLearning.js"></script>
     <script src="missingPartGame.js"></script>
+    
+    <!-- Landing Page Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const landingPage = document.getElementById('landingPage');
+            const startBtn = document.getElementById('startLearningBtn');
+            const container = document.querySelector('.container');
+            const header = document.querySelector('.header');
+            const colorMoodToggle = document.getElementById('colorMoodToggle');
+            const difficultyScreen = document.getElementById('difficultyScreen');
+            
+            if (startBtn) {
+                startBtn.addEventListener('click', function() {
+                    // Add fade out animation
+                    landingPage.style.transition = 'opacity 0.5s ease-out';
+                    landingPage.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        // Hide landing page
+                        landingPage.classList.remove('active');
+                        landingPage.style.display = 'none';
+                        
+                        // Show main app
+                        container.style.display = 'block';
+                        if (header) header.style.display = 'block';
+                        
+                        // Show color mood toggle
+                        if (colorMoodToggle) colorMoodToggle.style.display = 'flex';
+                        
+                        // Show difficulty/main screen
+                        if (difficultyScreen) {
+                            difficultyScreen.classList.remove('hidden');
+                        }
+                        
+                        // Fade in the main content
+                        container.style.opacity = '0';
+                        setTimeout(() => {
+                            container.style.transition = 'opacity 0.5s ease-in';
+                            container.style.opacity = '1';
+                        }, 50);
+                    }, 500);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
