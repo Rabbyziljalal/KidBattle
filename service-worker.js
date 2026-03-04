@@ -12,6 +12,7 @@ const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const STATIC_ASSETS = [
   './',
   './index.html',
+  './install/index.html',
   './manifest.json',
   
   // CSS Files
