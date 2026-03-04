@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="colorMood.css">
     <link rel="stylesheet" href="missingPartGame.css">
     <link rel="stylesheet" href="landingPage.css">
+    <link rel="stylesheet" href="animalTheme.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
@@ -1061,6 +1062,24 @@
         <!-- Check Answer Button -->
         <button id="checkAnswerBtn" class="check-answer-btn">✅ Check Answer</button>
 
+        <!-- Show Picture Part Button -->
+        <div class="show-picture-btn-wrapper">
+            <button id="showPicturePartBtn" class="show-picture-part-btn">
+                <span class="spb-icon">🖼️</span>
+                <span class="spb-text">Show Picture Part</span>
+            </button>
+        </div>
+
+        <!-- Hidden Picture Hint Panel -->
+        <div id="pictureHintPanel" class="picture-hint-panel hidden">
+            <div class="hint-panel-inner">
+                <div class="hint-badge">💡 Hint!</div>
+                <div id="hintEmoji" class="hint-emoji">🍎</div>
+                <p class="hint-word-label" id="hintWordLabel">?????</p>
+                <p class="hint-caption">This is what you're spelling!</p>
+            </div>
+        </div>
+
         <!-- Feedback Message -->
         <div id="feedbackMessage" class="feedback-message"></div>
 
@@ -1186,6 +1205,7 @@
     <script src="poemLearning.js"></script>
     <script src="alphabetLearning.js"></script>
     <script src="missingPartGame.js"></script>
+    <script src="animalTheme.js"></script>
     
     <!-- Landing Page Script -->
     <script>

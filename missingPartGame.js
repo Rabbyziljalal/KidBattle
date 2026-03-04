@@ -29,6 +29,13 @@ class MissingPartGame {
         this.scoreDisplay = document.getElementById('gameScore');
         this.livesDisplay = document.getElementById('gameLives');
         this.levelDisplay = document.getElementById('gameLevel');
+
+        // Show Picture Part elements
+        this.showPicturePartBtn = document.getElementById('showPicturePartBtn');
+        this.pictureHintPanel  = document.getElementById('pictureHintPanel');
+        this.hintEmoji         = document.getElementById('hintEmoji');
+        this.hintWordLabel     = document.getElementById('hintWordLabel');
+        this.pictureHintVisible = false;
         
         this.initializeEventListeners();
         this.loadQuestions();
@@ -49,6 +56,65 @@ class MissingPartGame {
         
         if (this.checkAnswerBtn) {
             this.checkAnswerBtn.addEventListener('click', () => this.checkAnswer());
+        }
+
+        if (this.showPicturePartBtn) {
+            this.showPicturePartBtn.addEventListener('click', () => this.togglePictureHint());
+        }
+    }
+
+    togglePictureHint() {
+        this.pictureHintVisible = !this.pictureHintVisible;
+
+        if (this.pictureHintVisible) {
+            // Update hint content
+            if (this.hintEmoji)     this.hintEmoji.textContent = this.currentImage || '❓';
+            if (this.hintWordLabel) {
+                // Show masked word: revealed letters shown, missing shown as _
+                const masked = this.currentWord
+                    ? this.currentWord.split('').map((ch, i) =>
+                        this.missingIndices.includes(i) ? '_' : ch).join(' ')
+                    : '?????';
+                this.hintWordLabel.textContent = masked;
+            }
+
+            // Show panel with fresh animation
+            if (this.pictureHintPanel) {
+                this.pictureHintPanel.classList.remove('hidden');
+                // Re-trigger animation by cloning trick
+                this.pictureHintPanel.style.animation = 'none';
+                void this.pictureHintPanel.offsetWidth; // reflow
+                this.pictureHintPanel.style.animation = '';
+            }
+
+            // Toggle button label & style
+            if (this.showPicturePartBtn) {
+                this.showPicturePartBtn.classList.add('active-toggle');
+                this.showPicturePartBtn.querySelector('.spb-icon').textContent = '🙈';
+                this.showPicturePartBtn.querySelector('.spb-text').textContent = 'Hide Picture Part';
+            }
+
+            // Play a cheerful hint sound
+            this.playSound('hint');
+        } else {
+            if (this.pictureHintPanel) this.pictureHintPanel.classList.add('hidden');
+            if (this.showPicturePartBtn) {
+                this.showPicturePartBtn.classList.remove('active-toggle');
+                this.showPicturePartBtn.querySelector('.spb-icon').textContent = '🖼️';
+                this.showPicturePartBtn.querySelector('.spb-text').textContent = 'Show Picture Part';
+            }
+        }
+    }
+
+    hidePictureHint() {
+        this.pictureHintVisible = false;
+        if (this.pictureHintPanel) this.pictureHintPanel.classList.add('hidden');
+        if (this.showPicturePartBtn) {
+            this.showPicturePartBtn.classList.remove('active-toggle');
+            if (this.showPicturePartBtn.querySelector('.spb-icon'))
+                this.showPicturePartBtn.querySelector('.spb-icon').textContent = '🖼️';
+            if (this.showPicturePartBtn.querySelector('.spb-text'))
+                this.showPicturePartBtn.querySelector('.spb-text').textContent = 'Show Picture Part';
         }
     }
 
@@ -237,6 +303,9 @@ class MissingPartGame {
         // Reset feedback
         this.feedbackMessage.classList.remove('show', 'correct', 'wrong');
         this.changeFace('😊');
+
+        // Auto-hide the picture hint when a new question loads
+        this.hidePictureHint();
     }
 
     renderWord() {
@@ -569,6 +638,15 @@ class MissingPartGame {
                 gainNode.gain.value = 0.1;
                 oscillator.start();
                 oscillator.stop(audioContext.currentTime + 0.1);
+            } else if (type === 'hint') {
+                // Two-tone cheerful chime
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(1100, audioContext.currentTime + 0.12);
+                gainNode.gain.setValueAtTime(0.25, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.4);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.4);
             }
         } catch (e) {
             console.log('Audio not supported');

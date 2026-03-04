@@ -1,0 +1,436 @@
+/* ========================================
+   ANIMAL THEME SYSTEM - CARTOON FOREST
+   ======================================== */
+
+/* Difficulty Screen Base with Theme Support */
+.difficulty-screen {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    transition: background 1s ease;
+}
+
+/* Theme Backgrounds */
+.difficulty-screen[data-theme="morning"] {
+    background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 50%, #FFE4B5 100%);
+}
+
+.difficulty-screen[data-theme="day"] {
+    background: linear-gradient(180deg, #4A90E2 0%, #87CEEB 50%, #B0E0E6 100%);
+}
+
+.difficulty-screen[data-theme="evening"] {
+    background: linear-gradient(180deg, #FF6B6B 0%, #FF8E53 50%, #FFD93D 100%);
+}
+
+.difficulty-screen[data-theme="night"] {
+    background: linear-gradient(180deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
+}
+
+/* Grass at Bottom */
+.difficulty-screen::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(180deg, transparent 0%, #48bb78 40%, #38a169 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.difficulty-screen::before {
+    content: '🌸 🌼 🌻 🌺 🌸 🌼 🌻 🌺 🌸 🌼 🌻 🌺 🌸 🌼 🌻 🌺';
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    font-size: 32px;
+    text-align: center;
+    z-index: 2;
+    letter-spacing: 40px;
+    animation: flowerSway 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes flowerSway {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(2deg); }
+}
+
+/* Animal Container */
+.animal-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Floating Animals */
+.floating-animal {
+    position: fixed;
+    cursor: pointer;
+    pointer-events: all;
+    user-select: none;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    transition: filter 0.3s ease;
+    opacity: 0;
+    transform-origin: center;
+    animation: animalFloat 4s ease-in-out infinite;
+    will-change: transform;
+}
+
+.floating-animal.animal-visible {
+    opacity: 1;
+    animation: animalEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+               animalFloat 4s ease-in-out infinite 0.6s;
+}
+
+.floating-animal:hover {
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3)) brightness(1.1);
+    transform: scale(1.1);
+}
+
+.floating-animal:active {
+    transform: scale(0.95);
+}
+
+@keyframes animalEntrance {
+    from {
+        opacity: 0;
+        transform: scale(0) rotate(-180deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes animalFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-15px) scale(1.02);
+    }
+}
+
+/* Animal Jump Animation */
+.floating-animal.animal-jump {
+    animation: animalJump 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes animalJump {
+    0% { transform: translateY(0) scale(1); }
+    30% { transform: translateY(-80px) scale(1.2) rotate(15deg); }
+    50% { transform: translateY(-100px) scale(1.3) rotate(20deg); }
+    70% { transform: translateY(-80px) scale(1.2) rotate(15deg); }
+    100% { transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+/* Idle Animations */
+.floating-animal.idle-bounce {
+    animation: idleBounce 0.5s ease;
+}
+
+@keyframes idleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.floating-animal.idle-wiggle {
+    animation: idleWiggle 0.5s ease;
+}
+
+@keyframes idleWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+.floating-animal.idle-spin {
+    animation: idleSpin 0.8s ease;
+}
+
+@keyframes idleSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Sparkle Effects */
+.sparkle {
+    position: fixed;
+    pointer-events: none;
+    font-size: 24px;
+    z-index: 1000;
+    animation: sparkleExplosion 1s ease-out forwards;
+}
+
+@keyframes sparkleExplosion {
+    0% {
+        opacity: 1;
+        transform: translate(-12px, -12px) scale(0.5) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(var(--end-x) - var(--start-x, 0px)), 
+                           calc(var(--end-y) - var(--start-y, 0px))) 
+                   scale(1.5) 
+                   rotate(360deg);
+    }
+}
+
+/* Clouds */
+.clouds-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.cloud {
+    position: absolute;
+    font-size: 60px;
+    animation: cloudFloat 50s linear infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+@keyframes cloudFloat {
+    0% {
+        transform: translateX(-150px);
+    }
+    100% {
+        transform: translateX(calc(100vw + 150px));
+    }
+}
+
+/* Stars (Night Theme) */
+.stars-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.star {
+    position: absolute;
+    animation: starTwinkle 2s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+}
+
+/* Sound Toggle Button */
+.sound-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 100%);
+    border: none;
+    border-radius: 50%;
+    font-size: 36px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sound-toggle:hover {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 10px 30px rgba(255, 107, 157, 0.6);
+}
+
+.sound-toggle:active {
+    transform: scale(0.95);
+}
+
+.sound-toggle.muted {
+    background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%);
+    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4);
+}
+
+/* Enhanced Button Styling */
+.difficulty-screen .mode-btn-card,
+.difficulty-screen .difficulty-btn {
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.difficulty-screen .mode-btn-card:hover,
+.difficulty-screen .difficulty-btn:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.difficulty-screen .mode-btn-card:active,
+.difficulty-screen .difficulty-btn:active {
+    transform: scale(0.95);
+    animation: buttonBounce 0.4s ease;
+}
+
+@keyframes buttonBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+/* Button Pop Sound Effect Visual */
+.difficulty-screen .mode-btn-card::after,
+.difficulty-screen .difficulty-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.5) 0%, transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.difficulty-screen .mode-btn-card:active::after,
+.difficulty-screen .difficulty-btn:active::after {
+    animation: buttonPop 0.4s ease;
+}
+
+@keyframes buttonPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+/* Content Wrapper - Ensure buttons are above grass */
+.difficulty-screen > h2,
+.difficulty-screen .modes-flex,
+.difficulty-screen .team-name-section,
+.difficulty-screen .ds-team-section,
+.difficulty-screen .difficulty-buttons,
+.difficulty-screen .ds-difficulty-section {
+    position: relative;
+    z-index: 10;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .floating-animal {
+        font-size: 80px !important;
+    }
+    
+    .cloud {
+        font-size: 50px;
+    }
+    
+    .sound-toggle {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .floating-animal {
+        font-size: 70px !important;
+    }
+    
+    .cloud {
+        font-size: 40px;
+    }
+    
+    .difficulty-screen::before {
+        font-size: 24px;
+        letter-spacing: 30px;
+    }
+    
+    .difficulty-screen::after {
+        height: 80px;
+    }
+    
+    .sound-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-animal {
+        font-size: 60px !important;
+    }
+    
+    .cloud {
+        font-size: 30px;
+    }
+    
+    .difficulty-screen::before {
+        font-size: 18px;
+        letter-spacing: 20px;
+    }
+    
+    .difficulty-screen::after {
+        height: 60px;
+    }
+    
+    .sparkle {
+        font-size: 18px;
+    }
+}
+
+/* Performance Optimizations */
+.floating-animal,
+.cloud,
+.star {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Reduce animations on low-power devices */
+@media (prefers-reduced-motion: reduce) {
+    .floating-animal,
+    .cloud,
+    .star,
+    .sparkle {
+        animation: none !important;
+    }
+    
+    .floating-animal {
+        opacity: 1;
+    }
+}
+
+/* Loading State */
+.difficulty-screen.loading .animal-container {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.difficulty-screen:not(.loading) .animal-container {
+    opacity: 1;
+}
