@@ -1702,3 +1702,174 @@ body::after {
     transform: translateY(0);
 }
 
+
+/* ===== DESKTOP MODE OVERRIDES FOR INSTALLED PWA ===== */
+/* When PWA is installed on mobile, force desktop layout */
+
+body.desktop-mode {
+    padding: 20px;
+}
+
+/* Override mobile breakpoints - force desktop sizes */
+body.desktop-mode .container {
+    padding: 40px !important;
+    max-width: 1200px !important;
+}
+
+body.desktop-mode .game-title {
+    font-size: 2.5rem !important;
+}
+
+body.desktop-mode .subtitle {
+    font-size: 1.2rem !important;
+}
+
+body.desktop-mode .team-name-section {
+    padding: 30px !important;
+}
+
+body.desktop-mode .team-name-section h3 {
+    font-size: 1.8rem !important;
+}
+
+body.desktop-mode .team-name-inputs {
+    flex-direction: row !important;
+    gap: 30px !important;
+}
+
+body.desktop-mode .team-input-group {
+    min-width: 250px !important;
+}
+
+body.desktop-mode .team-name-input {
+    font-size: 1.1rem !important;
+    padding: 15px 20px !important;
+}
+
+body.desktop-mode .difficulty-btn {
+    width: 180px !important;
+    height: 220px !important;
+}
+
+body.desktop-mode .level-emoji {
+    font-size: 3rem !important;
+}
+
+body.desktop-mode .level-name {
+    font-size: 1.5rem !important;
+}
+
+body.desktop-mode .timer {
+    font-size: 2rem !important;
+}
+
+body.desktop-mode .score-display {
+    font-size: 2.5rem !important;
+}
+
+body.desktop-mode .rope-container {
+    width: 100%;
+    max-width: 600px !important;
+}
+
+body.desktop-mode .rope-segment {
+    width: 35px !important;
+    height: 12px !important;
+}
+
+body.desktop-mode .knot {
+    font-size: 2rem !important;
+}
+
+body.desktop-mode .tug-arena {
+    gap: 20px !important;
+    padding: 40px 20px !important;
+}
+
+body.desktop-mode .character {
+    width: 80px !important;
+    height: 130px !important;
+}
+
+body.desktop-mode .character .head {
+    width: 40px !important;
+    height: 42px !important;
+}
+
+body.desktop-mode .character .body {
+    width: 48px !important;
+    height: 60px !important;
+}
+
+body.desktop-mode .character .arm {
+    width: 13px !important;
+    height: 50px !important;
+}
+
+body.desktop-mode .character .leg {
+    width: 15px !important;
+    height: 42px !important;
+}
+
+body.desktop-mode .team-characters {
+    gap: 12px !important;
+}
+
+body.desktop-mode .team-label {
+    font-size: 1.5rem !important;
+    padding: 10px 20px !important;
+}
+
+body.desktop-mode .question-text {
+    font-size: 2rem !important;
+    padding: 20px !important;
+}
+
+body.desktop-mode .answer-input {
+    font-size: 1.5rem !important;
+}
+
+body.desktop-mode .game-over-content {
+    padding: 40px !important;
+}
+
+body.desktop-mode .game-over-title {
+    font-size: 2.5rem !important;
+}
+
+body.desktop-mode .winner-announcement {
+    font-size: 2rem !important;
+}
+
+body.desktop-mode .control-buttons {
+    flex-direction: row !important;
+    gap: 20px !important;
+}
+
+body.desktop-mode .start-btn,
+body.desktop-mode .restart-btn,
+body.desktop-mode .change-level-btn {
+    width: auto !important;
+    padding: 15px 40px !important;
+}
+
+/* Force wider viewport usage */
+body.desktop-mode .game-screen,
+body.desktop-mode .difficulty-screen {
+    min-width: 90vw !important;
+}
+
+/* Disable mobile-specific layouts */
+@media (max-width: 768px) {
+    body.desktop-mode .game-title,
+    body.desktop-mode .subtitle,
+    body.desktop-mode .team-name-section,
+    body.desktop-mode .difficulty-btn,
+    body.desktop-mode .character,
+    body.desktop-mode .question-text,
+    body.desktop-mode .control-buttons {
+        /* Override all mobile styles with desktop sizes */
+        all: revert;
+    }
+}
+

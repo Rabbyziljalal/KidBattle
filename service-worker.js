@@ -1,10 +1,10 @@
 /**
  * Service Worker for Brain Tug PWA
- * Version: 1.0.0
+ * Version: 1.1.0
  * Implements offline-first caching strategy
  */
 
-const CACHE_VERSION = 'brain-tug-v1.0.0';
+const CACHE_VERSION = 'brain-tug-v1.1.0';
 const CACHE_NAME = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -28,6 +28,7 @@ const STATIC_ASSETS = [
   './colorMood.css',
   './missingPartGame.css',
   './animalTheme.css',
+  './desktop-mode.css',
   
   // JavaScript Files
   './script.js',
@@ -53,6 +54,7 @@ const STATIC_ASSETS = [
   './missingPartGame.js',
   './animalTheme.js',
   './pwa-install.js',
+  './standalone-detector.js',
   
   // Fonts
   'https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap',

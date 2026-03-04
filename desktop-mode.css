@@ -1,0 +1,503 @@
+/**
+ * Desktop Mode Overrides
+ * Forces desktop layout when PWA is installed on mobile
+ * Applied when body.desktop-mode class is present
+ */
+
+/* ===== GLOBAL DESKTOP MODE OVERRIDES ===== */
+
+/* Force desktop viewport behavior */
+body.desktop-mode {
+    min-width: 100vw;
+    overflow-x: auto;
+    padding: 20px !important;
+}
+
+/* Force desktop container sizes */
+body.desktop-mode .container {
+    padding: 40px !important;
+    max-width: 1200px !important;
+    width: 95% !important;
+}
+
+/* ===== MAIN GAME STYLES ===== */
+
+body.desktop-mode .game-title {
+    font-size: 2.5rem !important;
+}
+
+body.desktop-mode .subtitle {
+    font-size: 1.2rem !important;
+}
+
+body.desktop-mode .team-name-section {
+    padding: 30px !important;
+}
+
+body.desktop-mode .team-name-section h3 {
+    font-size: 1.8rem !important;
+}
+
+body.desktop-mode .team-name-inputs {
+    flex-direction: row !important;
+    gap: 30px !important;
+}
+
+body.desktop-mode .team-input-group {
+    min-width: 250px !important;
+}
+
+body.desktop-mode .team-name-input {
+    font-size: 1.1rem !important;
+    padding: 15px 20px !important;
+}
+
+body.desktop-mode .difficulty-btn {
+    width: 180px !important;
+    height: 220px !important;
+}
+
+body.desktop-mode .level-emoji {
+    font-size: 3rem !important;
+}
+
+body.desktop-mode .level-name {
+    font-size: 1.5rem !important;
+}
+
+body.desktop-mode .timer {
+    font-size: 2rem !important;
+}
+
+body.desktop-mode .score-display {
+    font-size: 2.5rem !important;
+}
+
+body.desktop-mode .rope-container {
+    max-width: 600px !important;
+}
+
+body.desktop-mode .rope-segment {
+    width: 35px !important;
+    height: 12px !important;
+}
+
+body.desktop-mode .knot {
+    font-size: 2rem !important;
+}
+
+body.desktop-mode .tug-arena {
+    gap: 20px !important;
+    padding: 40px 20px !important;
+}
+
+body.desktop-mode .character {
+    width: 80px !important;
+    height: 130px !important;
+}
+
+body.desktop-mode .character .head {
+    width: 40px !important;
+    height: 42px !important;
+}
+
+body.desktop-mode .character .body {
+    width: 48px !important;
+    height: 60px !important;
+}
+
+body.desktop-mode .character .arm {
+    width: 13px !important;
+    height: 50px !important;
+}
+
+body.desktop-mode .character .leg {
+    width: 15px !important;
+    height: 42px !important;
+}
+
+body.desktop-mode .team-characters {
+    gap: 12px !important;
+}
+
+body.desktop-mode .team-label {
+    font-size: 1.5rem !important;
+    padding: 10px 20px !important;
+}
+
+body.desktop-mode .question-text {
+    font-size: 2rem !important;
+    padding: 20px !important;
+}
+
+body.desktop-mode .answer-input {
+    font-size: 1.5rem !important;
+}
+
+body.desktop-mode .game-over-content {
+    padding: 40px !important;
+}
+
+body.desktop-mode .game-over-title {
+    font-size: 2.5rem !important;
+}
+
+body.desktop-mode .winner-announcement {
+    font-size: 2rem !important;
+}
+
+body.desktop-mode .control-buttons {
+    flex-direction: row !important;
+    gap: 20px !important;
+}
+
+body.desktop-mode .start-btn,
+body.desktop-mode .restart-btn,
+body.desktop-mode .change-level-btn {
+    width: auto !important;
+    padding: 15px 40px !important;
+}
+
+/* ===== LANDING PAGE ===== */
+
+body.desktop-mode .landing-content {
+    flex-direction: row !important;
+    text-align: left !important;
+    gap: 60px !important;
+}
+
+body.desktop-mode .landing-text {
+    text-align: left !important;
+}
+
+body.desktop-mode .landing-title {
+    font-size: 4.5em !important;
+}
+
+body.desktop-mode .landing-subtitle {
+    font-size: 1.8em !important;
+}
+
+body.desktop-mode .start-learning-btn {
+    margin: 0 !important;
+    padding: 18px 50px !important;
+    font-size: 1.8em !important;
+}
+
+body.desktop-mode .device-mockup {
+    width: 450px !important;
+    height: 320px !important;
+}
+
+body.desktop-mode .screen-content {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 15px !important;
+    padding: 20px !important;
+}
+
+body.desktop-mode .demo-item {
+    width: 70px !important;
+    height: 70px !important;
+    font-size: 2.5em !important;
+}
+
+body.desktop-mode .character {
+    font-size: 4em !important;
+}
+
+body.desktop-mode .character-bird {
+    top: -40px !important;
+    left: 30px !important;
+}
+
+body.desktop-mode .character-fox {
+    bottom: -30px !important;
+    left: -40px !important;
+}
+
+body.desktop-mode .character-bear {
+    bottom: 30px !important;
+    right: -40px !important;
+}
+
+body.desktop-mode .float-item {
+    font-size: 2.5em !important;
+}
+
+/* ===== ANIMAL THEME ===== */
+
+body.desktop-mode .floating-animal {
+    font-size: 100px !important;
+}
+
+body.desktop-mode .cloud {
+    font-size: 60px !important;
+}
+
+body.desktop-mode .sound-toggle {
+    width: 70px !important;
+    height: 70px !important;
+    font-size: 35px !important;
+    top: 20px !important;
+    right: 20px !important;
+}
+
+body.desktop-mode .difficulty-screen::before {
+    font-size: 32px !important;
+    letter-spacing: 40px !important;
+}
+
+body.desktop-mode .difficulty-screen::after {
+    height: 100px !important;
+}
+
+body.desktop-mode .sparkle {
+    font-size: 24px !important;
+}
+
+/* ===== LEARNING MODES (Fruit, Vegetable, Animal, Birds) ===== */
+
+body.desktop-mode .learning-header h2 {
+    font-size: 2.5em !important;
+}
+
+body.desktop-mode .learning-close-btn {
+    font-size: 2.5em !important;
+}
+
+body.desktop-mode .learning-content {
+    padding: 40px !important;
+}
+
+body.desktop-mode .item-card {
+    width: 280px !important;
+    height: 280px !important;
+}
+
+body.desktop-mode .item-emoji {
+    font-size: 7em !important;
+}
+
+body.desktop-mode .item-name {
+    font-size: 2em !important;
+}
+
+body.desktop-mode .item-description {
+    font-size: 1.1em !important;
+}
+
+body.desktop-mode .nav-button {
+    width: 70px !important;
+    height: 70px !important;
+    font-size: 2.5em !important;
+}
+
+/* ===== POEM LEARNING ===== */
+
+body.desktop-mode .poem-content {
+    padding: 40px !important;
+}
+
+body.desktop-mode .poem-text {
+    padding: 30px !important;
+}
+
+body.desktop-mode .poem-line {
+    font-size: 1.8em !important;
+    padding: 12px !important;
+}
+
+/* ===== ALPHABET LEARNING ===== */
+
+body.desktop-mode .alphabet-grid {
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 15px !important;
+}
+
+body.desktop-mode .alphabet-card {
+    padding: 20px !important;
+}
+
+body.desktop-mode .alphabet-letter {
+    font-size: 3em !important;
+}
+
+body.desktop-mode .alphabet-word {
+    font-size: 1.3em !important;
+}
+
+/* ===== RECOGNITION GAMES ===== */
+
+body.desktop-mode .recognition-container {
+    padding: 30px !important;
+}
+
+body.desktop-mode .upload-section {
+    padding: 50px !important;
+}
+
+body.desktop-mode .upload-area {
+    padding: 60px !important;
+    font-size: 1.2em !important;
+}
+
+body.desktop-mode .camera-icon {
+    font-size: 4em !important;
+}
+
+body.desktop-mode .result-item-display {
+    font-size: 8em !important;
+}
+
+body.desktop-mode .result-text h2 {
+    font-size: 2.5em !important;
+}
+
+body.desktop-mode .result-text p {
+    font-size: 1.3em !important;
+}
+
+/* ===== MISSING PART GAME ===== */
+
+body.desktop-mode .missing-part-container {
+    padding: 30px !important;
+}
+
+body.desktop-mode .mp-question {
+    font-size: 1.8em !important;
+}
+
+body.desktop-mode .mp-image-container {
+    max-width: 400px !important;
+    max-height: 400px !important;
+}
+
+body.desktop-mode .mp-options {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+}
+
+body.desktop-mode .mp-option {
+    padding: 20px !important;
+    font-size: 1.2em !important;
+}
+
+/* ===== COLOR MOOD ===== */
+
+body.desktop-mode .mood-button {
+    width: 180px !important;
+    height: 180px !important;
+    font-size: 4em !important;
+}
+
+body.desktop-mode .mood-name {
+    font-size: 1.2em !important;
+}
+
+/* ===== FORCE MULTI-COLUMN LAYOUTS ===== */
+
+body.desktop-mode .difficulty-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+}
+
+body.desktop-mode .mode-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+}
+
+/* ===== PREVENT MOBILE STACKING ===== */
+
+body.desktop-mode [class*="flex-column"] {
+    flex-direction: row !important;
+}
+
+/* ===== ENABLE HOVER EFFECTS ON MOBILE ===== */
+
+body.desktop-mode button:active {
+    transform: scale(0.95) !important;
+}
+
+body.desktop-mode .floating-animal:active {
+    animation: animalJump 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+}
+
+/* ===== OPTIMIZE FOR LANDSCAPE STYLE ===== */
+
+body.desktop-mode .game-screen,
+body.desktop-mode .difficulty-screen {
+    min-width: 90vw;
+}
+
+/* ===== VIEWPORT OPTIMIZATION ===== */
+
+html.desktop-mode,
+body.desktop-mode {
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+/* ===== DISABLE UNWANTED ZOOM ===== */
+
+body.desktop-mode input,
+body.desktop-mode select,
+body.desktop-mode textarea {
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+}
+
+/* ===== ENHANCED SPACING ===== */
+
+body.desktop-mode .header {
+    margin-bottom: 40px !important;
+}
+
+body.desktop-mode .section {
+    padding: 30px !important;
+    margin: 20px 0 !important;
+}
+
+/* ===== PERFORMANCE NOTICE ===== */
+
+body.desktop-mode * {
+    /* Ensure smooth performance */
+    will-change: auto;
+}
+
+body.desktop-mode .animated-element {
+    /* Optimize animations */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* ===== CONSOLE MESSAGE ===== */
+
+@media (max-width: 768px) {
+    body.desktop-mode::before {
+        content: '';
+        display: block;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(135deg, #48bb78, #38a169);
+        border-radius: 50%;
+        z-index: 9999;
+        box-shadow: 0 4px 15px rgba(72, 187, 120, 0.5);
+        animation: desktopModePulse 2s ease-in-out infinite;
+    }
+}
+
+@keyframes desktopModePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
