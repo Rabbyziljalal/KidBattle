@@ -1,0 +1,49 @@
+{
+  "name": "Brain Tug - Kids Learning Game",
+  "short_name": "Brain Tug",
+  "description": "Interactive learning game for kids aged 2-8. Learn Math, English, Animals, Fruits, and more through fun games!",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#4A90E2",
+  "theme_color": "#FF6B9D",
+  "scope": "./",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["education", "games", "kids"],
+  "icons": [
+    {
+      "src": "./pwa-icons/icon-512x512.svg",
+      "sizes": "72x72 96x96 128x128 144x144 152x152 192x192 384x384 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Alphabet Learning",
+      "short_name": "Alphabet",
+      "description": "Learn A to Z",
+      "url": "./index.html?mode=alphabet",
+      "icons": [
+        {
+          "src": "./pwa-icons/icon-512x512.svg",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Animal Learning",
+      "short_name": "Animals",
+      "description": "Learn about animals",
+      "url": "./index.html?mode=animals",
+      "icons": [
+        {
+          "src": "./pwa-icons/icon-512x512.svg",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}
