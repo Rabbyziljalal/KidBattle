@@ -229,8 +229,8 @@
 
 .alphabet-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 18px;
     justify-content: center;
 }
 
@@ -245,16 +245,17 @@
 /* -------- Letter Cards -------- */
 .letter-card {
     background: white;
-    border-radius: 18px;
-    padding: 14px 8px 12px;
+    border-radius: 20px;
+    padding: 24px 12px 20px;
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-    border: 2px solid transparent;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    border: 3px solid transparent;
     transition: all 0.2s ease;
     position: relative;
     overflow: hidden;
     user-select: none;
+    min-height: 140px;
 }
 
 .letter-card::before {
@@ -296,24 +297,25 @@
 }
 
 .card-emoji {
-    font-size: 1.8rem;
+    font-size: 3rem;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     line-height: 1;
 }
 
 .card-letter {
-    font-size: 1.6rem;
+    font-size: 3.5rem;
     font-weight: 900;
     line-height: 1;
     display: block;
+    color: #667EEA;
 }
 
 .card-word {
-    font-size: 0.65rem;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 700;
     color: #666;
-    margin-top: 3px;
+    margin-top: 8px;
     display: block;
     white-space: nowrap;
     overflow: hidden;
@@ -326,12 +328,13 @@
 }
 
 .number-card .card-letter {
-    font-size: 2rem;
-    margin: 8px 0;
+    font-size: 4rem;
+    margin: 16px 0;
+    color: #764BA2;
 }
 
 .number-card .card-word {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
 }
 
 /* -------- Tab Panels Visibility -------- */
@@ -408,8 +411,16 @@
     }
 
     .alphabet-grid {
-        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 14px;
+    }
+    
+    .card-letter {
+        font-size: 3rem;
+    }
+    
+    .card-emoji {
+        font-size: 2.5rem;
     }
 }
 
@@ -429,16 +440,21 @@
     }
 
     .alphabet-grid {
-        grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
-        gap: 7px;
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+        gap: 10px;
     }
 
     .card-letter {
-        font-size: 1.3rem;
+        font-size: 2.2rem;
     }
 
     .card-emoji {
-        font-size: 1.4rem;
+        font-size: 2rem;
+    }
+    
+    .letter-card {
+        padding: 16px 8px 14px;
+        min-height: 100px;
     }
 
     .preview-emoji {

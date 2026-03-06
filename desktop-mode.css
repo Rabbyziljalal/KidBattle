@@ -310,20 +310,38 @@ body.desktop-mode .poem-line {
 /* ===== ALPHABET LEARNING ===== */
 
 body.desktop-mode .alphabet-grid {
-    grid-template-columns: repeat(7, 1fr) !important;
-    gap: 15px !important;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+    gap: 18px !important;
 }
 
-body.desktop-mode .alphabet-card {
-    padding: 20px !important;
+body.desktop-mode .letter-card {
+    padding: 24px 12px 20px !important;
+    min-height: 140px !important;
+    border-width: 3px !important;
 }
 
-body.desktop-mode .alphabet-letter {
-    font-size: 3em !important;
+body.desktop-mode .card-letter {
+    font-size: 3.5rem !important;
 }
 
-body.desktop-mode .alphabet-word {
-    font-size: 1.3em !important;
+body.desktop-mode .card-emoji {
+    font-size: 3rem !important;
+}
+
+body.desktop-mode .card-word {
+    font-size: 0.85rem !important;
+}
+
+body.desktop-mode .number-card .card-letter {
+    font-size: 4rem !important;
+}
+
+body.desktop-mode .preview-letter {
+    font-size: 5rem !important;
+}
+
+body.desktop-mode .preview-emoji {
+    font-size: 6rem !important;
 }
 
 /* ===== RECOGNITION GAMES ===== */
