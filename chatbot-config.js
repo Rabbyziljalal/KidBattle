@@ -138,8 +138,16 @@ const ChatbotConfig = {
         'does it work offline': 'Yes! Once installed as a PWA, KidBattle works offline so you can learn anywhere.',
         'how to switch language': 'Currently we support English and Bengali. Some sections have both languages available.',
         'what animals can i learn': 'You can learn about many animals including dog, cat, lion, elephant, monkey, and more with sounds!',
-        'what fruits can i learn': 'Learn about apple, banana, orange, grapes, watermelon, and many other fruits!',
-        'what vegetables': 'Learn about carrot, tomato, cucumber, potato, and other healthy vegetables!'
+        'what fruits can i learn': 'Learn about apple, banana, orange, grapes, watermelon, cherry, strawberry, mango, and many other fruits!',
+        'what vegetables': 'Learn about carrot, tomato, cucumber, potato, and other healthy vegetables!',
+        'cherry': 'Yes! Cherry 🍒 is a small, round, red fruit that is sweet and juicy! Cherries grow on trees and are delicious!',
+        'strawberry': 'Strawberry 🍓 is a red, heart-shaped fruit with tiny seeds on the outside! So sweet and yummy!',
+        'watermelon': 'Watermelon 🍉 is a big green fruit that is red and juicy inside! Perfect for summer!',
+        'grapes': 'Grapes 🍇 are small, round fruits that grow in bunches! They can be purple, green, or red!',
+        'mango': 'Mango 🥭 is a tropical fruit that is yellow and very sweet! It\'s called the king of fruits!',
+        'pineapple': 'Pineapple 🍍 is a tropical fruit with a spiky outside and sweet yellow inside! Very tasty!',
+        'red fruit': 'Red fruits include Apple 🍎, Cherry 🍒, Strawberry 🍓, Watermelon 🍉, and Tomato 🍅!',
+        'yellow fruit': 'Yellow fruits include Banana 🍌, Mango 🥭, Pineapple 🍍, and Lemon 🍋!'
     },
 
     // System Prompt for AI

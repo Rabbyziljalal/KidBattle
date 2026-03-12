@@ -345,9 +345,39 @@
                 return "Let's learn about animals! 🐾\n🐶 Dog says Woof!\n🐱 Cat says Meow!\n🦁 Lion says Roar!\n🐘 Elephant makes a trumpet sound!\nExplore more in Animal Theme!";
             }
 
-            // Fruits
-            if (lowerMessage.includes('fruit') || lowerMessage.includes('apple') || lowerMessage.includes('banana') || lowerMessage.includes('orange')) {
-                return "Fruits are yummy and healthy! 🍎\n🍎 Apple - Red and crunchy!\n🍌 Banana - Yellow and sweet!\n🍊 Orange - Juicy and fresh!\nLearn more fruits in our learning section!";
+            // Fruits - Expanded to handle more fruit questions
+            if (lowerMessage.includes('fruit') || lowerMessage.includes('apple') || lowerMessage.includes('banana') || 
+                lowerMessage.includes('orange') || lowerMessage.includes('cherry') || lowerMessage.includes('strawberry') ||
+                lowerMessage.includes('watermelon') || lowerMessage.includes('grapes') || lowerMessage.includes('grape') ||
+                lowerMessage.includes('mango') || lowerMessage.includes('pineapple') || 
+                (lowerMessage.includes('red') && (lowerMessage.includes('color') || lowerMessage.includes('name')))) {
+                
+                // Specific fruit responses
+                if (lowerMessage.includes('cherry')) {
+                    return "Yes! Cherry 🍒 is a small, round, red fruit!\nCherries are sweet and juicy. They grow on trees and are delicious! You can find cherries in red or yellow colors!";
+                }
+                if (lowerMessage.includes('strawberry')) {
+                    return "Strawberry 🍓 is a red, heart-shaped fruit!\nStrawberries are sweet and have tiny seeds on the outside. They're perfect for snacks!";
+                }
+                if (lowerMessage.includes('watermelon')) {
+                    return "Watermelon 🍉 is a big, green fruit!\nInside, it's red and super juicy! Perfect for hot summer days. It has black seeds too!";
+                }
+                if (lowerMessage.includes('mango')) {
+                    return "Mango 🥭 is called the king of fruits!\nMangoes are yellow, sweet, and tropical. They're super delicious!";
+                }
+                if (lowerMessage.includes('grape')) {
+                    return "Grapes 🍇 are small, round fruits!\nThey grow in bunches and can be purple, green, or red. Great for snacking!";
+                }
+                if (lowerMessage.includes('pineapple')) {
+                    return "Pineapple 🍍 is a tropical fruit!\nIt has a spiky outside and sweet yellow inside. Very yummy!";
+                }
+                // Red fruit question
+                if (lowerMessage.includes('red') && (lowerMessage.includes('color') || lowerMessage.includes('name') || lowerMessage.includes('give'))) {
+                    return "Red fruits are yummy! 🍎\n🍎 Apple - Crunchy and sweet!\n🍒 Cherry - Small and juicy!\n🍓 Strawberry - Heart-shaped!\n🍉 Watermelon - Big and juicy inside!\n🍅 Tomato - Yes, it's a fruit!";
+                }
+                
+                // Default fruit response
+                return "Fruits are yummy and healthy! 🍎\n🍎 Apple - Red and crunchy!\n🍌 Banana - Yellow and sweet!\n🍊 Orange - Juicy and fresh!\n🍒 Cherry - Small and sweet!\n🍓 Strawberry - Heart-shaped!\nLearn more fruits in our learning section!";
             }
 
             // Vegetables
