@@ -1,10 +1,10 @@
 /**
  * Service Worker for Brain Tug PWA
- * Version: 1.3.0
+ * Version: 1.4.0
  * Implements offline-first caching strategy
  */
 
-const CACHE_VERSION = 'brain-tug-v1.3.0';
+const CACHE_VERSION = 'brain-tug-v1.4.0';
 const CACHE_NAME = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -57,6 +57,8 @@ const STATIC_ASSETS = [
   './pwa-install.js',
   './standalone-detector.js',
   './chatbot.js',
+  './chatbot-config.js',
+  './chatbot-ai.js',
   
   // Chatbot Component
   './chatbot.html',
