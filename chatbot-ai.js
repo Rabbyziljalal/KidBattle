@@ -164,8 +164,13 @@
         // Check if AI is configured
         isConfigured() {
             if (!config.features.aiEnabled) return false;
-            
-            // Check for API key in config or localStorage
+
+            // Backend mode uses server-side .env key, so browser key is not required
+            if (config.ai && config.ai.useBackend !== false) {
+                return true;
+            }
+
+            // Direct API mode fallback
             state.apiKey = config.ai.apiKey || localStorage.getItem('chatbot_api_key');
             return !!state.apiKey;
         },
@@ -212,13 +217,20 @@
             }
 
             try {
-                // Send request to local backend route /chat
-                // Backend will forward to DeepSeek using the server-side API key
-                const response = await fetch('/chat', {
+                const backendUrl = (config.ai && config.ai.backendEndpoint) || '/chat';
+                let response = await fetch(backendUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: userMessage })
                 });
+
+                if (!response.ok && backendUrl === '/chat') {
+                    response = await fetch('http://localhost:3000/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: userMessage })
+                    });
+                }
 
                 if (!response.ok) {
                     const text = await response.text();
@@ -256,6 +268,16 @@
         // Check cache first
         getCachedResponse(message) {
             if (!config.cache.enabled) return null;
+
+            const lowerMessage = message.toLowerCase().trim();
+            const isMathLike = /\d/.test(lowerMessage) || /[+\-*/=]/.test(lowerMessage) ||
+                lowerMessage.includes('plus') || lowerMessage.includes('minus') ||
+                lowerMessage.includes('multiply') || lowerMessage.includes('divide') ||
+                lowerMessage.includes('add') || lowerMessage.includes('subtract');
+
+            if (isMathLike) {
+                return null;
+            }
 
             const key = message.toLowerCase().trim();
             const cached = state.cache.get(key);
@@ -331,7 +353,7 @@
             }
 
             // Numbers
-            if (lowerMessage.includes('number') || lowerMessage.includes('counting') || lowerMessage.includes('count') || /\d/.test(lowerMessage)) {
+            if (lowerMessage.includes('number') || lowerMessage.includes('counting') || lowerMessage.includes('count')) {
                 return "Let's count together! 🔢\n1, 2, 3, 4, 5... \nNumbers are fun! Go to 'Learn Alphabet' section and select 'Numbers' tab to practice counting from 1 to 100!";
             }
 
@@ -401,7 +423,7 @@
             }
 
             // Math
-            if (lowerMessage.includes('math') || lowerMessage.includes('plus') || lowerMessage.includes('minus') || lowerMessage.includes('multiply') || lowerMessage.includes('add') || lowerMessage.includes('subtract')) {
+            if (lowerMessage.includes('math learning') || lowerMessage.includes('learn math')) {
                 return "Math is fun! ➕➖✖️➗\nYou can practice:\n• Addition (+)\n• Subtraction (-)\n• Multiplication (×)\n• Division (÷)\nPlay Brain Tug-of-War to practice math!";
             }
 
@@ -442,7 +464,23 @@
                 return { text: cachedResponse, source: 'cache' };
             }
 
-            // 2. Check knowledge base
+            const lowerMessage = userMessage.toLowerCase().trim();
+            const isMathLike = /\d/.test(lowerMessage) || /[+\-*/=]/.test(lowerMessage) ||
+                lowerMessage.includes('plus') || lowerMessage.includes('minus') ||
+                lowerMessage.includes('multiply') || lowerMessage.includes('divide') ||
+                lowerMessage.includes('add') || lowerMessage.includes('subtract');
+
+            // 2. For math-like questions, prefer AI first
+            if (isMathLike && AIManager.isConfigured()) {
+                const aiResult = await AIManager.callAI(userMessage);
+                if (aiResult.success) {
+                    this.cacheResponse(userMessage, aiResult.response);
+                    console.log('Response from AI (math-first)');
+                    return { text: aiResult.response, source: 'ai' };
+                }
+            }
+
+            // 3. Check knowledge base
             const kbResponse = this.checkKnowledgeBase(userMessage);
             if (kbResponse) {
                 this.cacheResponse(userMessage, kbResponse);
@@ -450,7 +488,7 @@
                 return { text: kbResponse, source: 'knowledge_base' };
             }
 
-            // 3. Check rule-based system
+            // 4. Check rule-based system
             const ruleResponse = this.getRuleBasedResponse(userMessage);
             if (ruleResponse) {
                 this.cacheResponse(userMessage, ruleResponse);
@@ -458,7 +496,7 @@
                 return { text: ruleResponse, source: 'rules' };
             }
 
-            // 4. Try AI if configured
+            // 5. Try AI if configured
             if (AIManager.isConfigured()) {
                 const aiResult = await AIManager.callAI(userMessage);
                 if (aiResult.success) {
@@ -468,7 +506,7 @@
                 }
             }
 
-            // 5. Default fallback
+            // 6. Default fallback
             const fallbacks = [
                 "That's interesting! Can you ask about Alphabet, Numbers, Games, or Animals? 🤔",
                 "I'm still learning! Try asking about learning topics or games! 🎮",

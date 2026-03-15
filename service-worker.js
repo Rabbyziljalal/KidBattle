@@ -1,10 +1,10 @@
 /**
  * Service Worker for Brain Tug PWA
- * Version: 1.5.0
+ * Version: 1.5.1
  * Implements offline-first caching strategy
  */
 
-const CACHE_VERSION = 'brain-tug-v1.5.0';
+const CACHE_VERSION = 'brain-tug-v1.5.1';
 const CACHE_NAME = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 

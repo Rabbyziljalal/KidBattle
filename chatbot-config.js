@@ -4,9 +4,11 @@ const ChatbotConfig = {
     // AI API Configuration
     ai: {
         enabled: true,
-        provider: 'openai', // 'openai' or 'deepseek'
+        provider: 'deepseek', // 'openai' or 'deepseek'
+        useBackend: true,
+        backendEndpoint: '/chat',
         apiKey: '', // Add your API key here or in browser console: localStorage.setItem('chatbot_api_key', 'your-key')
-        model: 'gpt-3.5-turbo', // or 'deepseek-chat'
+        model: 'deepseek-chat', // or 'gpt-3.5-turbo'
         maxTokens: 150,
         temperature: 0.7,
         
