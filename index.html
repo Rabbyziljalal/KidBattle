@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="vegetableLearning.css">
     <link rel="stylesheet" href="animalLearning.css">
     <link rel="stylesheet" href="birdsLearning.css">
+    <link rel="stylesheet" href="flowerLearning.css">
     <link rel="stylesheet" href="poemLearning.css">
     <link rel="stylesheet" href="alphabetLearning.css">
     <link rel="stylesheet" href="fruitRecognition.css">
@@ -280,6 +281,12 @@
                     <span class="level-emoji" style="font-size: 2.5em;">🦅</span>
                     <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Birds Learning</span>
                     <span class="level-age" style="font-size: 0.9em;">Learn & Play with Birds!</span>
+                </button>
+
+                <button id="flowerLearningBtn" class="difficulty-btn" style="background: linear-gradient(135deg, #ff6fd8 0%, #ff9a9e 50%, #fad0c4 100%); width: 300px; height: auto; padding: 20px;">
+                    <span class="level-emoji" style="font-size: 2.5em;">🌸</span>
+                    <span class="level-name" style="font-size: 1.5em; display: block; margin-top: 10px;">Flower Learning</span>
+                    <span class="level-age" style="font-size: 0.9em;">Learn & Play with Flowers!</span>
                 </button>
                 
                 <button id="poemLearningBtn" class="difficulty-btn" style="background: linear-gradient(135deg, #FF6B9D 0%, #C06C84 50%, #6C5B7B 100%); width: 300px; height: auto; padding: 20px;">
@@ -788,6 +795,57 @@
         </div>
     </div>
 
+    <!-- Flower Learning Screen -->
+    <div id="flowerLearningScreen" class="birds-learning-screen flower-learning-screen">
+        <div class="birds-main-header" style="background: linear-gradient(135deg, #ff6fd8 0%, #ff9a9e 50%, #fad0c4 100%);">
+            <h1>🌸 Flower Learning Mode 🌺</h1>
+            <p>Discover beautiful flowers from around the world!</p>
+        </div>
+
+        <div class="birds-controls">
+            <button id="backToMainBtnFlower" class="birds-btn back-btn-birds">⬅️ Back to Menu</button>
+            <button id="homeBtnFlower" class="birds-btn" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white;">🏠 Home</button>
+            <button id="learnModeBtnFlower" class="birds-btn learn-mode-btn-birds">📚 Learn Mode</button>
+            <button id="quizModeBtnFlower" class="birds-btn quiz-mode-btn-birds">🎯 Quiz Mode</button>
+        </div>
+
+        <div id="flowerGridContainer" class="birds-grid-container">
+            <div id="pageInfoFlower" class="page-info-birds">Page 1 of 1</div>
+            <div id="flowerGrid" class="birds-grid"></div>
+
+            <div class="page-navigation-birds">
+                <button id="prevPageBtnFlower" class="page-btn-birds">
+                    <span class="page-arrow">◀</span>
+                    <span class="page-text">Previous Page</span>
+                </button>
+
+                <div class="page-info-container-birds">
+                    <div id="pageDotsFlower" class="page-dots-birds"></div>
+                </div>
+
+                <button id="nextPageBtnFlower" class="page-btn-birds">
+                    <span class="page-text">Next Page</span>
+                    <span class="page-arrow">▶</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="flowerQuizContainer" class="birds-quiz-container">
+            <div class="quiz-score">
+                <h3 id="quizScoreDisplayFlower">Score: 0 / 0</h3>
+            </div>
+
+            <div class="quiz-question">
+                <h3>What flower is this?</h3>
+                <div id="quizFlowerDisplay" class="quiz-bird-display">🌸</div>
+            </div>
+
+            <div id="quizOptionsFlower" class="quiz-options"></div>
+            <div id="quizFeedbackFlower" class="quiz-feedback"></div>
+            <button id="nextQuestionBtnFlower" class="next-question-btn">Next Question ➡️</button>
+        </div>
+    </div>
+
     <!-- Camera Fruit Recognition Container -->
     <div id="cameraRecognitionContainer" class="camera-recognition-container">
         <div class="camera-header">
@@ -1215,6 +1273,7 @@
     <script src="vegetableData.js"></script>
     <script src="animalData.js"></script>
     <script src="birdsData.js"></script>
+    <script src="flowerData.js"></script>
     <script src="poemData.js"></script>
     <script src="alphabetData.js"></script>
     <script src="questions.js"></script>
@@ -1224,6 +1283,7 @@
     <script src="vegetableLearning.js"></script>
     <script src="animalLearning.js"></script>
     <script src="birdsLearning.js"></script>
+    <script src="flowerLearning.js"></script>
     <script src="fruitRecognition.js"></script>
     <script src="vegetableRecognition.js"></script>
     <script src="animalRecognition.js"></script>

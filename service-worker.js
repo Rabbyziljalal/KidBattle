@@ -1,10 +1,10 @@
 /**
  * Service Worker for Brain Tug PWA
- * Version: 1.4.0
+ * Version: 1.5.0
  * Implements offline-first caching strategy
  */
 
-const CACHE_VERSION = 'brain-tug-v1.4.0';
+const CACHE_VERSION = 'brain-tug-v1.5.0';
 const CACHE_NAME = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -22,6 +22,7 @@ const STATIC_ASSETS = [
   './vegetableLearning.css',
   './animalLearning.css',
   './birdsLearning.css',
+  './flowerLearning.css',
   './poemLearning.css',
   './alphabetLearning.css',
   './fruitRecognition.css',
@@ -38,6 +39,7 @@ const STATIC_ASSETS = [
   './vegetableData.js',
   './animalData.js',
   './birdsData.js',
+  './flowerData.js',
   './poemData.js',
   './alphabetData.js',
   './questions.js',
@@ -46,6 +48,7 @@ const STATIC_ASSETS = [
   './vegetableLearning.js',
   './animalLearning.js',
   './birdsLearning.js',
+  './flowerLearning.js',
   './fruitRecognition.js',
   './vegetableRecognition.js',
   './animalRecognition.js',

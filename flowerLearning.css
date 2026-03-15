@@ -1,0 +1,9 @@
+/* ===== Flower Learning Mode Styles (Birds UI-aligned) ===== */
+
+.flower-learning-screen .birds-main-header::before {
+    content: '🌸';
+}
+
+.flower-learning-screen .birds-main-header::after {
+    content: '🌺';
+}

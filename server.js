@@ -1,55 +1,72 @@
-const http = require('http');
-const fs = require('fs');
+const express = require('express');
 const path = require('path');
+const fetch = require('node-fetch');
+const dotenv = require('dotenv');
 
-const PORT = 8000;
+dotenv.config();
 
-const mimeTypes = {
-    '.html': 'text/html',
-    '.js': 'text/javascript',
-    '.css': 'text/css',
-    '.json': 'application/json',
-    '.png': 'image/png',
-    '.jpg': 'image/jpg',
-    '.gif': 'image/gif',
-    '.svg': 'image/svg+xml',
-    '.wav': 'audio/wav',
-    '.mp4': 'video/mp4',
-    '.woff': 'application/font-woff',
-    '.ttf': 'application/font-ttf',
-    '.eot': 'application/vnd.ms-fontobject',
-    '.otf': 'application/font-otf',
-    '.wasm': 'application/wasm'
-};
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-const server = http.createServer((req, res) => {
-    console.log(`${req.method} ${req.url}`);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-    let filePath = '.' + req.url;
-    if (filePath === './') {
-        filePath = './index.html';
-    }
-
-    const extname = String(path.extname(filePath)).toLowerCase();
-    const contentType = mimeTypes[extname] || 'application/octet-stream';
-
-    fs.readFile(filePath, (error, content) => {
-        if (error) {
-            if (error.code === 'ENOENT') {
-                res.writeHead(404, { 'Content-Type': 'text/html' });
-                res.end('<h1>404 - File Not Found</h1>', 'utf-8');
-            } else {
-                res.writeHead(500);
-                res.end('Server Error: ' + error.code);
-            }
-        } else {
-            res.writeHead(200, { 'Content-Type': contentType });
-            res.end(content, 'utf-8');
-        }
-    });
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
 });
 
-server.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}/`);
-    console.log('Press Ctrl+C to stop the server');
+app.post('/chat', async (req, res) => {
+    try {
+        const { message } = req.body;
+
+        if (!message || typeof message !== 'string') {
+            return res.status(400).json({ error: 'Message is required.' });
+        }
+
+        const apiKey = process.env.DEEPSEEK_API_KEY;
+        if (!apiKey) {
+            return res.status(500).json({ error: 'DeepSeek API key not configured.' });
+        }
+
+        const systemPrompt = `You are KidBattle Chatbot. Answer questions about the KidBattle project (Alphabet Learning, Bird Learning, Flower Learning, Image-based learning, and kid-friendly learning UI) in a cheerful kid-friendly tone.`;
+
+        const payload = {
+            model: 'deepseek-chat',
+            messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: message }
+            ]
+        };
+
+        const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${apiKey}`
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            return res.status(502).json({ error: 'DeepSeek API error', details: text });
+        }
+
+        const data = await response.json();
+        const aiResponse = data.choices?.[0]?.message?.content || data?.output || 'Sorry, I could not generate a response.';
+
+        res.json({ response: aiResponse });
+    } catch (error) {
+        console.error('Chat endpoint error:', error);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
+
+app.use(express.static(path.join(__dirname, '/')));
+
+app.listen(PORT, () => {
+    console.log(`KidBattle backend running at http://localhost:${PORT}`);
 });

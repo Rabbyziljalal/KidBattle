@@ -212,21 +212,21 @@
             }
 
             try {
-                const response = await fetch(this.getEndpoint(), {
+                // Send request to local backend route /chat
+                // Backend will forward to DeepSeek using the server-side API key
+                const response = await fetch('/chat', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${state.apiKey}`
-                    },
-                    body: JSON.stringify(this.buildPayload(userMessage))
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMessage })
                 });
 
                 if (!response.ok) {
-                    throw new Error(`API error: ${response.status}`);
+                    const text = await response.text();
+                    throw new Error(`API error: ${response.status} - ${text}`);
                 }
 
                 const data = await response.json();
-                const aiResponse = data.choices[0].message.content;
+                const aiResponse = data.response || 'Sorry, I could not generate a response.';
 
                 // Update conversation history
                 state.conversationHistory.push(
